@@ -1,35 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import { Provider } from "react-redux";
+import { store } from "../src/redux/store";
+import { Route, Routes } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+
+import LoginForm from "./views/LoginForm";
+import SignUp from "./views/SignUp";
+import Home from "./views/Home";
+import NavBar from "./views/NavBar";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const location = useLocation();
+  const isLoginPage = location.pathname === "/login";
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <Provider store={store}>
+      <div className="w-full">
+        {!isLoginPage && <NavBar />}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/sign-up" element={<SignUp />} />
+        </Routes>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </Provider>
+  );
 }
 
-export default App
+export default App;
