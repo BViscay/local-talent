@@ -3,12 +3,12 @@ import { Provider } from "react-redux";
 import { store } from "../src/redux/store";
 import { Route, Routes } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import {NextUIProvider} from "@nextui-org/react";
+import { NextUIProvider } from "@nextui-org/react";
 
 import LoginForm from "./views/LoginForm";
 import SignUp from "./views/SignUp";
 import Home from "./views/Home";
-import NavBar from "./views/NavBar";
+import Header from "./components/Header/Header";
 
 function App() {
   const location = useLocation();
@@ -18,7 +18,7 @@ function App() {
     <Provider store={store}>
        <NextUIProvider>
       <div className="w-full">
-        {!isLoginPage && <NavBar />}
+        {!isLoginPage && <Header />}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginForm />} />
