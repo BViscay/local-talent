@@ -22,5 +22,3 @@ server.use('/api', require('./routes/api.routes'))
 
 module.exports = server
 
-
-//prueba pull DIEGO
