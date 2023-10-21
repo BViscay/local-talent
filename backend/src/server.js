@@ -18,6 +18,9 @@ server.use(express.urlencoded({ extended: true }))
 // server.use(multer({ dest: filesStoage }).single('csv'))
 
 // Routes
-server.use('/api', require('./routes/index.router'))
+server.use('/api', require('./routes/api.routes'))
 
 module.exports = server
+
+
+//prueba pull DIEGO
