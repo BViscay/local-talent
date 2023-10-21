@@ -22,7 +22,7 @@ export default {
       },
       colors: {
         primary: {
-          50: "#F77F00",
+          50: "#F9F9F9" ,//color de Home figma
           100: "#dbeafe",
           200: "#bfdbfe",
           300: "#93c5fd",
@@ -32,7 +32,16 @@ export default {
           700: "#fde5cc",
           800: "#003049",
           900: "#1e3a8a",
-          950: "#172554",
+          950: "#EAF6EF",
+          951: "#6A9B7E",
+          952: "#FFBC99",
+          953: "#EB6800",
+          954: "#F8B0ED",
+          955: "#F874ED",
+          956: "#FFD88D",
+          957: "#FFC400",
+          958: "#BDBDBD",
+          959: "#252843"
         },
       },
     },
