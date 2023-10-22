@@ -10,10 +10,10 @@ const createService = async (data) => {
 
 }
 
+// trae todos lo servicios si no se consulta nada, si se consulta por titulo trae las coincidencias
 const findService = async (consult) => {
     
     let { title } = consult
-
     const allServices = await Service.findAll({
         attributes: ["user_id", "category_id", "title", "description", "image", "price", "city", "latitude", "longitude", "score", "rating", "status"],
         include: [{
@@ -30,7 +30,7 @@ const findService = async (consult) => {
     // Verifica si hay busqueda por titulo
     if(!title){ return ServicesEdited }
     else{ 
-        ServicesEdited = ServicesEdited.filter( services => services.title.includes(title))     
+        ServicesEdited = ServicesEdited.filter( services => services.title.toLowerCase().includes(title.toLowerCase()))     
         return ServicesEdited
     }
     
