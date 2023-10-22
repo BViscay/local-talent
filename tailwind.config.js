@@ -1,16 +1,14 @@
-const {nextui} = require("@nextui-org/react");
+//eslint-disable-next-line
+const { nextui } = require("@nextui-org/react");
 /** @type {import('tailwindcss').Config} */
 
 export default {
-  content: ["./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./src/**/*.{html,js,jsx,tsx}",
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     extend: {
-      spacing: {
-        "36rem": "36rem",
-      },
-      heigth: {
-        700: "700px",
-      },
       screens: {
         sm: "480px",
         md: "768px",
@@ -19,7 +17,7 @@ export default {
       },
       colors: {
         primary: {
-          50: "#F77F00",
+          50: "#F9F9F9",
           100: "#dbeafe",
           200: "#bfdbfe",
           300: "#93c5fd",
@@ -27,9 +25,19 @@ export default {
           500: "#FEF2E6",
           600: "#2563eb",
           700: "#fde5cc",
-          800: "#003049",
+          800: "#CABDFF",
+          810: "#ECEAF6",
           900: "#1e3a8a",
-          950: "#172554",
+          950: "#EAF6EF",
+          951: "#6A9B7E",
+          952: "#FFBC99",
+          953: "#EB6800",
+          954: "#F8B0ED",
+          955: "#F874ED",
+          956: "#FFD88D",
+          957: "#FFC400",
+          958: "#BDBDBD",
+          959: "#252843",
         },
       },
     },
