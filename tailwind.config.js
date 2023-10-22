@@ -1,15 +1,15 @@
-import { nextui } from "@nextui-org/react";
+const { nextui } = require("@nextui-org/react");
 /** @type {import('tailwindcss').Config} */
 
 export default {
-    content: ["./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"],
+    content: [
+        "./src/**/*.{html,js,jsx,tsx}",
+        "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+    ],
     theme: {
         extend: {
             spacing: {
                 "36rem": "36rem",
-            },
-            height: {
-                700: "700px",
             },
             screens: {
                 sm: "480px",
