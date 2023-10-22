@@ -49,7 +49,7 @@ const editService = async (data) => {
 
 const findByService = async (consult) => {
     
-    const categoria = consult.serviceCategory
+    const categoria = parseInt(consult.serviceCategory)
     let allServices = await Service.findAll({
         attributes: ["user_id", "category_id", "title", "description", "image", "price", "city", "latitude", "longitude", "score", "rating", "status"],
         include: [{
@@ -61,7 +61,7 @@ const findByService = async (consult) => {
         service = { ...service.toJSON() , category:service.category.name}
         return service
     })
-    const findServiceBy = ServicesEdited.filter( service => service.category === categoria)
+    const findServiceBy = ServicesEdited.filter( service => service.category_id === categoria)
     
     return findServiceBy
 }
