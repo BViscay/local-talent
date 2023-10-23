@@ -2,7 +2,7 @@ import { ChevronRight, Info } from "lucide-react";
 const Descuentos = () => {
   const descuentos = [
     "Descuento en Instalacion de A/A",
-    "Descuento en Servicios de Limpieza",
+    "Descuento en Limpieza",
     "Descuento en Barberia",
     "Descuento servicio de Fletes",
   ];
@@ -11,12 +11,15 @@ const Descuentos = () => {
     <div className='w-full bg-white flex flex-row items-start justify-start overflow-x-auto p-3 my-1'>
       <div className='max-w-screen-xl mx-auto p-4'>
         <div className='flex items-start sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
-          <div className='p-4 w-72 h-40 flex flex-col justify-center items-center bg-primary-952 shadow rounded-xl'>
+          <div className='p-2 w-72 h-40 flex flex-col justify-center items-center bg-primary-952 shadow rounded-xl'>
             <p className='text-sm self-start ml-3 font-Inter flex'>
-              {descuentos[0]}
-              <Info size={20} />
+              {descuentos[0]}{" "}
+              <span>
+                {" "}
+                <Info size={20} />
+              </span>
             </p>
-            <p className='text-5xl self-start ml-3 my-3 text-gray-600 font-semibold'>
+            <p className='font-inter text-5xl self-start ml-3 my-3 text-gray-600 font-semibold'>
               10% off
             </p>
             <button className='bg-gray-100 text-primary-953 self-start ml-3 p-2 rounded-[100px] font-Inter'>
@@ -27,8 +30,7 @@ const Descuentos = () => {
           </div>
           <div className='p-4 w-72 h-40 flex flex-col justify-center items-center bg-primary-950 shadow rounded-xl'>
             <p className='text-sm  self-start ml-3 font-Inter flex'>
-              {descuentos[1]}
-              <Info size={20} />
+              {descuentos[1]} <Info size={20} />
             </p>
             <p className='text-5xl self-start ml-3 my-3 text-gray-600 font-semibold'>
               15% off
