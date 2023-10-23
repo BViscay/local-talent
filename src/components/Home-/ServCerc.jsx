@@ -4,9 +4,7 @@ const ServCerc = () => {
     <div className='flex flex-col w-full bg-white  p-2 my-2'>
       <div className='flex items-center justify-between mx-2 mt-1'>
         <div className='w-1 h-6 bg-primary-800'></div>
-        <p className='font-Inter font-bold font text-xl'>
-          Servicios Recomendados
-        </p>
+        <p className='font-Inter font-bold font text-xl'>Servicios Cercanos</p>
         <button className='bg-white text-primary-958 self-start ml-3 p-1 border-1.5  rounded-[100px] font-Inter'>
           <span className='flex justify-center text-sm items-center'>
             Ver Todos <ChevronRight />
