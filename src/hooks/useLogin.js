@@ -20,15 +20,17 @@ const useLogin = () => {
         const { email, password } = userData;
         const URL = API_URL_LOGIN;
 
-        try {
-            const { data } = await axios.post(URL, {
-                email: email,
-                password: password,
-            });
-            const { message, token } = data;
 
-            if (message === "successful login" && token) {
-                dispatch(setAuthToken(token));
+    try {
+      const { data } = await axios.post(URL, {
+        email: email,
+        password: password,
+      });
+      const { token } = data;
+
+      if (token) {
+        dispatch(setAuthToken(token));
+
 
                 dispatch(login());
                 redirectLogin(navigate);
