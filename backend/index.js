@@ -1,4 +1,5 @@
-require('dotenv').config()
+const { config } = require('dotenv')
+config()
 
 const server = require('./src/server')
 const { connectionDatabase } = require('./src/database')

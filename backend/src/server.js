@@ -5,7 +5,7 @@ const cors = require('cors')
 const server = express()
 
 // Development Environment
-if (process.env.DEV) {
+if (process.env.DEV === 'TRUE') {
   const morgan = require('morgan')
   server.use(morgan('dev'))
 }
@@ -19,6 +19,6 @@ server.use(express.urlencoded({ extended: true }))
 
 // Routes
 server.use('/api', require('./routes/api.routes'))
+server.get('/', (req, res) => res.send('API LOCAL-TALENT v1.0'))
 
 module.exports = server
-
