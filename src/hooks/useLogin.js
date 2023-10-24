@@ -25,9 +25,9 @@ const useLogin = () => {
         email: email,
         password: password,
       });
-      const { message, token } = data;
+      const { token } = data;
 
-      if (message === "successful login" && token) {
+      if (token) {
         dispatch(setAuthToken(token));
 
         dispatch(login());
