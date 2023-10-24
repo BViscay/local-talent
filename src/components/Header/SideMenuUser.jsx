@@ -1,5 +1,6 @@
 import { Wallet, X, MapPin, Phone, Calendar, Bell } from 'lucide-react';
 import {Avatar} from "@nextui-org/react";
+import  useLogin  from '../../hooks/useLogin';
 
 const SideMenuUser = ({menuOpen, setMenuOpen}) => {
   return (
@@ -44,6 +45,12 @@ const SideMenuUser = ({menuOpen, setMenuOpen}) => {
                 <div className="w-full flex p-3 items-center gap-2 rounded-lg cursor-pointer">
                   <Phone size={28} strokeWidth={2.2}/>
                   <p className="text-white font-medium text-lg">Soporte</p>
+                </div>
+              </div>
+              <div className="w-full py-2">
+                <div className="w-full flex p-3 items-center gap-2 rounded-lg cursor-pointer">
+                  <Phone size={28} strokeWidth={2.2}/>
+                  <p className="text-white font-medium text-lg" onClick={() => useLogin.handleLogout()}>Logout</p>
                 </div>
               </div>
             </div>

@@ -1,10 +1,21 @@
 import { useState } from 'react';
 import { Input } from "@nextui-org/react";
 import { SearchIcon } from 'lucide-react';
+import axios from 'axios';
 
 const SearchBar = () => {
 
   const [inputValue, setInputValue] = useState("");
+
+  const handleSearch = async () => {
+    try {
+      const services = await axios.get(`http://localhost:3001/api/service/findAllService?title=${inputValue}`);
+      console.log(services);
+    } catch (error) {
+      console.log(error.message);
+      alert(error.message);
+    }
+  };
 
   return (
     <div className="w-full flex flex-col items-start bg-white py-6 px-3">
@@ -19,10 +30,15 @@ const SearchBar = () => {
         size="lg"
         placeholder="Buscador de servicios..."
         endContent={
-          <div className="p-4 bg-[#266DD3] h-9 w-9 flex items-center justify-center rounded-lg">
+          <button onClick={handleSearch} className="p-4 bg-[#266DD3] h-9 w-9 flex items-center justify-center rounded-lg">
             <SearchIcon size={20} className="text-white cursor-pointer flex-shrink-0" />
-          </div>
+          </button>
         }
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            handleSearch();
+          }
+        }}
         classNames={{
           placeholder: 'font-lg',
           input: [
