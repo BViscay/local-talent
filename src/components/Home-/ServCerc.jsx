@@ -4,7 +4,7 @@ const ServCerc = () => {
     <div className='flex flex-col w-full bg-white  p-2 my-2'>
       <div className='flex items-center justify-between mx-2 mt-1'>
         <div className='w-1 h-6 bg-primary-800'>
-          <div className="w-48">
+          <div className="w-52">
         <p className='font-Inter font-bold font text-xl items-start ml-2'>
           Servicios Cercanos
         </p>
