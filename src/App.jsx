@@ -11,27 +11,31 @@ import Home from "./views/Home";
 import NavBar from "./components/Header/Navbar";
 import SearchBar from "./components/Header/SearchBar";
 import CategoriesPage from "./views/CategoriesPage";
+import NumericValidation from "./views/NumericValidation";
 
 function App() {
   const location = useLocation();
   const isLoginPage = location.pathname === "/login";
   const isRegisterPage = location.pathname === "/sign-up";
   const isCategoriesPage = location.pathname === "/categories";
+  const isValidatePage = location.pathname === "/validate";
 
   return (
     <Provider store={store}>
       <NextUIProvider>
         <div className='w-full'>
-          {!isLoginPage && !isRegisterPage && <NavBar />}
-          {!isLoginPage && !isRegisterPage && !isCategoriesPage && (
-            <SearchBar />
-          )}
+          {!isLoginPage && !isRegisterPage && !isValidatePage && <NavBar />}
+          {!isLoginPage &&
+            !isRegisterPage &&
+            !isCategoriesPage &&
+            !isValidatePage && <SearchBar />}
 
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/home' element={<Home />} />
             <Route path='/login' element={<LoginForm />} />
             <Route path='/sign-up' element={<SignUp />} />
+            <Route path='/validate' element={<NumericValidation />} />
             <Route path='/categories' element={<CategoriesPage />} />
           </Routes>
         </div>

@@ -1,5 +1,6 @@
 import logo from "../assets/images/Logo.png";
 import { useForm } from "react-hook-form";
+import { useGeolocated } from "react-geolocated";
 import useLogin from "../hooks/useLogin";
 
 import Input from "../components/Shared/Input";
@@ -19,6 +20,12 @@ export default function LoginForm() {
 
   const { handleLogin, isModalOpen, handleCloseModal, handleOpenModal } =
     useLogin();
+
+  const { coords, isGeolocationAvailable, isGeolocationEnabled } =
+    useGeolocated();
+  console.log(isGeolocationEnabled);
+  console.log(isGeolocationAvailable);
+  console.log(coords);
 
   return (
     <div className='flex -mt-10'>
