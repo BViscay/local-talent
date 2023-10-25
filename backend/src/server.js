@@ -7,6 +7,7 @@ const server = express()
 
 // Development Environment
 if (process.env.DEV) {
+  console.log('DEVELOPMENT-MODE!!!')
   const morgan = require('morgan')
   server.use(morgan('dev'))
 }
@@ -23,5 +24,6 @@ server.use(fileUpload({
 }))
 // Routes
 server.use('/api', require('./routes/api.routes'))
+server.get('/', (req, res) => res.send('API LOCAL-TALENT v1.0'))
 
 module.exports = server

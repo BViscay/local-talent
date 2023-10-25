@@ -3,29 +3,19 @@ const Category = require('../models/category.model')
 const { uploadImageCreate, deleteImageDestroy } = require('../services/image.service')
 
 const createService = async (data, dataImg) => {
-  /* eslint-disable */
-  const { user_id, category_id, title, description, price, city, latitude, longitude, score, rating, status } = data
-  /* eslint-enable */
   const resultImage = await uploadImageCreate(dataImg)
 
-  const newService = await Service.create({
-    /* eslint-disable */
-    user_id,
-    category_id,
-    /* eslint-enable */
-    title,
-    description,
-    image_public_id: resultImage.public_id,
-    image_secure_url: resultImage.secure_url,
-    price,
-    city,
-    latitude,
-    longitude,
-    score,
-    rating,
-    status
-  })
+  data.imageId = resultImage.public_id
+  data.image = resultImage.secure_url
 
+  //! PROVISORIO
+  data.CategoryId = Number(data.CategoryId)
+
+  const newService = await Service.create({
+    ...data,
+    image_public_id: resultImage.public_id,
+    image: resultImage.secure_url
+  })
   return newService
 }
 
@@ -69,7 +59,7 @@ const editService = async (data) => {
 const findByService = async (consult) => {
   const categoria = parseInt(consult.serviceCategory)
   const allServices = await Service.findAll({
-    attributes: ['user_id', 'category_id', 'title', 'description', 'image_public_id', 'image_secure_url', 'price', 'city', 'latitude', 'longitude', 'score', 'rating', 'status'],
+    attributes: ['user_id', 'category_id', 'title', 'description', 'image_public_id', 'image', 'price', 'city', 'latitude', 'longitude', 'score', 'rating', 'status'],
     include: [{
       model: Category,
       attributes: ['name']
