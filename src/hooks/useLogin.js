@@ -6,19 +6,20 @@ import { useSelector, useDispatch } from "react-redux";
 import { login, logout, isLogged, setAuthToken } from "../redux/sliceLogin";
 
 const useLogin = () => {
-  const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  //eslint-disable-next-line
-  const isLogin = useSelector(isLogged);
-  const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    //eslint-disable-next-line
+    const isLogin = useSelector(isLogged);
+    const dispatch = useDispatch();
 
-  const redirectLogin = (navigate) => {
-    navigate("/home");
-  };
+    const redirectLogin = (navigate) => {
+        navigate("/home");
+    };
 
-  const handleLogin = async (userData) => {
-    const { email, password } = userData;
-    const URL = API_URL_LOGIN;
+    const handleLogin = async (userData) => {
+        const { email, password } = userData;
+        const URL = API_URL_LOGIN;
+
 
     try {
       const { data } = await axios.post(URL, {
@@ -30,48 +31,49 @@ const useLogin = () => {
       if (token) {
         dispatch(setAuthToken(token));
 
-        dispatch(login());
-        redirectLogin(navigate);
-      }
-    } catch (error) {
-      dispatch(logout());
-      if (error.response) {
-        alert("Password Incorrecto");
-        console.log("Response Data:", error.response.data);
-      }
-    }
-  };
 
-  const handleGoogleLogin = (response) => {
-    console.log(response);
-    if (response.credential) {
-      dispatch(setAuthToken(response.credential));
+                dispatch(login());
+                redirectLogin(navigate);
+            }
+        } catch (error) {
+            dispatch(logout());
+            if (error.response) {
+                alert("Password Incorrecto");
+                console.log("Response Data:", error.response.data);
+            }
+        }
+    };
 
-      dispatch(login());
-      redirectLogin(navigate);
-    }
-  };
+    const handleGoogleLogin = (response) => {
+        console.log(response);
+        if (response.credential) {
+            dispatch(setAuthToken(response.credential));
 
-  const handleLogout = () => {
-    dispatch(logout());
-    alert("Te deslogueaste correctamente");
-  };
+            dispatch(login());
+            redirectLogin(navigate);
+        }
+    };
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+    const handleLogout = () => {
+        dispatch(logout());
+        alert("Te deslogueaste correctamente");
+    };
 
-  return {
-    handleLogin,
-    handleLogout,
-    handleGoogleLogin,
-    handleOpenModal,
-    handleCloseModal,
-    isModalOpen,
-  };
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
+    };
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
+    return {
+        handleLogin,
+        handleLogout,
+        handleGoogleLogin,
+        handleOpenModal,
+        handleCloseModal,
+        isModalOpen,
+    };
 };
 
 export default useLogin;

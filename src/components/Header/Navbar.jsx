@@ -27,7 +27,7 @@ const NavBar = () => {
       {/*Navbar Mobile*/}
       <NavbarContent className="md:hidden justify-evenly w-full" justify="none">
         <NavbarItem>
-          <Link color="foreground" href="#">
+          <Link color="foreground" href="/home">
             <Home size={30} strokeWidth={2.2} color="#266DD3"/>
           </Link>
         </NavbarItem>
