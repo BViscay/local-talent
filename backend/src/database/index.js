@@ -15,10 +15,10 @@ const connectionDatabase = (force) => {
   User.hasMany(Service)
   Service.belongsTo(User)
 
-  Category.hasMany(Service, { foreignKey: 'category_id' })
+  Category.hasMany(Service, { foreignKey: 'categoryId' })
   // Service.belongsTo(Category)
 
-  Service.belongsTo(Category, { foreignKey: 'category_id' })
+  Service.belongsTo(Category, { foreignKey: 'categoryId' })
 
   sequelize.sync({ force })
     .then(() => console.log('db is conected'))

@@ -2,10 +2,11 @@ const Service = require('../models/service.model')
 const Category = require('../models/category.model')
 
 const createService = async (data) => {
-  const { user_id, category_id, title, description, image, price, city, latitude, longitude, score, rating, status } = data
+  const { userId } = data.session
+  const { categoryId, title, description, image, price, city, latitude, longitude } = data
 
   // Creamos un nuevo servicio
-  const newService = Service.create({ user_id, category_id, title, description, image, price, city, latitude, longitude, score, rating, status })
+  const newService = Service.create({ userId, categoryId, title, description, image, price, city, latitude, longitude, score, rating, status })
   return newService
 }
 

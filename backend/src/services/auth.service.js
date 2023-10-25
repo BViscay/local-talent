@@ -14,7 +14,7 @@ const loginService = async ({ email, password }) => {
   if (!user.comparePassword(password)) throw new Error('PASSWORD_INVALID')
 
   // Creo un token con id idUsuario
-  const token = createToken({ user_id: user.id })
+  const token = createToken({ userId: user.id })
 
   // Doy formato de salida
   const session = {

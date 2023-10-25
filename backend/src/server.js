@@ -5,7 +5,8 @@ const cors = require('cors')
 const server = express()
 
 // Development Environment
-if (process.env.DEV === 'TRUE') {
+if (process.env.DEV) {
+  console.log('DEVELOPMENT-MODE!!!')
   const morgan = require('morgan')
   server.use(morgan('dev'))
 }
