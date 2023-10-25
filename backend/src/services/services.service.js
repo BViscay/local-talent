@@ -16,7 +16,7 @@ const createService = async (data, dataImg) => {
     title,
     description,
     image_public_id: resultImage.public_id,
-    image_secure_url: resultImage.secure_url,
+    image: resultImage.secure_url,
     price,
     city,
     latitude,
@@ -69,7 +69,7 @@ const editService = async (data) => {
 const findByService = async (consult) => {
   const categoria = parseInt(consult.serviceCategory)
   const allServices = await Service.findAll({
-    attributes: ['user_id', 'category_id', 'title', 'description', 'image_public_id', 'image_secure_url', 'price', 'city', 'latitude', 'longitude', 'score', 'rating', 'status'],
+    attributes: ['user_id', 'category_id', 'title', 'description', 'image_public_id', 'image', 'price', 'city', 'latitude', 'longitude', 'score', 'rating', 'status'],
     include: [{
       model: Category,
       attributes: ['name']

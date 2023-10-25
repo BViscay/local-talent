@@ -24,7 +24,7 @@ Service.init({
   image_public_id: {
     type: DataTypes.STRING
   },
-  image_secure_url: {
+  image: {
     type: DataTypes.STRING
   },
   price: {
