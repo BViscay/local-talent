@@ -21,9 +21,11 @@ Service.init({
   description: {
     type: DataTypes.TEXT
   },
+  image_public_id: {
+    type: DataTypes.STRING
+  },
   image: {
-    type: DataTypes.STRING,
-    require: true
+    type: DataTypes.STRING
   },
   price: {
     type: DataTypes.FLOAT,
