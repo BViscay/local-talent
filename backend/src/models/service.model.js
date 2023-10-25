@@ -15,10 +15,10 @@ Service.init({
   description: {
     type: DataTypes.TEXT
   },
-  image_public_id: {
+  image: {
     type: DataTypes.STRING
   },
-  image: {
+  imageId: {
     type: DataTypes.STRING
   },
   price: {

@@ -1,26 +1,10 @@
 const { Sequelize } = require('sequelize')
 
-// const { POSTGRES_URL } = process.env
+const { POSTGRES_URL } = process.env
 
-// const sequelize = new Sequelize(POSTGRES_URL, {
-//   dialect: 'postgres',
-//   logging: false
-// })
-
-const database = process.env.DB_DATABASE
-const userName = process.env.DB_USERNAME
-const host = process.env.DB_HOST
-const password = process.env.DB_PASSWORD
-
-const sequelize = new Sequelize(database, userName, password, {
-  host,
-  dialect: 'postgres'
-//   dialectOptions: {
-//     ssl: {
-//       require: true,
-//       rejectUnauthorized: false
-//     }
-//   }
+const sequelize = new Sequelize(POSTGRES_URL, {
+  dialect: 'postgres',
+  logging: false
 })
 
 const connectionDatabase = (force) => {
