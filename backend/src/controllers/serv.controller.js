@@ -1,8 +1,8 @@
-const { createService, findService, editService, findByService } = require('../services/services.service')
+const { createService, findService, editService, findByService, deleteService } = require('../services/services.service')
 
 const ServiceCreateController = async (req, res) => {
   try {
-    const result = await createService(req.body)
+    const result = await createService(req.body, req.files)
     res.status(200).json({ message: 'Servicio creado con exito', result })
   } catch ({ message }) {
     res.status(400).json({ message })
@@ -11,7 +11,7 @@ const ServiceCreateController = async (req, res) => {
 
 const ServiceFindController = async (req, res) => {
   try {
-    const result = await findService(req.query)
+    const result = await findService()
     res.status(200).json(result)
   } catch ({ message }) {
     res.status(400).json({ message })
@@ -36,11 +36,22 @@ const ServiceFindByController = async (req, res) => {
   }
 }
 
+const ServiceDeleteController = async (req, res) => {
+  try {
+    const { id } = req.params
+    const result = await deleteService(id)
+    res.status(200).json({ message: 'Servicio eliminado', result })
+  } catch ({ message }) {
+    res.status(400).json({ message })
+  }
+}
+
 module.exports = {
 
   ServiceCreateController,
   ServiceFindController,
   ServiceEditController,
-  ServiceFindByController
+  ServiceFindByController,
+  ServiceDeleteController
 
 }
