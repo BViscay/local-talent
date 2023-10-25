@@ -16,13 +16,12 @@ export default function GoogleLoginButton() {
   return (
     <GoogleLogin
       clientId={CLIENT_ID}
-      buttonText="Login with Google"
+      buttonText='Login with Google'
       onSuccess={onSuccess}
       onFailure={onFailure}
       cookiePolicy={"single_host_origin"}
       isSignedIn={true}
       auto_select={true}
-    
     />
   );
 }
