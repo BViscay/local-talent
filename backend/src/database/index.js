@@ -1,11 +1,10 @@
 const { Sequelize } = require('sequelize')
-const pg = require ("pg") 
 
 const { POSTGRES_URL } = process.env
 
 const sequelize = new Sequelize(POSTGRES_URL, {
-dialect: 'pg',
-logging: false
+logging: false,
+dialectModule: require('pg'),
 })
 
 //const database = process.env.DB_DATABASE
