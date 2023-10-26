@@ -3,8 +3,8 @@ const { Sequelize } = require('sequelize')
 const { POSTGRES_URL } = process.env
 
 const sequelize = new Sequelize(POSTGRES_URL, {
-  dialect: 'postgres',
-  logging: false
+  logging: false,
+  dialectModule: require('pg')
 })
 
 const connectionDatabase = (force) => {
