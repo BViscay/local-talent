@@ -1,4 +1,4 @@
-const { check } = require('express-validator')
+const { check, param } = require('express-validator')
 const { validateResult } = require('../libs/validator.js')
 
 const validateLogin = [
@@ -10,7 +10,7 @@ const validateLogin = [
 const validateRegister = [
   check('firstname').exists().notEmpty(),
   check('lastname').exists().notEmpty(),
-  check('email').exists().notEmpty(),
+  check('email').exists().notEmpty().isEmail(),
   check('password').exists().notEmpty().isLength({ min: 6, max: 15 }),
   (req, res, next) => validateResult(req, res, next)
 ]
@@ -21,4 +21,9 @@ const validateAccount = [
   (req, res, next) => validateResult(req, res, next)
 ]
 
-module.exports = { validateLogin, validateRegister, validateAccount }
+const validateCode = [
+  param('email').exists().notEmpty().isEmail(),
+  (req, res, next) => validateResult(req, res, next)
+]
+
+module.exports = { validateLogin, validateRegister, validateAccount, validateCode }
