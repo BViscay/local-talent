@@ -1,11 +1,31 @@
 const express = require('express')
-const { validateRegister, validateLogin, validateAccount } = require('../validators/auth.validator.js')
-const { registerController, loginController, validateController } = require('../controllers/auth.controller.js')
+
+const {
+  validateRegister,
+  validateLogin,
+  validateAccount,
+  validateCode
+} = require('../validators/auth.validator.js')
+
+const { validateToken } = require('../middlewares/auth.middleware.js')
+
+const {
+  authTokenController,
+  registerController,
+  loginController,
+  validateController,
+  resendCodeController
+} = require('../controllers/auth.controller.js')
 
 const router = express.Router()
+
+// Login con token
+router.get('/', validateToken, authTokenController)
 
 router.post('/register', validateRegister, registerController)
 router.post('/login', validateLogin, loginController)
 router.post('/validate', validateAccount, validateController)
+router.post('/validate', validateAccount, validateController)
+router.post('/resend/:email', validateCode, resendCodeController)
 
 module.exports = router
