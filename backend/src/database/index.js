@@ -14,7 +14,8 @@ const password = process.env.DB_PASSWORD
 
 const sequelize = new Sequelize(database, userName, password, {
   host,
-  dialect: 'postgres'
+  dialect: 'postgres',
+   dialectModule: pg,
 //   dialectOptions: {
 //     ssl: {
 //       require: true,
