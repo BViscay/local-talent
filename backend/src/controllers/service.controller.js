@@ -1,4 +1,4 @@
-const { createService, findService, editService, findByService, deleteService } = require('../services/services.service')
+const { createService, editService, deleteService } = require('../services/services.service')
 
 const ServiceCreateController = async (req, res) => {
   try {
