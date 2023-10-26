@@ -1,4 +1,5 @@
 const { Sequelize } = require('sequelize')
+const pg = require ("pg") 
 
 // const { POSTGRES_URL } = process.env
 
