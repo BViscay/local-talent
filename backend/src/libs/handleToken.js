@@ -7,7 +7,7 @@ const createToken = (payload, expiresIn = expire) => {
   return jwt.sign(payload, secret, { expiresIn })
 }
 
-const validateToken = (token) => {
+const validToken = (token) => {
   try {
     const result = jwt.verify(token, secret)
     return result
@@ -16,4 +16,4 @@ const validateToken = (token) => {
   }
 }
 
-module.exports = { createToken, validateToken }
+module.exports = { createToken, validToken }

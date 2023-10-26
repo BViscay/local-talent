@@ -9,22 +9,16 @@ Service.init({
     primaryKey: true,
     autoIncrement: true
   },
-  user_id: {
-    type: DataTypes.INTEGER
-  },
-  category_id: {
-    type: DataTypes.INTEGER
-  },
   title: {
     type: DataTypes.STRING
   },
   description: {
     type: DataTypes.TEXT
   },
-  image_public_id: {
+  image: {
     type: DataTypes.STRING
   },
-  image: {
+  imageId: {
     type: DataTypes.STRING
   },
   price: {
