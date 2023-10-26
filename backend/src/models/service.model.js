@@ -9,12 +9,7 @@ Service.init({
     primaryKey: true,
     autoIncrement: true
   },
-  user_id: {
-    type: DataTypes.INTEGER
-  },
-  category_id: {
-    type: DataTypes.INTEGER
-  },
+
   title: {
     type: DataTypes.STRING
   },

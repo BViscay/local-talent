@@ -1,26 +1,10 @@
 const { Sequelize } = require('sequelize')
 
-// const { POSTGRES_URL } = process.env
+const { POSTGRES_URL } = process.env
 
-// const sequelize = new Sequelize(POSTGRES_URL, {
-//   dialect: 'postgres',
-//   logging: false
-// })
-
-const database = process.env.DB_DATABASE
-const userName = process.env.DB_USERNAME
-const host = process.env.DB_HOST
-const password = process.env.DB_PASSWORD
-
-const sequelize = new Sequelize(database, userName, password, {
-  host,
-  dialect: 'postgres'
-//   dialectOptions: {
-//     ssl: {
-//       require: true,
-//       rejectUnauthorized: false
-//     }
-//   }
+const sequelize = new Sequelize(POSTGRES_URL, {
+  dialect: 'postgres',
+  logging: false
 })
 
 const connectionDatabase = (force) => {
@@ -31,10 +15,8 @@ const connectionDatabase = (force) => {
   User.hasMany(Service)
   Service.belongsTo(User)
 
-  Category.hasMany(Service, { foreignKey: 'category_id' })
-  // Service.belongsTo(Category)
-
-  Service.belongsTo(Category, { foreignKey: 'category_id' })
+  Category.hasMany(Service, { foreignKey: 'categoryId' })
+  Service.belongsTo(Category, { foreignKey: 'categoryId' })
 
   sequelize.sync({ force })
     .then(() => console.log('db is conected'))
