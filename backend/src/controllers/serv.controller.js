@@ -3,7 +3,7 @@ const { createService, findService, editService, findByService, deleteService } 
 const ServiceCreateController = async (req, res) => {
   try {
     const result = await createService(req.body, req.files)
-    res.status(200).json({ message: 'Servicio creado con exito', result })
+    res.status(200).json({ message: 'Servicio creado', result })
   } catch ({ message }) {
     res.status(400).json({ message })
   }
