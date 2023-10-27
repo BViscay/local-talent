@@ -14,6 +14,7 @@ import NumericValidation from "./views/NumericValidation";
 import CreateService from "./views/CreateService";
 import Matches from "./views/Matches";
 import Notifications from "./views/Notifications";
+import EditeProfile from "./views/EditeProfile";
 
 function App() {
   const location = useLocation();
@@ -37,6 +38,7 @@ function App() {
             <Route path='/create-service' element={<CreateService />} />
             <Route path='/matches' element={<Matches />} />
             <Route path='/notifications' element={<Notifications />} />
+            <Route path='/editProfile' element={<EditeProfile />} />
           </Routes>
         </div>
       </NextUIProvider>

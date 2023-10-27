@@ -1,14 +1,20 @@
-import {Wallet, X, MapPin, Phone, Calendar, Bell, LogOut} from "lucide-react";
+import {Wallet, X, MapPin, Phone, Calendar, Bell, LogOut,PencilLine } from "lucide-react";
 import {Avatar} from "@nextui-org/react";
 import {useSelector} from "react-redux";
 import {getName, getLastName, getMail} from "../../redux/sliceLogin";
 import useLogin from "../../hooks/useLogin";
+import { useNavigate } from "react-router-dom";
 
 const SideMenuUser = ({menuOpen, setMenuOpen}) => {
+  const navigate = useNavigate()
   const name = useSelector(getName);
   const lastName = useSelector(getLastName);
   const mail = useSelector(getMail);
   const {handleLogout} = useLogin();
+  const editProfile =()=>{
+    navigate('/editProfile')
+    setMenuOpen(!menuOpen)
+  }
 
   return (
     <div className='fixed left-0 top-0 w-full h-screen bg-[#266DD3] text-white'>
@@ -31,6 +37,10 @@ const SideMenuUser = ({menuOpen, setMenuOpen}) => {
                 {name} {lastName}
               </p>
               <p className='text-lg font-normal text-slate-300'>{mail}</p>
+              <div className="flex items-center justify-center">
+              <button onClick={editProfile} className="text-sm font-normal">Editar</button>
+              <PencilLine size={16} />
+              </div>
             </div>
           </div>
           <div className='w-full py-2'>
