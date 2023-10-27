@@ -1,8 +1,17 @@
 import { Wallet, X, MapPin, Phone, Calendar, Bell } from 'lucide-react';
 import {Avatar} from "@nextui-org/react";
-import  useLogin  from '../../hooks/useLogin';
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/sliceLogin";
 
 const SideMenuUser = ({menuOpen, setMenuOpen}) => {
+
+  const dispatch = useDispatch();
+
+   const handleLogout = () => {
+        dispatch(logout());
+        alert("Te deslogueaste correctamente");
+    };
+
   return (
     <div className="fixed left-0 top-0 w-full h-screen bg-[#266DD3] text-white">
           <div className="flex flex-col h-full">
@@ -50,7 +59,7 @@ const SideMenuUser = ({menuOpen, setMenuOpen}) => {
               <div className="w-full py-2">
                 <div className="w-full flex p-3 items-center gap-2 rounded-lg cursor-pointer">
                   <Phone size={28} strokeWidth={2.2}/>
-                  <p className="text-white font-medium text-lg" onClick={() => useLogin.handleLogout()}>Logout</p>
+                  <p className="text-white font-medium text-lg" onClick={handleLogout}>Logout</p>
                 </div>
               </div>
             </div>
