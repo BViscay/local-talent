@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { Input } from "@nextui-org/react";
-import { SearchIcon } from "lucide-react";
-import { useSelector } from "react-redux";
-import { getName } from "../../redux/sliceLogin";
+import {useState} from "react";
+import {Input} from "@nextui-org/react";
+import {SearchIcon} from "lucide-react";
+import {useSelector} from "react-redux";
+import {getName} from "../../redux/sliceLogin";
 import axios from "axios";
 
 const SearchBar = () => {
@@ -25,7 +25,7 @@ const SearchBar = () => {
     <div className='w-full flex flex-col items-start bg-white py-6 px-3'>
       <div className='flex'>
         <p className='text-md font-medium tracking-[0.15em] text-[#666C89]'>
-          HOLA {userName} &#128075;
+          Hola {userName} &#128075;
         </p>
       </div>
       <h1 className='text-4xl font-bold text-[#172B4D] text-left pt-2 pb-4'>
