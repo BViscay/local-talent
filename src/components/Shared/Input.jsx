@@ -1,8 +1,8 @@
 export default function Input({
   labelText,
   type,
-  name,
   placeholder,
+  name,
   change,
   register,
   error,

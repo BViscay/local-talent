@@ -1,5 +1,6 @@
-import { useForm } from "react-hook-form";
+import {useForm} from "react-hook-form";
 import useRegister from "../hooks/useRegister";
+import useGeoLocation from "../hooks/useGeoLocation";
 
 import InputTerms from "../components/Login-SignUp/InputTerms";
 import LoginButton from "../components/Login-SignUp/LoginButton";
@@ -10,10 +11,12 @@ export default function SignUpForm() {
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: {errors},
   } = useForm();
 
-  const { handleRegister } = useRegister();
+  const {handleRegister} = useRegister();
+
+  const {handleGeoLocation} = useGeoLocation();
 
   return (
     <div>
@@ -27,6 +30,7 @@ export default function SignUpForm() {
             action='#'
             onSubmit={handleSubmit((data) => {
               handleRegister(data);
+              handleGeoLocation();
             })}
           >
             <div className='mb-0'>
@@ -84,7 +88,7 @@ export default function SignUpForm() {
               />
             </div>
             <InputTerms />
-            <div className='flex items-start justify-between pt-5 mb-12'>
+            <div className='flex w-[370px] items-start justify-between pt-5 mb-12'>
               <LoginButton text='Registrarme' />
               <GoogleLoginButton />
             </div>

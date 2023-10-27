@@ -12,6 +12,7 @@ import NavBar from "./components/Header/Navbar";
 import SearchBar from "./components/Header/SearchBar";
 import CategoriesPage from "./views/CategoriesPage";
 import NumericValidation from "./views/NumericValidation";
+import CreateService from "./views/CreateService";
 
 function App() {
   const location = useLocation();
@@ -19,6 +20,7 @@ function App() {
   const isRegisterPage = location.pathname === "/sign-up";
   const isCategoriesPage = location.pathname === "/categories";
   const isValidatePage = location.pathname === "/validate";
+  const isCreateServicePage = location.pathname === "/create-service";
 
   return (
     <Provider store={store}>
@@ -26,6 +28,7 @@ function App() {
         <div className='w-full'>
           {!isLoginPage && !isRegisterPage && !isValidatePage && <NavBar />}
           {!isLoginPage &&
+            !isCreateServicePage &&
             !isRegisterPage &&
             !isCategoriesPage &&
             !isValidatePage && <SearchBar />}
@@ -37,6 +40,7 @@ function App() {
             <Route path='/sign-up' element={<SignUp />} />
             <Route path='/validate' element={<NumericValidation />} />
             <Route path='/categories' element={<CategoriesPage />} />
+            <Route path='/create-service' element={<CreateService />} />
           </Routes>
         </div>
       </NextUIProvider>
