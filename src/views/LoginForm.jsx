@@ -24,9 +24,9 @@ export default function LoginForm() {
   const {handleGeoLocation} = useGeoLocation();
 
   return (
-    <div className='flex -mt-10'>
-      <section className='flex w-full h-screen '>
-        <div className='flex flex-col items-center justify-center ml-0 mr-48 py-8 w-full md:h-screen lg:py-0'>
+    <div className='flex w-full -mt-10'>
+      <section className='flex w-full h-screen items-center justify-center'>
+        <div className='flex flex-col items-center justify-center ml-0 py-8 w-full md:h-screen lg:py-0'>
           <a
             href='#'
             className='flex items-center  text-2xl font-semibold text-gray-900 dark:text-white'
