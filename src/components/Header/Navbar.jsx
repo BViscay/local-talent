@@ -41,7 +41,7 @@ const NavBar = () => {
           <AiOutlineAppstoreAdd className='text-[34px] text-[#266DD3]' />
         </NavbarItem>
 
-        <NavbarItem onClick={() => navigate("/home")}>
+        <NavbarItem onClick={() => navigate("/matchs")}>
           <LiaHandshakeSolid className='text-[34px] text-[#266DD3]' />
         </NavbarItem>
 
