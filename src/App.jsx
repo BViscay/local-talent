@@ -1,9 +1,9 @@
 import "./App.css";
-import { Provider } from "react-redux";
-import { store } from "../src/redux/store";
-import { Route, Routes } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { NextUIProvider } from "@nextui-org/react";
+import {Provider} from "react-redux";
+import {store} from "../src/redux/store";
+import {Route, Routes} from "react-router-dom";
+import {useLocation} from "react-router-dom";
+import {NextUIProvider} from "@nextui-org/react";
 
 import LoginForm from "./views/LoginForm";
 import SignUp from "./views/SignUp";
@@ -13,7 +13,8 @@ import SearchBar from "./components/Header/SearchBar";
 import CategoriesPage from "./views/CategoriesPage";
 import NumericValidation from "./views/NumericValidation";
 import CreateService from "./views/CreateService";
-import EditeProfile from "./views/EditeProfile";
+import Matches from "./views/Matches";
+import Notifications from "./views/Notifications";
 
 function App() {
   const location = useLocation();
@@ -42,7 +43,6 @@ function App() {
             <Route path='/validate' element={<NumericValidation />} />
             <Route path='/categories' element={<CategoriesPage />} />
             <Route path='/create-service' element={<CreateService />} />
-            <Route path='/editProfile' element={<EditeProfile />} />
           </Routes>
         </div>
       </NextUIProvider>

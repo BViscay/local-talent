@@ -1,6 +1,7 @@
 import {useForm} from "react-hook-form";
 import useRegister from "../hooks/useRegister";
 import useGeoLocation from "../hooks/useGeoLocation";
+import logo from "../assets/images/Logo.png";
 
 import InputTerms from "../components/Login-SignUp/InputTerms";
 import LoginButton from "../components/Login-SignUp/LoginButton";
@@ -20,13 +21,16 @@ export default function SignUpForm() {
 
   return (
     <div>
-      <div className='flex justify-center h-screen gap-8'>
+      <div className='flex h-max justify-center items-center pb-10 gap-8'>
         <div className='w-full md:w-1/2 p-4 md:h-screen lg:py-0 '>
+          <div className='w-full flex justify-center pr-2'>
+            <img className='w-[300px] h-[113px]' src={logo} alt='logo'></img>
+          </div>
           <h1 className='mt-10 text-3xl md:text-4xl font-semibold text-[#003049] text-center tracking-[0] leading-[normal] mb-4'>
             Formulario de Registro
           </h1>
           <form
-            className=' space-y-1 w-4/5 ml-auto mr-auto'
+            className='h-max pb-5 space-y-1 w-4/5 ml-auto mr-auto'
             action='#'
             onSubmit={handleSubmit((data) => {
               handleRegister(data);
@@ -88,7 +92,7 @@ export default function SignUpForm() {
               />
             </div>
             <InputTerms />
-            <div className='flex w-[370px] items-start justify-between pt-5 mb-12'>
+            <div className='flex w-[370px] items-start pt-5 -ml-5 mb-12'>
               <LoginButton text='Registrarme' />
               <GoogleLoginButton />
             </div>
