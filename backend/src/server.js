@@ -1,6 +1,5 @@
 const express = require('express')
 const cors = require('cors')
-const path = require('path')
 
 // const multer = require('multer')
 const fileUpload = require('express-fileupload')
@@ -22,7 +21,7 @@ server.use(express.json())
 server.use(express.urlencoded({ extended: true }))
 // server.use(multer({ dest: filesStoage }).single('csv'))
 
-const pathUploads = path.join(__dirname, 'upload')
+const pathUploads = '/temp'
 verifyAndCreateFolder(pathUploads)
 
 server.use(fileUpload({
