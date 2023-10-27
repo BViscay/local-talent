@@ -79,7 +79,7 @@ export default function LoginForm() {
                   <RememberUser />
                   <ForgotPassLink handleOpenModal={handleOpenModal} />
                 </div>
-                <div className='flex w-5/6 items-center justify-between mb-12'>
+                <div className='flex w-full items-center justify-between mb-12'>
                   <LoginButton text='Ingresar' />
                   <GoogleLoginButton />
                 </div>
