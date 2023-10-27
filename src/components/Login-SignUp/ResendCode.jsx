@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function ResendCode() {
   const [timer, setTimer] = useState(20);
@@ -15,18 +15,25 @@ export default function ResendCode() {
       setShowButton(true);
     }
   }, [timer]);
-    const handleClick = () => {
-      setTimer(20);
-      setShowButton(false);
-    }
-   return (
-    <div>
+  const handleClick = () => {
+    setTimer(20);
+    setShowButton(false);
+  };
+  return (
+    <div className='flex w-full items-center justify-center'>
       {showButton ? (
-         <div className="w-full rounded-xl mt-2 bg-primary-961">
-         <button onClick={handleClick} className="w-full h-full p-4 text-base text-primary-962 font-medium">Reenviar</button>
-       </div>
+        <div className='w-4/5 rounded-xl mt-2 bg-primary-400'>
+          <button
+            onClick={handleClick}
+            className='w-4/5 h-full p-4 text-base text-white font-medium'
+          >
+            Reenviar
+          </button>
+        </div>
       ) : (
-        <div className="w-full rounded-xl mt-2">Reenviar código en {timer} segundos</div>
+        <div className='w-full rounded-xl mt-2'>
+          Reenviar código en {timer} segundos
+        </div>
       )}
     </div>
   );

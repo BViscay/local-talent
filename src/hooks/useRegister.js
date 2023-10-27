@@ -1,35 +1,68 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { API_URL_REGISTER } from "../config/api";
-import { useDispatch } from "react-redux";
-import { login } from "../redux/sliceLogin";
+import { API_URL_REGISTER, API_URL_VALIDATE } from "../config/api";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  login,
+  setAuthToken,
+  setName,
+  setLastName,
+  setMail,
+  getMail,
+} from "../redux/sliceLogin";
 
 const useRegister = () => {
   const dispatch = useDispatch();
+  const userMail = useSelector(getMail);
 
   const navigate = useNavigate();
 
   const handleRegister = async (userData) => {
     const { name, lastName, email, password, confirmPassword } = userData;
 
-    const URL = API_URL_REGISTER;
-
     if (password !== confirmPassword)
       return alert("Los password deben ser Iguales");
 
     await axios
-      .post(URL, {
+      .post(API_URL_REGISTER, {
         firstname: name,
         lastname: lastName,
         email: email,
         password: password,
       })
       .then(({ data }) => {
-        const { password, validator } = data;
+        const { id, email } = data;
 
-        if (password && validator) {
-          dispatch(login());
+        if (id && email) {
+          dispatch(setMail(email));
+          dispatch(setName(name));
+          dispatch(setLastName(lastName));
+          navigate("/validate");
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log("Response Data:", error.response.data);
+        }
+      });
+  };
+
+  const handleValidate = async (code) => {
+    const values = Object.values(code);
+    const validateCode = values.join("");
+
+    await axios
+      .post(API_URL_VALIDATE, {
+        email: userMail,
+        code: validateCode,
+      })
+      .then(({ data }) => {
+        const { session, token } = data;
+
+        if (session && token) {
           navigate("/home");
+          dispatch(login());
+          dispatch(setAuthToken(token));
         }
       })
       .catch((error) => {
@@ -41,6 +74,7 @@ const useRegister = () => {
 
   return {
     handleRegister,
+    handleValidate,
   };
 };
 
