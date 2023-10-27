@@ -18,6 +18,10 @@ export const userHandler = createSlice({
     logout: (state) => {
       state.isLoggedIn = false;
       state.token = null;
+      (state.email = ""),
+        (state.name = ""),
+        (state.lastname = ""),
+        (state.location = null);
     },
     setAuthToken: (state, action) => {
       state.token = action.payload;
