@@ -76,7 +76,7 @@ export default function LoginForm() {
                   />
                 </div>
                 <div className='flex items-center justify-between'>
-                  <RememberUser />
+                  <RememberUser register={register} />
                   <ForgotPassLink handleOpenModal={handleOpenModal} />
                 </div>
                 <div className='flex w-full items-center justify-between mb-12'>
