@@ -15,6 +15,7 @@ import NumericValidation from "./views/NumericValidation";
 import CreateService from "./views/CreateService";
 import Matches from "./views/Matches";
 import Notifications from "./views/Notifications";
+import EditeProfile from "./views/EditeProfile";
 
 function App() {
   const location = useLocation();
@@ -23,7 +24,7 @@ function App() {
   const isCategoriesPage = location.pathname === "/categories";
   const isValidatePage = location.pathname === "/validate";
   const isCreateServicePage = location.pathname === "/create-service";
-
+  const isEditProfile= location.pathname === "/editeProfile"
   return (
     <Provider store={store}>
       <NextUIProvider>
@@ -33,8 +34,8 @@ function App() {
             !isCreateServicePage &&
             !isRegisterPage &&
             !isCategoriesPage &&
-            !isValidatePage && <SearchBar />}
-
+            !isValidatePage &&
+            isEditProfile && <SearchBar />}
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/home' element={<Home />} />
@@ -45,6 +46,7 @@ function App() {
             <Route path='/create-service' element={<CreateService />} />
             <Route path='/matches' element={<Matches />} />
             <Route path='/notifications' element={<Notifications />} />
+            <Route path='/editProfile' element={<EditeProfile />} />
           </Routes>
         </div>
       </NextUIProvider>

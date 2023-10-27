@@ -112,7 +112,7 @@ export default function CreateServiceForm() {
             placeholder='Ciudad donde prestas el Servicio'
             name='city'
             register={register}
-            error={errors.price?.message}
+            error={errors.city?.message}
           />
         </div>
 
