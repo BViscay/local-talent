@@ -36,7 +36,7 @@ function App() {
             <Route path='/validate' element={<NumericValidation />} />
             <Route path='/categories' element={<CategoriesPage />} />
             <Route path='/create-service' element={<CreateService />} />
-            <Route path='/matches' element={<Matches />} />
+            <Route path='/matchs' element={<Matches />} />
             <Route path='/notifications' element={<Notifications />} />
             <Route path='/editProfile' element={<EditeProfile />} />
           </Routes>
