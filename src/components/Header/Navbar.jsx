@@ -73,7 +73,7 @@ const NavBar = () => {
             Crear Servicio
           </p>
         </NavbarItem>
-        <NavbarItem onClick={() => navigate("/matches")}>
+        <NavbarItem onClick={() => navigate("/matchs")}>
           <p className='text-[#172B4D] font-medium text-lg' href='/services'>
             Mis Matchs
           </p>
@@ -120,10 +120,16 @@ const NavBar = () => {
             </DropdownMenu>
           ) : (
             <DropdownMenu aria-label='Profile Actions' variant='flat'>
-              <DropdownItem className='bg-[#266DD3] text-white' key='signin'>
+              <DropdownItem
+                onClick={() => navigate("/login")}
+                className='bg-[#266DD3] text-white'
+                key='signin'
+              >
                 Iniciar Sesión
               </DropdownItem>
-              <DropdownItem key='signup'>Registrarse</DropdownItem>
+              <DropdownItem onClick={() => navigate("/sign-up")} key='signup'>
+                Registrarse
+              </DropdownItem>
             </DropdownMenu>
           )}
         </Dropdown>
