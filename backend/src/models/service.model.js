@@ -22,22 +22,26 @@ Service.init({
     type: DataTypes.STRING
   },
   price: {
-    type: DataTypes.FLOAT,
+    type: DataTypes.DOUBLE,
     defaultValue: 0
   },
   city: {
     type: DataTypes.STRING,
     defaultValue: 0
   },
-  latitude: {
-    type: DataTypes.FLOAT
+  /* latitude: {
+    type: DataTypes.DOUBLE
   },
   longitude: {
-    type: DataTypes.FLOAT,
+    type: DataTypes.DOUBLE,
     defaultValue: 0
+  }, */
+  location: {
+    type: DataTypes.GEOMETRY('POINT'),
+    allowNull: false
   },
   score: {
-    type: DataTypes.FLOAT,
+    type: DataTypes.DOUBLE,
     defaultValue: 0
   },
   rating: {
