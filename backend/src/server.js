@@ -25,7 +25,7 @@ const pathUploads = '/temp'
 verifyAndCreateFolder(pathUploads)
 
 server.use(fileUpload({
-  useTempFiles: false,
+  useTempFiles: true,
   tempFileDir: pathUploads
 }))
 
