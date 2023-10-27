@@ -9,8 +9,9 @@ const createCategory = async (data) => {
   return newCategory
 }
 
+const findCategoriesServices = async (where) => await Category.findAll()
+
 module.exports = {
-
-  createCategory
-
+  createCategory,
+  findCategoriesServices
 }
