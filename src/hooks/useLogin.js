@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import {API_URL_LOGIN} from "../config/api";
+import {API_URL_LOGIN, API_URL_TOKENLOGIN} from "../config/api";
 import {useSelector, useDispatch} from "react-redux";
 import {
   login,
@@ -16,7 +16,6 @@ import {
 const useLogin = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  //eslint-disable-next-line
   const isLogin = useSelector(isLogged);
   const dispatch = useDispatch();
   const redirectLogin = (navigate) => {
@@ -24,7 +23,7 @@ const useLogin = () => {
   };
 
   const handleLogin = async (userData) => {
-    const {email, password} = userData;
+    const {email, password, rememberUser} = userData;
     const URL = API_URL_LOGIN;
 
     try {
@@ -33,6 +32,10 @@ const useLogin = () => {
         password: password,
       });
       const {token, session} = data;
+
+      if (token && rememberUser) {
+        localStorage.setItem("token", token);
+      }
 
       if (token) {
         dispatch(setAuthToken(token));
@@ -52,6 +55,33 @@ const useLogin = () => {
           dispatch(setMail(email));
         } else if (error.response.data.message === "PASSWORD_INVALID") {
           alert("Password Incorrecto");
+        }
+      }
+    }
+  };
+
+  const handleTokenLogin = async () => {
+    if (!isLogin) {
+      const token = localStorage.getItem("token");
+      if (token !== null) {
+        try {
+          const {data} = await axios.get(API_URL_TOKENLOGIN, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const {session} = data;
+          if (session) {
+            dispatch(setAuthToken(token));
+            dispatch(login());
+            dispatch(setName(session.firstname));
+            dispatch(setLastName(session.lastname));
+            dispatch(setMail(session.email));
+            redirectLogin(navigate);
+          }
+        } catch (error) {
+          console.log(error);
+          dispatch(logout());
         }
       }
     }
@@ -83,6 +113,7 @@ const useLogin = () => {
     handleLogin,
     handleLogout,
     handleGoogleLogin,
+    handleTokenLogin,
     handleOpenModal,
     handleCloseModal,
     isModalOpen,
