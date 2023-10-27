@@ -49,7 +49,7 @@ export default function Edit() {
           </div>
         <div className='mb-3 w-[90%]'>
           <Input
-            labelText='Imagen'
+            labelText='Actualizar Imagen'
             type='file'
             accept='image/jpeg,image/png,image/gif'
             placeholder='Seleccione la nueva imagen'
