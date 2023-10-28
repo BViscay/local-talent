@@ -1,8 +1,8 @@
 const express = require('express')
 const cors = require('cors')
+
 // const multer = require('multer')
 const fileUpload = require('express-fileupload')
-const { verifyAndCreateFolder } = require('./libs/handleFile')
 
 const server = express()
 
@@ -16,18 +16,8 @@ if (process.env.DEV) {
 // Middlewares
 server.use(cors())
 server.use(express.json())
-// server.use(express.static(pathPublic))
 server.use(express.urlencoded({ extended: true }))
-// server.use(multer({ dest: filesStoage }).single('csv'))
-
-const pathUploads = './src/uploads'
-
-verifyAndCreateFolder(pathUploads)
-
-server.use(fileUpload({
-  useTempFiles: true,
-  tempFileDir: pathUploads
-}))
+server.use(fileUpload())
 
 // Routes
 server.use('/api', require('./routes/api.routes'))

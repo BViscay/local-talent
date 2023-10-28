@@ -5,16 +5,12 @@ const { uploadImageCreate, deleteImageDestroy } = require('../services/image.ser
 const createService = async (data, dataImg) => {
   const resultImage = await uploadImageCreate(dataImg)
 
-  data.imageId = resultImage.public_id
-  data.image = resultImage.secure_url
-
   //! PROVISORIO
   data.CategoryId = Number(data.CategoryId)
 
   const newService = await Service.create({
     ...data,
-    image_public_id: resultImage.public_id,
-    image: resultImage.secure_url
+    image: resultImage
   })
   return newService
 }

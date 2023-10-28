@@ -29,17 +29,17 @@ Service.init({
     type: DataTypes.STRING,
     defaultValue: 0
   },
-  /* latitude: {
+  latitude: {
     type: DataTypes.DOUBLE
   },
   longitude: {
     type: DataTypes.DOUBLE,
     defaultValue: 0
-  }, */
-  location: {
+  },
+  /* location: {
     type: DataTypes.GEOMETRY('POINT'),
     allowNull: false
-  },
+  }, */
   score: {
     type: DataTypes.DOUBLE,
     defaultValue: 0
