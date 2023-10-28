@@ -10,8 +10,16 @@ cloudinary.config({
   secure: true
 })
 
-const uploadImage = async (filePath) => {
-  return await cloudinary.uploader.upload(filePath, { folder: 'localTalent' })
+const uploadImage = (buffer) => {
+  return new Promise((resolve, reject) => {
+    cloudinary.uploader.upload_stream({ resource_type: 'auto' }, (error, result) => {
+      if (error) {
+        reject(error.message)
+      } else {
+        resolve(result.secure_url)
+      }
+    }).end(buffer)
+  })
 }
 
 const deleteImage = async (publicId) => {
