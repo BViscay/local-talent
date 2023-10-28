@@ -1,14 +1,22 @@
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
-export default function CategoyButton({ icon, color, text, redirect }) {
+export default function CategoyButton({
+  icon,
+  color,
+  text,
+  redirect,
+  id,
+  handleFilterByCategory,
+}) {
   const navigate = useNavigate();
 
   const handleClick = () => {
+    handleFilterByCategory(id);
     navigate(redirect);
   };
 
   const buttonStyle = {
-    backgroundColor: color, 
+    backgroundColor: color,
   };
 
   return (
