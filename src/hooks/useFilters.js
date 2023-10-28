@@ -13,7 +13,7 @@ const useFilters = () => {
       alert("Por favor logueate o registrate para buscar servicios");
       if (token !== null) {
         try {
-          const {data} = await axios(`${API_URL_SEARCH}?categoryid=${catId}`, {
+          const {data} = await axios(`${API_URL_SEARCH}?data=${catId}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -32,7 +32,7 @@ const useFilters = () => {
 
   const handleFilterByName = async (serviceName) => {
     try {
-      const {data} = await axios(`${API_URL_SEARCH}?text=${serviceName}`);
+      const {data} = await axios(`${API_URL_SEARCH}?data=${serviceName}`);
       if (data) {
         dispatch(setFilterByName(data));
       }
