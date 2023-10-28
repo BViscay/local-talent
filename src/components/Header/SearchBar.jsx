@@ -3,23 +3,13 @@ import {Input} from "@nextui-org/react";
 import {SearchIcon} from "lucide-react";
 import {useSelector} from "react-redux";
 import {getName} from "../../redux/sliceLogin";
-import axios from "axios";
+import useFilters from "../../hooks/useFilters";
 
 const SearchBar = () => {
   const userName = useSelector(getName);
   const [inputValue, setInputValue] = useState("");
 
-  const handleSearch = async () => {
-    try {
-      const services = await axios.get(
-        `http://localhost:3001/api/service/findAllService?title=${inputValue}`
-      );
-      console.log(services);
-    } catch (error) {
-      console.log(error.message);
-      alert(error.message);
-    }
-  };
+  const {handleFilterByName} = useFilters();
 
   return (
     <div className='w-full flex flex-col items-start bg-white py-3 px-3'>
@@ -39,7 +29,7 @@ const SearchBar = () => {
         placeholder='Buscador de servicios...'
         endContent={
           <button
-            onClick={handleSearch}
+            onClick={() => handleFilterByName(inputValue)}
             className='p-4 bg-[#266DD3] h-9 w-9 flex items-center justify-center rounded-lg'
           >
             <SearchIcon
@@ -50,7 +40,7 @@ const SearchBar = () => {
         }
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            handleSearch();
+            () => handleFilterByName(inputValue);
           }
         }}
         classNames={{

@@ -10,9 +10,9 @@ const useGeoLocation = () => {
   const handleGeoLocation = () => {
     if (isGeolocationAvailable && isGeolocationEnabled) {
       const location = {
-        latitude: coords.latitude,
-        longitude: coords.longitude
-      }
+        latitude: coords?.latitude || 0,
+        longitude: coords?.longitude || 0,
+      };
       dispatch(setLocation(location));
     }
   };

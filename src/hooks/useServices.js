@@ -10,7 +10,6 @@ const useServices = () => {
   const navigate = useNavigate();
 
   const handleCreateService = async (newService) => {
-    
     const {image, title, categoryId, description, price, city} = newService;
 
     const serviceData = {
@@ -23,14 +22,15 @@ const useServices = () => {
       latitude: geolocation.latitude,
       longitude: geolocation.longitude,
     };
-    console.log(serviceData)
+    console.log(serviceData);
     try {
-      await axios.post(API_URL_SERVICES, serviceData, {
+      const {data} = await axios.post(API_URL_SERVICES, serviceData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log(data);
       navigate("/home");
     } catch (error) {
       if (error.response) {

@@ -1,3 +1,4 @@
+import logo from "../../assets/images/Logo.png";
 import {useState} from "react";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
@@ -61,7 +62,7 @@ const NavBar = () => {
       {/*Navbar Desktop*/}
       <NavbarContent className='hidden md:flex justify-evenly w-full gap-10 lg:gap-20'>
         <NavbarBrand>
-          <img src='/src/Logo.png' className='w-36'></img>
+          <img src={logo} className='w-36'></img>
         </NavbarBrand>
         <NavbarItem onClick={() => navigate("/home")}>
           <p className='text-[#172B4D] font-medium text-lg' href='/home'>
