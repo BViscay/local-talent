@@ -1,14 +1,14 @@
 const { uploadImage, deleteImage } = require('../middlewares/claudinary')
-//const fs = require('fs-extra')
 
 const uploadImageCreate = async (data) => {
-  const resultImage = await uploadImage(data.image.name)
-  //await fs.unlink(data.image.tempFilePath)
-  return resultImage
+  const buffer = data.image.data
+  const urlImage = await uploadImage(buffer)
+  return urlImage
 }
 
 const deleteImageDestroy = async (data) => {
-  const resultImage = await deleteImage(data)
+  const imageBuffer = Buffer.from(data.image.data, 'base64')
+  const resultImage = await deleteImage(imageBuffer)
   return resultImage
 }
 
