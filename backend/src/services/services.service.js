@@ -56,20 +56,18 @@ const searchService = async (query) => {
 
 const editService = async (data) => {
   const { id } = data
-
-  // Editar un servicio existente
-  console.log(data)
-  Service.update(data, {
+  await Service.update(data, {
     where: { id }
   })
+
 }
 
 const deleteService = async (id) => {
   console.log(id)
-  const destroyImagen = await Service.findOne({ where: { id } })
+  // const destroyImagen = await Service.findOne({ where: { id } })
   await Service.destroy({ where: { id } })
-  const destroyImage = await deleteImageDestroy(destroyImagen.image_public_id)
-  return destroyImage
+  // const destroyImage = await deleteImageDestroy(destroyImagen.image_public_id)
+  // return destroyImage
 }
 
 module.exports = {

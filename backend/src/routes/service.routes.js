@@ -17,7 +17,7 @@ router.get('/search', ServiceSearchController)
 // Rutas del ususario
 router.get('/', validateToken, ServiceFindController)
 router.post('/', validateToken, ServiceCreateController)
-router.put('/:id', validateToken, ServiceEditController)
+router.patch('/:id', validateToken, ServiceEditController)
 router.delete('/:id', validateToken, ServiceDeleteController)
 
 module.exports = router

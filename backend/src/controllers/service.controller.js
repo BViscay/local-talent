@@ -12,7 +12,7 @@ const ServiceCreateController = async (req, res) => {
 
 const ServiceFindController = async (req, res) => {
   try {
-    const { userId } = req.headers.session 
+    const { userId } = req.headers.session
     const result = await findUserService(userId)
     res.status(200).json(result)
 
@@ -23,7 +23,8 @@ const ServiceFindController = async (req, res) => {
 
 const ServiceEditController = async (req, res) => {
   try {
-    const result = await editService(req.body)
+    const { id } = req.params
+    const result = await editService({id, ...req.body})
     res.status(200).send({ message: 'Servicio editado con exito', result })
   } catch ({ message }) {
     res.status(400).json({ message })
