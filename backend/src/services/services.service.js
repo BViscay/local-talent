@@ -7,7 +7,7 @@ const createService = async (data, dataImg) => {
   const resultImage = await uploadImageCreate(dataImg)
 
   //! PROVISORIO
-  data.CategoryId = Number(data.CategoryId)
+  data.CategoryId = parseInt(data.CategoryId)
 
   const newService = await Service.create({
     ...data,
