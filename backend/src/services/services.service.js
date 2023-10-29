@@ -16,7 +16,7 @@ const createService = async (data, dataImg) => {
     image: resultImage
   })
   //newService.setUser(data.userId);
-  newService.setCategory(data.categoryId);
+  //newService.setCategory(data.categoryId);
   return newService
 
 }
