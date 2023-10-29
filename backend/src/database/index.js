@@ -11,14 +11,20 @@ const connectionDatabase = (force) => {
   const User = require('../models/user.model')
   const Service = require('../models/service.model')
   const Category = require('../models/category.model')
+  const Match = require('../models/match.model')
 
   User.hasMany(Service)
   Service.belongsTo(User)
 
   Category.hasMany(Service, { foreignKey: 'categoryId' })
   // Service.belongsTo(Category)
-
   Service.belongsTo(Category, { foreignKey: 'categoryId' })
+
+  User.hasMany(Match)
+  Match.belongsTo(User)
+
+  Service.hasMany(Match)
+  Match.belongsTo(Service)
 
   sequelize.sync({ force })
     .then(() => console.log('db is conected'))

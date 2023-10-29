@@ -1,6 +1,5 @@
 const express = require('express')
 const cors = require('cors')
-// const multer = require('multer')
 const fileUpload = require('express-fileupload')
 
 const server = express()
@@ -19,8 +18,9 @@ server.use(express.json())
 server.use(express.urlencoded({ extended: true }))
 // server.use(multer({ dest: filesStoage }).single('csv'))
 server.use(fileUpload({
-  useTempFiles: true,
+  useTempFiles: false,
   tempFileDir: './src/uploads'
+
 }))
 // Routes
 server.use('/api', require('./routes/api.routes'))
