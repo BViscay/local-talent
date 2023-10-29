@@ -1,24 +1,22 @@
 const Service = require('../models/service.model')
-const Category = require('../models/category.model')
+// const Category = require('../models/category.model')
 const { uploadImageCreate, deleteImageDestroy } = require('../services/image.service')
-const { Sequelize, Op } = require('sequelize');
+const { Sequelize, Op } = require('sequelize')
 
 const createService = async (data, dataImg) => {
-
   const resultImage = await uploadImageCreate(dataImg)
 
   //! PROVISORIO
   data.categoryId = parseInt(data.categoryId)
-
+  // console.log(data.categoryId)
 
   const newService = await Service.create({
     ...data,
     image: resultImage
   })
-  newService.setUser(data.userId);
-  newService.setCategory(data.categoryId);
+  // newService.setUser(data.userId)
+  // newService.setCategory(data.categoryId)
   return newService
-
 }
 
 const findUserService = async (id) => {
@@ -27,35 +25,31 @@ const findUserService = async (id) => {
     where: { userId: id }
   })
   console.log(`consulta realizada ${id}`)
-  return resultado 
+  return resultado
 }
 
 const searchService = async (query) => {
-  
-  const search = query.data 
+  const search = query.data
 
-  if(!isNaN(query.data)){
+  if (!isNaN(query.data)) {
     const resultado = await Service.findAll({
       where: { categoryId: search }
     })
     console.log(`consulta realizada ${search}`)
-    return resultado 
-  }
-  else{
-
+    return resultado
+  } else {
     const resultado = await Service.findAll({
       where: {
         [Sequelize.Op.or]: [{
-            title: {
-              [Sequelize.Op.iLike]: `%${search}%`}
-            },
-          { description: {
-              [Sequelize.Op.iLike]: `%${search}%` }
-          }]
+          title: { [Sequelize.Op.iLike]: `%${search}%` }
+        },
+        {
+          description: { [Sequelize.Op.iLike]: `%${search}%` }
+        }]
       }
-    });
+    })
     console.log(`consulta realizada ${search}`)
-    return resultado 
+    return resultado
   }
 }
 
@@ -64,7 +58,6 @@ const editService = async (data) => {
   await Service.update(data, {
     where: { id }
   })
-
 }
 
 const deleteService = async (id) => {
@@ -76,7 +69,6 @@ const deleteService = async (id) => {
 }
 
 const allServices = async () => await Service.findAll()
-
 
 module.exports = {
 

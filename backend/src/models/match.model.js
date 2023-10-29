@@ -12,7 +12,7 @@ Match.init({
   },
   status: {
     type: DataTypes.ENUM,
-    values: ['active', 'pending', 'deleted']
+    values: ['create', 'cancelar', 'aceptar', 'calificar']
   }
 },
 {
