@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize')
 const { sequelize } = require('../database')
+const Category = require('./category.model');
 
 class Service extends Model {}
 
@@ -21,6 +22,12 @@ Service.init({
   imageId: {
     type: DataTypes.STRING
   },
+  categoryId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'Category', // Nombre del modelo de la categoría
+      key: 'id', // Nombre del campo en la tabla de la categoría
+    },
   price: {
     type: DataTypes.DOUBLE,
     defaultValue: 0
