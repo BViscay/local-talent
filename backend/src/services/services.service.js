@@ -10,12 +10,20 @@ const createService = async (data, dataImg) => {
   data.categoryId = parseInt(data.categoryId)
   // console.log(data.categoryId)
 
+  console.log(data.categoryId)
+
   const newService = await Service.create({
-    ...data,
-    image: resultImage
+    userId: data.userId,
+    image: resultImage,
+    title: data.title,
+    categoryId: data.categoryId,
+    description: data.description,
+    price: data.price,
+    city: data.city,
+    latitude: data.latitude,
+    longitude: data.longitude
   })
-  // newService.setUser(data.userId)
-  // newService.setCategory(data.categoryId)
+
   return newService
 }
 
