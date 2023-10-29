@@ -9,14 +9,14 @@ const createService = async (data, dataImg) => {
 
   //! PROVISORIO
   data.categoryId = parseInt(data.categoryId)
-
+  console.log(data.categoryId)
 
   const newService = await Service.create({
     ...data,
     image: resultImage
   })
-  newService.setUser(data.userId);
-  newService.setCategory(data.categoryId);
+  // newService.setUserId(data.userId);
+  // newService.setCategoryId(data.categoryId);
   return newService
 
 }
