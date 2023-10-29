@@ -17,8 +17,13 @@ const createService = async (data, dataImg) => {
     ...data,
     image: resultImage
   })
-  //newService["userId"] = data.userId;
-  //newService["categoryId"] = data.categoryId;
+
+ const servicesCategory = await Category.findAll({
+      where: { id: data.categoryId },
+    });
+
+    await newService.setCategory(servicesCategory);
+  
   return newService
 
 }
