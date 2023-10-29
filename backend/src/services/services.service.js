@@ -8,7 +8,7 @@ const createService = async (data, dataImg) => {
 
   //! PROVISORIO
   data.categoryId = parseInt(data.categoryId)
-  // console.log(data.categoryId)
+  console.log(data.categoryId)
 
   console.log(data.categoryId)
 
