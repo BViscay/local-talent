@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require('sequelize')
-const sequelize = require('../database')
+const { sequelize } = require('../database')
 
 class SalesModel extends Model {}
 
@@ -18,8 +18,8 @@ SalesModel.init({
     allowNull: false
   },
   period: {
-    type: DataTypes.DATEONLY,
-    defaultValue: new Date()
+    type: DataTypes.INTEGER,
+    allowNull: false
   },
   quanty: {
     type: DataTypes.DECIMAL,

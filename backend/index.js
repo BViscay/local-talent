@@ -1,7 +1,6 @@
 const paymentRoutes = require('./src/routes/payment.routes')
 const express = require('express')
 const morgan = require('morgan')
-
 const { config } = require('dotenv')
 config()
 
