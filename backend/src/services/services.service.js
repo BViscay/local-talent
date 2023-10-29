@@ -11,6 +11,8 @@ const createService = async (data, dataImg) => {
   data.categoryId = parseInt(data.categoryId)
 
 
+  console.log(data.categoryId)
+
   const newService = await Service.create({
     categoryId: data.categoryId,
     image: resultImage
