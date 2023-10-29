@@ -15,8 +15,8 @@ const createService = async (data, dataImg) => {
     ...data,
     image: resultImage
   })
-  newService["userId"] = data.userId;
-  newService["categoryId"] = data.categoryId;
+  //newService["userId"] = data.userId;
+  //newService["categoryId"] = data.categoryId;
   return newService
 
 }
