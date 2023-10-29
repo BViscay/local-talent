@@ -27,6 +27,7 @@ Service.init({
     references: {
       model: 'Category', // Nombre del modelo de la categoría
       key: 'id', // Nombre del campo en la tabla de la categoría
+    }
     },
   price: {
     type: DataTypes.DOUBLE,
