@@ -17,7 +17,7 @@ const createService = async (data, dataImg) => {
   newService.setUser(data.userId);
   newService.setCategory(data.categoryId);
   return newService
-  
+
 }
 
 const findUserService = async (id) => {
@@ -74,11 +74,16 @@ const deleteService = async (id) => {
   // return destroyImage
 }
 
+const allServices = async () => await Service.findAll()
+
+
 module.exports = {
 
   createService,
   editService,
   deleteService,
   findUserService,
-  searchService
+  searchService,
+
+  allServices
 }

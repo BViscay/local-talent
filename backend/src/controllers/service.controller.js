@@ -1,4 +1,4 @@
-const { createService, editService, deleteService, findUserService, searchService } = require('../services/services.service')
+const { createService, editService, deleteService, findUserService, searchService, allServices } = require('../services/services.service')
 
 const ServiceCreateController = async (req, res) => {
   try {
@@ -51,12 +51,23 @@ const ServiceDeleteController = async (req, res) => {
   }
 }
 
+const ServiceFindALLController = async (req, res) => {
+  try {
+    const result = await allServices()
+    res.status(200).json(result)
+  } catch ({ message }) {
+    res.status(400).json({ message })
+  }
+}
+
 module.exports = {
 
   ServiceCreateController,
   ServiceFindController,
   ServiceEditController,
   ServiceSearchController,
-  ServiceDeleteController
+  ServiceDeleteController,
+
+  ServiceFindALLController
 
 }

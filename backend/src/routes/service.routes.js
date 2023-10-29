@@ -7,7 +7,9 @@ const {
   ServiceFindController,
   ServiceEditController,
   ServiceSearchController,
-  ServiceDeleteController
+  ServiceDeleteController,
+
+  ServiceFindALLController
 } = require('../controllers/service.controller.js')
 
 const router = express.Router()
@@ -19,5 +21,8 @@ router.get('/', validateToken, ServiceFindController)
 router.post('/', validateToken, ServiceCreateController)
 router.patch('/:id', validateToken, ServiceEditController)
 router.delete('/:id', validateToken, ServiceDeleteController)
+
+//Rutas a pedido FRONT
+router.get('/allservices', ServiceFindALLController)
 
 module.exports = router
