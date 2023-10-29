@@ -14,13 +14,15 @@ const createService = async (data, dataImg) => {
   console.log(data.categoryId)
 
   const newService = await Service.create({
+    userId: data.userId,
+    image: resultImage,
     title: data.title,
+    categoryId: data.categoryId,
     description: data.description,
     price: data.price,
     city: data.city,
-    categoryId: data.categoryId,
-    userId: data.userId,
-    image: resultImage,
+    latitude: data.latitude,
+    longitude: data.longitude,
   })
 
    return newService
