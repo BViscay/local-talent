@@ -3,6 +3,7 @@ const { createService, editService, deleteService, findUserService, searchServic
 const ServiceCreateController = async (req, res) => {
   try {
     const { userId } = req.headers.session
+    console.log(req.files)
     const result = await createService({ userId, ...req.body }, req.files)
     res.status(201).json(result)
   } catch ({ message }) {
