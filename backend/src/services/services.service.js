@@ -19,6 +19,7 @@ const createService = async (data, dataImg) => {
     price: data.price,
     city: data.city,
     categoryId: data.categoryId,
+    userId: data.userId,
     image: resultImage,
   })
 
