@@ -1,5 +1,6 @@
 const Service = require('../models/service.model')
 const Category = require('../models/category.model')
+const User = require('../models/user.model')
 const { uploadImageCreate, deleteImageDestroy } = require('../services/image.service')
 const { Sequelize, Op } = require('sequelize');
 
@@ -83,7 +84,14 @@ const deleteService = async (id) => {
   // return destroyImage
 }
 
-const allServices = async () => await Service.findAll()
+const allServices = async () => await Service.findAll({
+      include: [
+        {
+          model: User, 
+          attributes: ['firstname', "lastname"]
+        },
+      ]
+})
 
 
 module.exports = {
