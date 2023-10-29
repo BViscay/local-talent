@@ -12,7 +12,7 @@ const createService = async (data, dataImg) => {
 
 
   const newService = await Service.create({
-    ...data,
+    categoryId: data.categoryId,
     image: resultImage
   })
   //newService["userId"] = data.userId;
