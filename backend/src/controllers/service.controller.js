@@ -4,7 +4,7 @@ const ServiceCreateController = async (req, res) => {
   try {
     const { userId } = req.headers.session
     
-    const result = await createService(req.body, req.files)
+   const result = await createService({ userId, ...req.body }, req.files)
     res.status(201).json(result)
   } catch ({ message }) {
     res.status(400).json({ message })
