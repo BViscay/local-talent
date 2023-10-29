@@ -4,16 +4,21 @@ const { uploadImageCreate, deleteImageDestroy } = require('../services/image.ser
 const { Sequelize, Op } = require('sequelize');
 
 const createService = async (data, dataImg) => {
+
   const resultImage = await uploadImageCreate(dataImg)
 
   //! PROVISORIO
-  data["categoryId"] = parseInt(data.categoryId)
+  data.categoryId = parseInt(data.categoryId)
+
 
   const newService = await Service.create({
     ...data,
     image: resultImage
   })
+  newService.setUser(data.userId);
+  newService.setCategory(data.categoryId);
   return newService
+  
 }
 
 const findUserService = async (id) => {

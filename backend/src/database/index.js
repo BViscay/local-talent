@@ -16,8 +16,6 @@ const connectionDatabase = (force) => {
   Service.belongsTo(User)
 
   Category.hasMany(Service, { foreignKey: 'categoryId' })
-  // Service.belongsTo(Category)
-
   Service.belongsTo(Category, { foreignKey: 'categoryId' })
 
   sequelize.sync({ force })
