@@ -13,7 +13,7 @@ const filtersHandler = createSlice({
       state.filterByName = action.payload;
     },
     setRenderServices: (state, action) => {
-      state.renderVideogames = action.payload;
+      state.renderServices = action.payload;
     },
   },
 });
