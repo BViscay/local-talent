@@ -1,16 +1,24 @@
-const { createCategory } = require('../services/category.service')
+const { createCategory, findCategoriesServices } = require('../services/category.service')
 
-const CategoryCreateController = async (req, res) => {
+const categoryCreateController = async (req, res) => {
   try {
     const result = await createCategory(req.body)
-    res.status(200).json({ message: 'Categoria creada con exito', result })
+    res.status(200).json(result)
+  } catch ({ message }) {
+    res.status(400).json({ message })
+  }
+}
+
+const findCategoriesController = async (req, res) => {
+  try {
+    const result = await findCategoriesServices()
+    res.status(200).json(result)
   } catch ({ message }) {
     res.status(400).json({ message })
   }
 }
 
 module.exports = {
-
-  CategoryCreateController
-
+  findCategoriesController,
+  categoryCreateController
 }

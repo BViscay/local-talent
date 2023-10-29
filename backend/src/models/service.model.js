@@ -1,13 +1,15 @@
 const { Model, DataTypes } = require('sequelize')
 const { sequelize } = require('../database')
+const Category = require('./category.model');
+const User = require('./user.model')
 
 class Service extends Model {}
 
 Service.init({
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     primaryKey: true,
-    autoIncrement: true
+    defaultValue: DataTypes.UUIDV4
   },
   title: {
     type: DataTypes.STRING
@@ -21,8 +23,8 @@ Service.init({
   imageId: {
     type: DataTypes.STRING
   },
-  price: {
-    type: DataTypes.FLOAT,
+    price: {
+    type: DataTypes.DOUBLE,
     defaultValue: 0
   },
   city: {
@@ -30,14 +32,18 @@ Service.init({
     defaultValue: 0
   },
   latitude: {
-    type: DataTypes.FLOAT
+    type: DataTypes.DOUBLE
   },
   longitude: {
-    type: DataTypes.FLOAT,
+    type: DataTypes.DOUBLE,
     defaultValue: 0
   },
+  /* location: {
+    type: DataTypes.GEOMETRY('POINT'),
+    allowNull: false
+  }, */
   score: {
-    type: DataTypes.FLOAT,
+    type: DataTypes.DOUBLE,
     defaultValue: 0
   },
   rating: {
@@ -47,7 +53,21 @@ Service.init({
   status: {
     type: DataTypes.INTEGER,
     defaultValue: 0
-  }
+  },
+  categoryId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'Category', 
+      key: 'id', 
+    }
+    },
+  userId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'User', 
+      key: 'id', 
+    }
+    },
 },
 {
   sequelize,
