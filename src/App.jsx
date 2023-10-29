@@ -15,6 +15,7 @@ import CreateService from "./views/CreateService";
 import Matches from "./views/Matches";
 import Notifications from "./views/Notifications";
 import EditeProfile from "./views/EditeProfile";
+import FilteredServicesByCat from "./views/FilteredServicesByCat";
 
 function App() {
   const location = useLocation();
@@ -39,6 +40,7 @@ function App() {
             <Route path='/matchs' element={<Matches />} />
             <Route path='/notifications' element={<Notifications />} />
             <Route path='/editProfile' element={<EditeProfile />} />
+            <Route path='/filtered-services' element={<FilteredServicesByCat />} />
           </Routes>
         </div>
       </NextUIProvider>

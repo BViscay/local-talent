@@ -4,18 +4,25 @@ import {setLocation} from "../redux/sliceLogin";
 
 const useGeoLocation = () => {
   const dispatch = useDispatch();
-  const {coords, isGeolocationAvailable, isGeolocationEnabled} =
-    useGeolocated();
+  const {isGeolocationAvailable, isGeolocationEnabled} = useGeolocated();
 
-  const handleGeoLocation = () => {
+  const handleGeoLocation = async () => {
     if (isGeolocationAvailable && isGeolocationEnabled) {
-      const location = {
-        latitude: coords?.latitude || 0,
-        longitude: coords?.longitude || 0,
-      };
-      dispatch(setLocation(location));
+      try {
+        const position = await new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
+        const location = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        };
+        dispatch(setLocation(location));
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
+
   return {handleGeoLocation};
 };
 

@@ -25,7 +25,6 @@ export default function CategoriesPage() {
           handleFilterByCategory={handleFilterByCategory}
           id='1'
           text='A/A'
-          redirect='/air-conditioning'
         />
         <CategoyButton
           icon={beautyIcon}

@@ -10,12 +10,14 @@ import SearchBar from "../components/Header/SearchBar";
 
 export default function Home() {
   const {handleTokenLogin} = useLogin();
- 
-  const { handleGeoLocation } = useGeoLocation()
-  
-   useEffect(() => {
-    handleGeoLocation();
+  const {handleGeoLocation} = useGeoLocation();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await handleGeoLocation();
+    };
     handleTokenLogin();
+    fetchData();
     //eslint-disable-next-line
   }, []);
 
