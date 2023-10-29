@@ -14,17 +14,15 @@ const createService = async (data, dataImg) => {
   console.log(data.categoryId)
 
   const newService = await Service.create({
-    ...data,
-    image: resultImage
+    title: data.title,
+    description: data.description,
+    price: data.price,
+    city: data.city,
+    categoryId: data.categoryId,
+    image: resultImage,
   })
 
- const servicesCategory = await Category.findAll({
-      where: { id: data.categoryId },
-    });
-
-    await newService.setCategory(servicesCategory);
-  
-  return newService
+   return newService
 
 }
 
