@@ -5,9 +5,9 @@ class Service extends Model {}
 
 Service.init({
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     primaryKey: true,
-    autoIncrement: true
+    defaultValue: DataTypes.UUIDV4
   },
   title: {
     type: DataTypes.STRING
@@ -22,7 +22,7 @@ Service.init({
     type: DataTypes.STRING
   },
   price: {
-    type: DataTypes.FLOAT,
+    type: DataTypes.DOUBLE,
     defaultValue: 0
   },
   city: {
@@ -30,14 +30,18 @@ Service.init({
     defaultValue: 0
   },
   latitude: {
-    type: DataTypes.FLOAT
+    type: DataTypes.DOUBLE
   },
   longitude: {
-    type: DataTypes.FLOAT,
+    type: DataTypes.DOUBLE,
     defaultValue: 0
   },
+  /* location: {
+    type: DataTypes.GEOMETRY('POINT'),
+    allowNull: false
+  }, */
   score: {
-    type: DataTypes.FLOAT,
+    type: DataTypes.DOUBLE,
     defaultValue: 0
   },
   rating: {

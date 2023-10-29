@@ -17,7 +17,10 @@ const connectionDatabase = (force) => {
   Service.belongsTo(User)
 
   Category.hasMany(Service, { foreignKey: 'categoryId' })
+<<<<<<< HEAD
   // Service.belongsTo(Category)
+=======
+>>>>>>> 0358e5fbc591a4b9a44c258b958858bbccd2a159
   Service.belongsTo(Category, { foreignKey: 'categoryId' })
 
   User.hasMany(Match)
