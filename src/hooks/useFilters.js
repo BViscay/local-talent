@@ -6,7 +6,7 @@ import {
   API_URL_ALLSERVICES,
   API_URL_SEARCH,
 } from "../config/api";
-import {getToken, getLocation} from "../redux/sliceLogin";
+import {getToken} from "../redux/sliceLogin";
 import {
   setRenderServices,
   setFilterByName,
@@ -16,7 +16,6 @@ import {
 
 const useFilters = () => {
   const token = useSelector(getToken);
-  const location = useSelector(getLocation);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -67,19 +66,7 @@ const useFilters = () => {
     }
   };
 
-  const handleAllServices = async () => {
-    try {
-      const {data} = await axios(API_URL_ALLSERVICES);
-
-      if (data) {
-        dispatch(setAllServices(data));
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleFilterByLocation = async () => {
+  const handleFilterByLocation = async (location) => {
     try {
       const {data} = await axios(API_URL_ALLSERVICES);
 
@@ -90,6 +77,7 @@ const useFilters = () => {
             service.longitude == location.longitude
         );
         dispatch(setNearServices(sameLocationService));
+        dispatch(setAllServices(data));
       }
     } catch (error) {
       console.log(error);
@@ -100,7 +88,6 @@ const useFilters = () => {
     handleFilterByCategory,
     handleFilterByName,
     handleFilterOwnServices,
-    handleAllServices,
     handleFilterByLocation,
   };
 };
