@@ -13,12 +13,11 @@ import Greet from "../components/Header/Greet";
 export default function Home() {
   const {handleTokenLogin} = useLogin();
   const {handleGeoLocation} = useGeoLocation();
-  const {handleAllServices, handleFilterByLocation} = useFilters();
+  const {handleFilterByLocation} = useFilters();
 
   useEffect(() => {
     const fetchData = async () => {
       await handleGeoLocation();
-      await handleAllServices();
       await handleFilterByLocation();
     };
     handleTokenLogin();
