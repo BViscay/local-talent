@@ -88,8 +88,7 @@ const useLogin = () => {
   };
 
   const handleGoogleLogin = (response) => {
-    console.log(response);
-    if (response.credential) {
+        if (response.credential) {
       dispatch(setAuthToken(response.credential));
 
       dispatch(login());
@@ -98,6 +97,7 @@ const useLogin = () => {
   };
 
   const handleLogout = () => {
+    localStorage.removeItem("token");
     dispatch(logout());
     alert("Te deslogueaste correctamente");
   };

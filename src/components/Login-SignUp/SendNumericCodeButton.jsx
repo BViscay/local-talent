@@ -12,8 +12,7 @@ export default function SendNumericCodeButton() {
       <div className='flex justify-around w-full p-1'>
         <form
           onSubmit={handleSubmit((data) => {
-            console.log(data);
-            handleValidate(data);
+                      handleValidate(data);
           })}
           className='flex flex-col items-center w-full'
         >

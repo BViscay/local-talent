@@ -32,7 +32,7 @@ const ServCerc = () => {
               <IndividualServiceCerc
                 key={service.id}
                 image={service.image}
-                category='categoria'
+                category={service.categoryName}
               />
             ))}
         </div>
