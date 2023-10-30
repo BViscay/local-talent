@@ -22,7 +22,7 @@ class PaymentService {
         Authorization: `Bearer ${process.env.ACCESS_TOKEN}`
       }
     })
-
+   console.log(subscription)
     return subscription.data
   }
 
