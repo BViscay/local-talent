@@ -1,25 +1,30 @@
 const { Model, DataTypes } = require('sequelize')
 const { sequelize } = require('../database')
 
-class Match extends Model {}
+class Rating extends Model {}
 
-Match.init({
+Rating.init({
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
     allowNull: false
   },
-  status: {
+  score: {
     type: DataTypes.ENUM,
-    values: ['create', 'cancel', 'accept', 'qualifyUser', 'qualifyServ', 'finished']
+    values: ['1', '2', '3', '4', '5']
+  },
+  comment: {
+    type: DataTypes.TEXT
+  },
+  type: {
+    type: DataTypes.ENUM,
+    values: ['user', 'service']
   }
-
 },
 {
   sequelize,
-  modelName: 'match'
-}
-)
+  modelName: 'rating'
+})
 
-module.exports = Match
+module.exports = Rating

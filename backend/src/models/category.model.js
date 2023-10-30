@@ -19,6 +19,7 @@ Category.init({
     type: DataTypes.STRING,
     require: true
   }
+
 },
 {
   sequelize,

@@ -12,6 +12,7 @@ const connectionDatabase = (force) => {
   const Service = require('../models/service.model')
   const Category = require('../models/category.model')
   const Match = require('../models/match.model')
+  const Rating = require('../models/rating.model')
 
   User.hasMany(Service)
   Service.belongsTo(User)
@@ -24,6 +25,9 @@ const connectionDatabase = (force) => {
 
   Service.hasMany(Match)
   Match.belongsTo(Service)
+
+  Match.hasMany(Rating)
+  Rating.belongsTo(Match)
 
   sequelize.sync({ force })
     .then(() => console.log('db is conected'))

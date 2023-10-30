@@ -5,7 +5,9 @@ const { matchCreateController, matchSeeServiceController, matchModifyController 
 const router = express.Router()
 
 router.post('/', validateToken, matchCreateController)
-router.get('/:serviceId', validateToken, matchSeeServiceController)
+router.get('/service', validateToken, matchSeeServiceController)
+// router.get('/user/:matchId')
 router.put('/', validateToken, matchModifyController)
+// router
 
 module.exports = router

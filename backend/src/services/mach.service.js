@@ -1,12 +1,16 @@
 const Match = require('../models/match.model')
+const Service = require('../models/service.model')
 
 const createMach = async (data) => {
   const newMatch = await Match.create({ ...data })
   return newMatch
 }
 
-const serviceMatch = async (id) => {
-  const match = await Match.findAll({ where: { serviceId: id } })
+const serviceMatch = async (userId) => {
+  const match = await Match.findAll({
+    include: { model: Service, where: { userId } }
+  })
+
   return match
 }
 

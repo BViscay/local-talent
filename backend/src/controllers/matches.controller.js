@@ -12,8 +12,8 @@ const matchCreateController = async (req, res) => {
 
 const matchSeeServiceController = async (req, res) => {
   try {
-    const { serviceId } = req.params
-    const result = await serviceMatch(serviceId)
+    const { userId } = req.headers.session
+    const result = await serviceMatch(userId)
     res.status(200).json(result)
   } catch ({ message }) {
     res.status(400).json({ message })
@@ -34,5 +34,4 @@ module.exports = {
   matchCreateController,
   matchSeeServiceController,
   matchModifyController
-
 }
