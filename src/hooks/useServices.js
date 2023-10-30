@@ -22,9 +22,6 @@ const useServices = () => {
     formData.append("latitude", geolocation.latitude);
     formData.append("longitude", geolocation.longitude);
 
-    console.log(formData.get("latitude"));
-    console.log(formData.get("longitude"));
-
     try {
       const {data} = await axios.post(API_URL_SERVICES, formData, {
         headers: {

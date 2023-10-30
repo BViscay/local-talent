@@ -1,14 +1,22 @@
-import { ChevronRight } from "lucide-react";
+import {useSelector} from "react-redux";
+import {getNearServices} from "../../redux/sliceFilters";
+
+import {ChevronRight} from "lucide-react";
+import IndividualServiceCerc from "./IndividualServiceCerc";
+
 const ServCerc = () => {
+  const nearServices = useSelector(getNearServices);
+  const activateSpinner = nearServices.length;
+
   return (
-    <div className='flex flex-col w-full bg-white  p-2 my-2'>
+    <div className='flex flex-col w-full bg-white items p-2 my-2'>
       <div className='flex items-center justify-between mx-2 mt-1'>
         <div className='w-1 h-6 bg-primary-800'>
-          <div className="w-52">
-        <p className='font-Inter font-bold font text-xl items-start ml-2'>
-          Servicios Cercanos
-        </p>
-        </div>
+          <div className='w-52'>
+            <p className='font-Inter font-bold font text-xl items-start ml-2'>
+              Servicios Cercanos
+            </p>
+          </div>
         </div>
         <button className='bg-white text-primary-958 self-start ml-3 p-1 border-1.5  rounded-[100px] font-Inter'>
           <span className='flex justify-center text-sm items-center'>
@@ -16,34 +24,23 @@ const ServCerc = () => {
           </span>
         </button>
       </div>
-      <div className='w-full flex flex-row items-start justify-start overflow-x-auto'>
-        <div className='flex gap-3 max-w-screen-xl mx-auto p-3'>
-          <div className='w-36 h-48 flex flex-col '>
-            <img
-              className='h-44 object-cover rounded-2xl'
-              src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQspoaFmktd8eOMfgHYrxVmWxpPcH4wUi4MdA&usqp=CAU'
-              alt=''
-            />
-            <p className='text-sm text-primary-959'>Casas</p>
-          </div>
-          <div className='w-36 h-48 flex flex-col '>
-            <img
-              className='h-44 object-cover rounded-2xl'
-              src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQspoaFmktd8eOMfgHYrxVmWxpPcH4wUi4MdA&usqp=CAU'
-              alt=''
-            />
-            <p className='text-sm text-primary-959'>Oficinas</p>
-          </div>
-          <div className='w-36 h-48 flex flex-col '>
-            <img
-              className='h-44 object-cover rounded-2xl'
-              src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQspoaFmktd8eOMfgHYrxVmWxpPcH4wUi4MdA&usqp=CAU'
-              alt=''
-            />
-            <p className='text-sm text-primary-959'>Albañileria</p>
-          </div>
+
+      {activateSpinner ? (
+        <div className='w-full flex flex-row gap-3 overflow-x-auto pl-3 pt-3'>
+          {nearServices.length &&
+            nearServices.map((service) => (
+              <IndividualServiceCerc
+                key={service.id}
+                image={service.image}
+                category='categoria'
+              />
+            ))}
         </div>
-      </div>
+      ) : (
+        <div className='flex justify-center items-center h-32'>
+          <div className='animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900'></div>
+        </div>
+      )}
     </div>
   );
 };
