@@ -1,5 +1,7 @@
+//eslint-disable-next-line
 const { nextui } = require("@nextui-org/react");
 /** @type {import('tailwindcss').Config} */
+
 
 export default {
     content: [
@@ -41,6 +43,9 @@ export default {
                     961: "#EFEFEF",
                     962: "#2F3643",
                     963: "#9A9FA5",
+                    964: "#1A1D1F",
+                    965: "#B5E4CA",
+                    966: "#6759FF"
                 },
             },
         },

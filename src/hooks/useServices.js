@@ -10,27 +10,26 @@ const useServices = () => {
   const navigate = useNavigate();
 
   const handleCreateService = async (newService) => {
-    
     const {image, title, categoryId, description, price, city} = newService;
 
-    const serviceData = {
-      image,
-      title,
-      categoryId,
-      description,
-      price,
-      city,
-      latitude: geolocation.latitude,
-      longitude: geolocation.longitude,
-    };
-    console.log(serviceData)
+    const formData = new FormData();
+    formData.append("image", image[0]);
+    formData.append("title", title);
+    formData.append("categoryId", categoryId);
+    formData.append("description", description);
+    formData.append("price", price);
+    formData.append("city", city);
+    formData.append("latitude", geolocation.latitude);
+    formData.append("longitude", geolocation.longitude);
+
     try {
-      await axios.post(API_URL_SERVICES, serviceData, {
+      const {data} = await axios.post(API_URL_SERVICES, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log(data);
       navigate("/home");
     } catch (error) {
       if (error.response) {

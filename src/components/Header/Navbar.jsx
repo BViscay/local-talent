@@ -1,6 +1,9 @@
+import logo from "../../assets/images/Logo.png";
 import {useState} from "react";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import {LiaHandshakeSolid} from "react-icons/lia";
+import {AiOutlineAppstoreAdd} from "react-icons/ai";
 import {
   Navbar,
   NavbarBrand,
@@ -15,7 +18,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "@nextui-org/react";
-import {Home, FileText, Bell} from "lucide-react";
+import {Home, Bell} from "lucide-react";
 import CustomMenuToggle from "./CustomMenuToggle";
 import SideMenuUser from "./SideMenuUser";
 import SideMenu from "./SideMenu";
@@ -28,22 +31,25 @@ const NavBar = () => {
   const menuItems = ["Profile", "Dashboard", "Activity", "Log Out"];
 
   return (
-    <Navbar height='6rem' className='bg-white' maxWidth='xl'>
+    <Navbar height='5rem' className='bg-white' maxWidth='xl'>
       {/*Navbar Mobile*/}
       <NavbarContent className='md:hidden justify-evenly w-full' justify='none'>
-        <NavbarItem>
-          <Link color='foreground' href='/home'>
-            <Home size={30} strokeWidth={2.2} color='#266DD3' />
-          </Link>
+        <NavbarItem onClick={() => navigate("/home")}>
+          <Home size={30} strokeWidth={2.2} color='#266DD3' />
         </NavbarItem>
+
         <NavbarItem onClick={() => navigate("/create-service")}>
-          <FileText size={30} strokeWidth={2.2} color='#266DD3' />
+          <AiOutlineAppstoreAdd className='text-[34px] text-[#266DD3]' />
         </NavbarItem>
-        <NavbarItem>
-          <Link color='foreground' href='#'>
-            <Bell size={30} strokeWidth={2.2} color='#266DD3' />
-          </Link>
+
+        <NavbarItem onClick={() => navigate("/matchs")}>
+          <LiaHandshakeSolid className='text-[34px] text-[#266DD3]' />
         </NavbarItem>
+
+        <NavbarItem onClick={() => navigate("/notifications")}>
+          <Bell size={30} strokeWidth={2.2} color='#266DD3' />
+        </NavbarItem>
+
         <CustomMenuToggle menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
         {menuOpen && isLoggedIn ? (
           <SideMenuUser menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
@@ -56,25 +62,30 @@ const NavBar = () => {
       {/*Navbar Desktop*/}
       <NavbarContent className='hidden md:flex justify-evenly w-full gap-10 lg:gap-20'>
         <NavbarBrand>
-          <img src='/src/Logo.png' className='w-36'></img>
+          <img src={logo} className='w-36'></img>
         </NavbarBrand>
-        <NavbarItem>
-          <Link className='text-[#172B4D] font-medium text-lg' href='/home'>
+        <NavbarItem onClick={() => navigate("/home")}>
+          <p className='text-[#172B4D] font-medium text-lg' href='/home'>
             Inicio
-          </Link>
+          </p>
         </NavbarItem>
-        <NavbarItem>
-          <Link className='text-[#172B4D] font-medium text-lg' href='/services'>
-            Mis Servicios
-          </Link>
+        <NavbarItem onClick={() => navigate("/create-service")}>
+          <p className='text-[#172B4D] font-medium text-lg' href='/services'>
+            Crear Servicio
+          </p>
         </NavbarItem>
-        <NavbarItem>
-          <Link
+        <NavbarItem onClick={() => navigate("/matchs")}>
+          <p className='text-[#172B4D] font-medium text-lg' href='/services'>
+            Mis Matchs
+          </p>
+        </NavbarItem>
+        <NavbarItem onClick={() => navigate("/notifications")}>
+          <p
             className='text-[#172B4D] font-medium text-lg'
             href='/notifications'
           >
             Notificaciones
-          </Link>
+          </p>
         </NavbarItem>
         <Dropdown placement='bottom-end'>
           <DropdownTrigger>
@@ -110,10 +121,16 @@ const NavBar = () => {
             </DropdownMenu>
           ) : (
             <DropdownMenu aria-label='Profile Actions' variant='flat'>
-              <DropdownItem className='bg-[#266DD3] text-white' key='signin'>
+              <DropdownItem
+                onClick={() => navigate("/login")}
+                className='bg-[#266DD3] text-white'
+                key='signin'
+              >
                 Iniciar Sesión
               </DropdownItem>
-              <DropdownItem key='signup'>Registrarse</DropdownItem>
+              <DropdownItem onClick={() => navigate("/sign-up")} key='signup'>
+                Registrarse
+              </DropdownItem>
             </DropdownMenu>
           )}
         </Dropdown>
