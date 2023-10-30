@@ -1,6 +1,6 @@
 export default function IndividualServiceCerc({image, category}) {
   return (
-    <div className='w-36 h-48 flex flex-col '>
+    <div className='min-w-[140px] h-48 flex flex-col '>
       <img
         className='h-44 object-cover rounded-2xl'
         src={image}

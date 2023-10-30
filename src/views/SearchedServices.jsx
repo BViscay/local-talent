@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
-import { getRenderServices } from "../redux/sliceFilters";
+import { getFilterByName } from "../redux/sliceFilters";
 import CardService from "../components/FilteredService/CardService";
 import SearchBar from "../components/Header/SearchBar";
 
-export default function FilteredServicesByCat() {
-  const renderServices = useSelector(getRenderServices);
+export default function SearchedServices() {
+  const renderServices = useSelector(getFilterByName);
   return (
     <div>
       <SearchBar />

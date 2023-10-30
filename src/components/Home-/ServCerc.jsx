@@ -26,7 +26,7 @@ const ServCerc = () => {
       </div>
 
       {activateSpinner ? (
-        <div className='w-full flex flex-row gap-3 overflow-x-auto pl-3 pt-3'>
+        <div className='w-full flex flex-row gap-3 h-52 overflow-x-auto pl-3 pt-3'>
           {nearServices.length &&
             nearServices.map((service) => (
               <IndividualServiceCerc

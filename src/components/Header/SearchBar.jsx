@@ -1,29 +1,32 @@
-import {useState} from "react";
-import {Input} from "@nextui-org/react";
-import {SearchIcon} from "lucide-react";
+import { useState } from "react";
+import { Input } from "@nextui-org/react";
+import { SearchIcon } from "lucide-react";
 import useFilters from "../../hooks/useFilters";
-
+import { useNavigate } from "react-router-dom";
 const SearchBar = () => {
   const [inputValue, setInputValue] = useState("");
-
-  const {handleFilterByName} = useFilters();
-
+  const navigate = useNavigate();
+  const { handleFilterByName } = useFilters();
+  const handleClick = async () => {
+    await handleFilterByName(inputValue);
+    navigate("/searched-services");
+  };
   return (
-    <div className='w-full flex flex-col items-start bg-white py-3 px-3'>
+    <div className="w-full flex flex-col items-start bg-white py-3 px-3">
       <Input
         onChange={(e) => setInputValue(e.target.value)}
         value={inputValue}
-        radius='lg'
-        size='lg'
-        placeholder='Buscador de servicios...'
+        radius="lg"
+        size="lg"
+        placeholder="Buscador de servicios..."
         endContent={
           <button
-            onClick={() => handleFilterByName(inputValue)}
-            className='p-4 bg-[#266DD3] h-9 w-9 flex items-center justify-center rounded-lg'
+            onClick={handleClick}
+            className="p-4 bg-[#266DD3] h-9 w-9 flex items-center justify-center rounded-lg"
           >
             <SearchIcon
               size={20}
-              className='text-white cursor-pointer flex-shrink-0'
+              className="text-white cursor-pointer flex-shrink-0"
             />
           </button>
         }
