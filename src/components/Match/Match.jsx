@@ -11,6 +11,7 @@ import paintIcon from "../../assets/images/paint-icon.png";
 import plumberIcon from "../../assets/images/plumber-icon.png";
 import {Button} from "@nextui-org/react";
 import {Avatar} from "@nextui-org/react";
+import { Phone } from "lucide-react";
 
 
 const Match = ({id, categoria, subcategoria, codigo, estado, nombre, avatar}) => {
@@ -51,8 +52,9 @@ const Match = ({id, categoria, subcategoria, codigo, estado, nombre, avatar}) =>
             {estado === 'Confirmado' ? <Button className="bg-green-500/30 text-green-500 self-end">Confirmado</Button> : <Button className="bg-red-500/30 text-red-500">Pendiente</Button>}
         </div>
         <div className="flex p-4 items-center">
-          <Avatar showFallback></Avatar>
+          <Avatar showFallback src={avatar}></Avatar>
           <p className="ml-2">{nombre}</p>
+          <Button className="ml-4 bg-[#266DD3] text-white"><Phone /> Llamar</Button>
         </div>
     </div>
   )
