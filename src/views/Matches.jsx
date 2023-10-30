@@ -8,42 +8,52 @@ import {Button,ButtonGroup} from "@nextui-org/react";
 export default function Matches() {
 
   const mockMatches = [
-    {
-      id: 101,
-      name: 'María García',
-      age: 28,
-      description: 'Soy una persona extrovertida que disfruta de la música y los viajes.',
-      matchPercentage: 85,
-    },
-    {
-      id: 102,
-      name: 'Carlos Rodríguez',
-      age: 31,
-      description: 'Apasionado por la tecnología y los deportes al aire libre.',
-      matchPercentage: 92,
-    },
-    {
-      id: 103,
-      name: 'Laura Martínez',
-      age: 25,
-      description: 'Amante de los libros y los animales. Busco a alguien con quien compartir largas conversaciones.',
-      matchPercentage: 78,
-    },
-    {
-      id: 104,
-      name: 'Javier Fernández',
-      age: 29,
-      description: 'Me encanta cocinar y experimentar con diferentes tipos de cocina.',
-      matchPercentage: 80,
-    },
-    {
-      id: 105,
-      name: 'Ana López',
-      age: 27,
-      description: 'Aventurera y amante de la naturaleza. Siempre en busca de nuevas experiencias.',
-      matchPercentage: 88,
-    },
-  ];
+  {
+    id: 101,
+    categoria: 'Hogar',
+    subcategoria: 'Reparacion',
+    codigo: 'HOG-101',
+    estado: 'Confirmado',
+    nombre: 'Juan Pérez',
+    avatar: 'https://example.com/avatar1.jpg'
+  },
+  {
+    id: 102,
+    categoria: 'Belleza',
+    subcategoria: 'Corte de Pelo',
+    codigo: 'BEL-102',
+    estado: 'Pendiente',
+    nombre: 'Ana Martínez',
+    avatar: 'https://example.com/avatar2.jpg'
+  },
+  {
+    id: 103,
+    categoria: 'Electricidad',
+    subcategoria: 'Instalacion',
+    codigo: 'ELE-103',
+    estado: 'Confirmado',
+    nombre: 'Luis Rodríguez',
+    avatar: 'https://example.com/avatar3.jpg'
+  },
+  {
+    id: 104,
+    categoria: 'Fletes',
+    subcategoria: 'Transporte',
+    codigo: 'FLE-104',
+    estado: 'Pendiente',
+    nombre: 'María García',
+    avatar: 'https://example.com/avatar4.jpg'
+  },
+  {
+    id: 105,
+    categoria: 'Limpieza',
+    subcategoria: 'Servicio Doméstico',
+    codigo: 'LIM-105',
+    estado: 'Confirmado',
+    nombre: 'Carolina López',
+    avatar: 'https://example.com/avatar5.jpg'
+  },
+];
 
   return (
     <div className="bg-[#f9f9f9] p-4 h-screen">
@@ -65,11 +75,12 @@ export default function Matches() {
         {mockMatches.map(n => 
           <Match 
             key={n.id}
-            title={n.title}
-            code={n.code}
-            content={n.content}
-            timestamp={n.timestamp}
-            read={n.read}
+            categoria={n.categoria}
+            subcategoria={n.subcategoria}
+            codigo={n.codigo}
+            estado={n.estado}
+            nombre={n.nombre}
+            avatar={n.avatar}
           />  
         )}
       </div>
