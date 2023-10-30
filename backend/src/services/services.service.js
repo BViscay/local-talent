@@ -85,15 +85,7 @@ const deleteService = async (id) => {
 }
 
 const allServices = async () => {
-  const services = await Service.findAll({
-    include: [
-      {
-        model: User,
-        as: 'user', // Usamos el alias que definimos en la relación
-        attributes: ['firstname', 'lastname'],
-      },
-    ],
-  });
+  const services = await Service.findAll();
   return services;
 };
 
