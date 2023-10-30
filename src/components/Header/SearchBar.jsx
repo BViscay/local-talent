@@ -1,26 +1,15 @@
 import {useState} from "react";
 import {Input} from "@nextui-org/react";
 import {SearchIcon} from "lucide-react";
-import {useSelector} from "react-redux";
-import {getName} from "../../redux/sliceLogin";
 import useFilters from "../../hooks/useFilters";
 
 const SearchBar = () => {
-  const userName = useSelector(getName);
   const [inputValue, setInputValue] = useState("");
 
   const {handleFilterByName} = useFilters();
 
   return (
     <div className='w-full flex flex-col items-start bg-white py-3 px-3'>
-      <div className='flex'>
-        <p className='text-xl font-medium tracking-[0.15em] text-[#666C89]'>
-          Hola {userName} &#128075;
-        </p>
-      </div>
-      <h1 className='text-3xl font-bold text-[#172B4D] text-left pt-2 pb-4'>
-        Que servicio estas buscando?
-      </h1>
       <Input
         onChange={(e) => setInputValue(e.target.value)}
         value={inputValue}
