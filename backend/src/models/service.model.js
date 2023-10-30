@@ -57,14 +57,14 @@ Service.init({
   categoryId: {
     type: DataTypes.INTEGER,
     references: {
-      model: 'Category',
+      model: Category,
       key: 'id'
     }
   },
   userId: {
     type: DataTypes.INTEGER,
     references: {
-      model: 'User',
+      model: User,
       key: 'id'
     }
   }
