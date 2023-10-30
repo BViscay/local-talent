@@ -38,6 +38,16 @@ export default function Edit() {
           />
         </div>
         <div className="w-[90%]">
+          <Input
+            labelText='Ingrese su ciudad '
+            type='text'
+            placeholder='Facilitara encontrar servicios cercanos'
+            name='city'
+            register={register}
+            error={errors.city?.message}
+          />
+        </div>
+        <div className="w-[90%]">
             <Input
               labelText='Agregar whatsApp'
               type='number'
