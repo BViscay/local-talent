@@ -23,13 +23,13 @@ const useServices = () => {
     formData.append("longitude", geolocation.longitude);
 
     try {
-      const {data} = await axios.post(API_URL_SERVICES, formData, {
+      await axios.post(API_URL_SERVICES, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(data);
+
       navigate("/home");
     } catch (error) {
       if (error.response) {
