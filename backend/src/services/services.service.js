@@ -84,14 +84,18 @@ const deleteService = async (id) => {
   // return destroyImage
 }
 
-const allServices = async () => await Service.findAll({
-      include: [
-        {
-          model: User, 
-          attributes: ['firstname', "lastname"]
-        },
-      ]
-})
+const allServices = async () => {
+  const services = await Service.findAll({
+    include: [
+      {
+        model: User,
+        as: 'user', // Usamos el alias que definimos en la relación
+        attributes: ['firstname', 'lastname'],
+      },
+    ],
+  });
+  return services;
+};
 
 
 module.exports = {
