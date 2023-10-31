@@ -1,18 +1,20 @@
 import axios from "axios";
-import {useSelector, useDispatch} from "react-redux";
-import {useNavigate} from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   API_URL_SERVICES,
   API_URL_ALLSERVICES,
   API_URL_SEARCH,
 } from "../config/api";
-import {getToken} from "../redux/sliceLogin";
+import { getToken } from "../redux/sliceLogin";
 import {
   setRenderServices,
   setFilterByName,
   setAllServices,
   setNearServices,
 } from "../redux/sliceFilters";
+import Swal from "sweetalert2";
+
 
 const useFilters = () => {
   const token = useSelector(getToken);
@@ -21,7 +23,7 @@ const useFilters = () => {
 
   const handleFilterByCategory = async (catId) => {
     try {
-      const {data} = await axios.get(`${API_URL_SEARCH}?data=${catId}`);
+      const { data } = await axios.get(`${API_URL_SEARCH}?data=${catId}`);
 
       if (data) {
         navigate("/filtered-services");
@@ -29,28 +31,43 @@ const useFilters = () => {
       }
     } catch (error) {
       console.log(error);
-      alert("No existen servicios de esta categoría");
+      
+      Swal.fire({
+        title: 'Error',
+        text: 'No existen servicios de esta categoría',
+        icon: 'error',
+      });
     }
   };
 
   const handleFilterByName = async (serviceName) => {
     try {
-      const {data} = await axios.get(`${API_URL_SEARCH}?data=${serviceName}`);
+      const { data } = await axios.get(`${API_URL_SEARCH}?data=${serviceName}`);
       if (data) {
         dispatch(setFilterByName(data));
       }
     } catch (error) {
       console.log(error);
-      alert("No existen servicios con este nombre");
+      
+      Swal.fire({
+        title: 'Error',
+        text: 'No existen servicios con este nombre',
+        icon: 'error',
+      });
     }
   };
 
   const handleFilterOwnServices = async () => {
     if (!token) {
-      alert("Por favor logueate o registrate para buscar tus servicios");
+      
+      Swal.fire({
+        title: 'Aviso',
+        text: 'Por favor inicia sesión o regístrate para buscar tus servicios',
+        icon: 'warning',
+      });
       if (token !== null) {
         try {
-          const {data} = await axios(API_URL_SERVICES, {
+          const { data } = await axios(API_URL_SERVICES, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -68,19 +85,24 @@ const useFilters = () => {
 
   const handleFilterByLocation = async (location) => {
     try {
-      const {data} = await axios(API_URL_ALLSERVICES);
+      const { data } = await axios.get(API_URL_ALLSERVICES);
 
       if (data) {
-        const sameLocationService = data.filter(
-          (service) =>
-            service.latitude == location.latitude &&
-            service.longitude == location.longitude
+        const sameLocationService = data.filter((service) =>
+          service.latitude === location?.latitude && service.longitude === location?.longitude
         );
+
         dispatch(setNearServices(sameLocationService));
         dispatch(setAllServices(data));
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      
+      Swal.fire({
+        title: 'Error',
+        text: 'Ocurrió un error al filtrar por ubicación',
+        icon: 'error',
+      });
     }
   };
 
