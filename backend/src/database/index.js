@@ -35,7 +35,6 @@ const connectionDatabase = (force) => {
   Match.hasMany(Rating)
   Rating.belongsTo(Match)
 
-  sequelize.sync({ force })
   Category.hasMany(Service, { foreignKey: 'category_id' }) // Category puede tener muchos Services
   Service.belongsTo(Category, { foreignKey: 'category_id' }) // Cada Service pertenece a una Category
 
