@@ -1,16 +1,14 @@
 import { useSelector } from "react-redux";
-import { getFilterByName } from "../redux/sliceFilters";
+import { getNearServices } from "../redux/sliceFilters";
 import CardService from "../components/FilteredService/CardService";
 import SearchBar from "../components/Header/SearchBar";
 
-export default function SearchedServices() {
-  const renderServices = useSelector(getFilterByName);
+export default function FilteredByLocation() {
+  const renderServices = useSelector(getNearServices);
   return (
     <div>
       <SearchBar />
-      <h2 className="border-3 border-t-transparent border-x-transparent p-1">
-        Servicios Encontrados ({renderServices.length})
-      </h2>
+      <p>Servicios cercanos ({renderServices.length})</p>
       <div>
         {renderServices.map((service) => (
           <CardService renderServices={service} />

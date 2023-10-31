@@ -12,6 +12,7 @@ import {
   setName,
   setLastName,
 } from "../redux/sliceLogin";
+import Swal from "sweetalert2";
 
 const useLogin = () => {
   const navigate = useNavigate();
