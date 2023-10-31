@@ -16,6 +16,7 @@ import {
 const useLogin = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
   const isLogin = useSelector(isLogged);
   const dispatch = useDispatch();
   const redirectLogin = (navigate) => {
@@ -49,12 +50,12 @@ const useLogin = () => {
       dispatch(logout());
       if (error.response) {
         if (error.response.data.message === "USER_NOT_FOUND") {
-          alert("Usuario Incorrecto");
+          Swal.fire("Error", "Usuario Incorrecto", "error"); // SweetAlert en caso de usuario incorrecto
         } else if (error.response.data.message === "USER_REQUIRE_VALIDATE") {
           navigate("/validate");
           dispatch(setMail(email));
         } else if (error.response.data.message === "PASSWORD_INVALID") {
-          alert("Password Incorrecto");
+          Swal.fire("Error", "Password Incorrecto", "error"); // SweetAlert en caso de contraseña incorrecta
         }
       }
     }
@@ -99,7 +100,7 @@ const useLogin = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     dispatch(logout());
-    alert("Te deslogueaste correctamente");
+    Swal.fire("Éxito", "Te has deslogueado correctamente");
   };
 
   const handleOpenModal = () => {
@@ -107,6 +108,11 @@ const useLogin = () => {
   };
   const handleCloseModal = () => {
     setIsModalOpen(false);
+  };
+
+  // Función para alternar entre mostrar/ocultar contraseña
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
   };
 
   return {
@@ -117,6 +123,8 @@ const useLogin = () => {
     handleOpenModal,
     handleCloseModal,
     isModalOpen,
+    showPassword, // Estado para mostrar/ocultar contraseña
+    toggleShowPassword, // Función para alternar mostrar/ocultar contraseña
   };
 };
 
