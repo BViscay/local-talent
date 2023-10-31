@@ -11,11 +11,29 @@ const connectionDatabase = (force) => {
   const User = require('../models/user.model')
   const Service = require('../models/service.model')
   const Category = require('../models/category.model')
+  const Match = require('../models/match.model')
+  const Rating = require('../models/rating.model')
   const ProductModel = require('../models/product.model')
   const SalesModel = require('../models/sales.model')
 
-  User.hasMany(Service, { foreignKey: 'user_id' }) // User puede tener muchos Services
-  Service.belongsTo(User, { foreignKey: 'user_id' }) // Cada Service pertenece a un User
+  // CAMBIOS DIEGO
+  User.hasMany(Service, {
+    foreignKey: 'userId',
+    as: 'services' // Este es el alias que usaremos para acceder a los servicios de un usuario
+  })
+  Service.belongsTo(User, {
+    foreignKey: 'userId',
+    as: 'user' // Este es el alias que usaremos para acceder al modelo User en la consulta
+  })
+
+  User.hasMany(Match)
+  Match.belongsTo(User)
+
+  Service.hasMany(Match)
+  Match.belongsTo(Service)
+
+  Match.hasMany(Rating)
+  Rating.belongsTo(Match)
 
   Category.hasMany(Service, { foreignKey: 'category_id' }) // Category puede tener muchos Services
   Service.belongsTo(Category, { foreignKey: 'category_id' }) // Cada Service pertenece a una Category
