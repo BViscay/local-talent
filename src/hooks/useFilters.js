@@ -12,7 +12,6 @@ import {
   setFilterByName,
   setAllServices,
   setNearServices,
-  getAllServices,
 } from "../redux/sliceFilters";
 import Swal from "sweetalert2";
 
@@ -20,7 +19,6 @@ const useFilters = () => {
   const token = useSelector(getToken);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const allServices = useSelector(getAllServices);
 
   const handleFilterByCategory = async (catId) => {
     try {
@@ -84,21 +82,29 @@ const useFilters = () => {
     }
   };
 
-  const handleFilterByLocation = (location) => {
-    const roundedLatitude = location.latitude.toFixed(1);
-    const roundedLongitude = location.longitude.toFixed(1);
+  const handleFilterByLocation = async (location) => {
+    try {
+      const { data } = await axios.get(API_URL_ALLSERVICES);
 
-    const sameLocationService = allServices.filter((service) => {
-      const serviceRoundedLatitude = service.latitude.toFixed(1);
-      const serviceRoundedLongitude = service.longitude.toFixed(1);
+      if (data) {
+        const sameLocationService = data.filter(
+          (service) =>
+            service.latitude === location?.latitude &&
+            service.longitude === location?.longitude
+        );
 
-      return (
-        serviceRoundedLatitude === roundedLatitude &&
-        serviceRoundedLongitude === roundedLongitude
-      );
-    });
+        dispatch(setNearServices(sameLocationService));
+        dispatch(setAllServices(data));
+      }
+    } catch (error) {
+      console.error(error);
 
-    dispatch(setNearServices(sameLocationService));
+      Swal.fire({
+        title: "Error",
+        text: "Ocurrió un error al filtrar por ubicación",
+        icon: "error",
+      });
+    }
   };
 
   return {

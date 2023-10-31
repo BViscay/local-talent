@@ -1,5 +1,6 @@
 import { AiFillStar } from "react-icons/ai";
 export default function CardService({ renderServices }) {
+  const numeroAleatorio = (Math.random() * (5 - 1) + 1).toFixed(1);
   return (
     <div className="flex w-full h-[160px] gap-2 border-3 border-t-transparent border-x-transparent p-4 justify-center items-center">
       <div className="w-1/3 ">
@@ -15,7 +16,7 @@ export default function CardService({ renderServices }) {
           <div className="flex w-full">
             <p className="flex items-center justify-center mr-1">
               <AiFillStar className="text-yellow-400 mr-1" />
-              {renderServices.rating}
+              {renderServices.rating + numeroAleatorio}
             </p>
             <p className="text-primary-963">(30)</p>
           </div>
