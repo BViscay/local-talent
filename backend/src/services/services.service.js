@@ -52,7 +52,7 @@ const searchService = async (query) => {
   }
   else{
 
-    const resultado = await Service.findAll({
+  const resultado = await Service.findAll({
       where: {
         [Sequelize.Op.or]: [{
             title: {
@@ -85,15 +85,7 @@ const deleteService = async (id) => {
 }
 
 const allServices = async () => {
-  const services = await Service.findAll({
-    include: [
-      {
-        model: User,
-        as: 'user', // Usamos el alias que definimos en la relación
-        attributes: ['firstname', 'lastname'],
-      },
-    ],
-  });
+  const services = await Service.findAll()
   return services;
 };
 
