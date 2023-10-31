@@ -1,8 +1,8 @@
-import {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import {API_URL_LOGIN, API_URL_TOKENLOGIN} from "../config/api";
-import {useSelector, useDispatch} from "react-redux";
+import { API_URL_LOGIN, API_URL_TOKENLOGIN } from "../config/api";
+import { useSelector, useDispatch } from "react-redux";
 import {
   login,
   logout,
@@ -23,15 +23,15 @@ const useLogin = () => {
   };
 
   const handleLogin = async (userData) => {
-    const {email, password, rememberUser} = userData;
+    const { email, password, rememberUser } = userData;
     const URL = API_URL_LOGIN;
 
     try {
-      const {data} = await axios.post(URL, {
+      const { data } = await axios.post(URL, {
         email: email,
         password: password,
       });
-      const {token, session} = data;
+      const { token, session } = data;
 
       if (token && rememberUser) {
         localStorage.setItem("token", token);
@@ -65,12 +65,12 @@ const useLogin = () => {
       const token = localStorage.getItem("token");
       if (token !== null) {
         try {
-          const {data} = await axios.get(API_URL_TOKENLOGIN, {
+          const { data } = await axios.get(API_URL_TOKENLOGIN, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           });
-          const {session} = data;
+          const { session } = data;
           if (session) {
             dispatch(setAuthToken(token));
             dispatch(login());
@@ -88,7 +88,7 @@ const useLogin = () => {
   };
 
   const handleGoogleLogin = (response) => {
-        if (response.credential) {
+    if (response.credential) {
       dispatch(setAuthToken(response.credential));
 
       dispatch(login());
