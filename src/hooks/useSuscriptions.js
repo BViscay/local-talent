@@ -1,7 +1,6 @@
 import axios from "axios";
 import {getToken} from "../redux/sliceLogin";
 import {useSelector} from "react-redux";
-
 import {
   API_URL_GOLDSUSCRIPTION,
   API_URL_SILVERSUSCRIPTION,

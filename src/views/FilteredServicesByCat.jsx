@@ -8,7 +8,6 @@ export default function FilteredServicesByCat() {
   return (
     <div>
       <SearchBar />
-      <h2>Servicio</h2>
       <div>
         {renderServices.map((service) => (
           <CardService key={service.id} renderServices={service} />
