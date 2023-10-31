@@ -1,3 +1,4 @@
+import {useState} from "react";
 import axios from "axios";
 import {useSelector, useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
@@ -12,10 +13,13 @@ import {
   setFilterByName,
   setAllServices,
   setNearServices,
+  getAllServices,
 } from "../redux/sliceFilters";
 
 const useFilters = () => {
+  const [detailService, setDetailService] = useState({});
   const token = useSelector(getToken);
+  const allServices = useSelector(getAllServices);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -66,17 +70,25 @@ const useFilters = () => {
     }
   };
 
-  const handleFilterByLocation = async (location) => {
+  const handleFilterByServiceId = async (servId) => {
+    try {
+      const response = await axios(`${API_URL_SERVICES}?categoryId=${servId}`,{
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+      if (response.data.name) {
+        setDetailService(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleAllServices = async () => {
     try {
       const {data} = await axios(API_URL_ALLSERVICES);
-
       if (data) {
-        const sameLocationService = data.filter(
-          (service) =>
-            service.latitude == location.latitude &&
-            service.longitude == location.longitude
-        );
-        dispatch(setNearServices(sameLocationService));
         dispatch(setAllServices(data));
       }
     } catch (error) {
@@ -84,11 +96,31 @@ const useFilters = () => {
     }
   };
 
+  const handleFilterByLocation = (location) => {
+    const roundedLatitude = location.latitude.toFixed(1);
+    const roundedLongitude = location.longitude.toFixed(1);
+
+    const sameLocationService = allServices.filter((service) => {
+      const serviceRoundedLatitude = service.latitude.toFixed(1);
+      const serviceRoundedLongitude = service.longitude.toFixed(1);
+
+      return (
+        serviceRoundedLatitude === roundedLatitude &&
+        serviceRoundedLongitude === roundedLongitude
+      );
+    });
+
+    dispatch(setNearServices(sameLocationService));
+  };
+
   return {
+    handleFilterByServiceId,
     handleFilterByCategory,
     handleFilterByName,
     handleFilterOwnServices,
     handleFilterByLocation,
+    handleAllServices,
+    detailService,
   };
 };
 

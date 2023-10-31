@@ -1,6 +1,6 @@
 import {AiFillStar} from "react-icons/ai"
 export default function CardService({renderServices}) {
-    console.log(renderServices)
+    
   return (
     <div className="flex w-full h-[160px] gap-2 border-3 border-t-transparent border-x-transparent p-4">
         <div className="w-1/3 ">

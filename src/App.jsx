@@ -18,6 +18,7 @@ import EditeProfile from "./views/EditeProfile";
 import FilteredServicesByCat from "./views/FilteredServicesByCat";
 import Suscriptions from "./views/Suscriptions";
 import SearchedServices from "./views/SearchedServices";
+import ServiceDetail from "./views/ServiceDetail";
 
 function App() {
   const location = useLocation();
@@ -46,8 +47,9 @@ function App() {
               path="/filtered-services"
               element={<FilteredServicesByCat />}
             />
-            <Route path="/suscriptions" element={<Suscriptions />} />
             <Route path="/searched-services" element={<SearchedServices />} />
+            <Route path="/suscriptions" element={<Suscriptions />} />
+            <Route path="/service/:id" element={<ServiceDetail />} />
           </Routes>
         </div>
       </NextUIProvider>
