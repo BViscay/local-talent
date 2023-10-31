@@ -8,7 +8,9 @@ export default function SearchedServices() {
   return (
     <div>
       <SearchBar />
-      <h2>Servicio</h2>
+      <h2 className="border-3 border-t-transparent border-x-transparent p-1">
+        Servicios Encontrados ({renderServices.length})
+      </h2>
       <div>
         {renderServices.map((service) => (
           <CardService key={service.id} renderServices={service} />
