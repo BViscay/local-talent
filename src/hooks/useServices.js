@@ -2,6 +2,7 @@ import {getToken, getLocation} from "../redux/sliceLogin";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
 import {API_URL_SERVICES} from "../config/api";
 
 const useServices = () => {
@@ -30,16 +31,29 @@ const useServices = () => {
         },
       });
 
-      navigate("/home");
+      // Reemplaza alert con SweetAlert
+      Swal.fire({
+        title: 'Éxito',
+        text: 'Servicio creado correctamente 🎉',
+        icon: 'success',
+      }).then(() => {
+        navigate("/home");
+      });
+
     } catch (error) {
       if (error.response) {
-        alert("error!");
+        // Reemplaza alert con SweetAlert
+        Swal.fire({
+          title: 'Error',
+          text: 'Hubo un error al crear el servicio 😣',
+          icon: 'error',
+        });
         console.log("Response Data:", error.response.data);
       }
     }
   };
 
-  return {handleCreateService};
+  return { handleCreateService };
 };
 
 export default useServices;

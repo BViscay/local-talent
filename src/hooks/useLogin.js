@@ -1,8 +1,9 @@
-import {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import {API_URL_LOGIN, API_URL_TOKENLOGIN} from "../config/api";
-import {useSelector, useDispatch} from "react-redux";
+import { API_URL_LOGIN, API_URL_TOKENLOGIN } from "../config/api";
+import { useSelector, useDispatch } from "react-redux";
+import Swal from "sweetalert2";
 import {
   login,
   logout,
@@ -16,6 +17,7 @@ import {
 const useLogin = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
   const isLogin = useSelector(isLogged);
   const dispatch = useDispatch();
   const redirectLogin = (navigate) => {
@@ -23,20 +25,20 @@ const useLogin = () => {
   };
 
   const handleLogin = async (userData) => {
-    const {email, password, rememberUser} = userData;
+    const { email, password, rememberUser } = userData;
     const URL = API_URL_LOGIN;
-
+  
     try {
-      const {data} = await axios.post(URL, {
+      const { data } = await axios.post(URL, {
         email: email,
         password: password,
       });
-      const {token, session} = data;
-
+      const { token, session } = data;
+  
       if (token && rememberUser) {
         localStorage.setItem("token", token);
       }
-
+  
       if (token) {
         dispatch(setAuthToken(token));
         dispatch(login());
@@ -49,28 +51,28 @@ const useLogin = () => {
       dispatch(logout());
       if (error.response) {
         if (error.response.data.message === "USER_NOT_FOUND") {
-          alert("Usuario Incorrecto");
+          Swal.fire("Error", "Usuario Incorrecto", "error"); // SweetAlert en caso de usuario incorrecto
         } else if (error.response.data.message === "USER_REQUIRE_VALIDATE") {
           navigate("/validate");
           dispatch(setMail(email));
         } else if (error.response.data.message === "PASSWORD_INVALID") {
-          alert("Password Incorrecto");
+          Swal.fire("Error", "Password Incorrecto", "error"); // SweetAlert en caso de contraseña incorrecta
         }
       }
     }
   };
-
+  
   const handleTokenLogin = async () => {
     if (!isLogin) {
       const token = localStorage.getItem("token");
       if (token !== null) {
         try {
-          const {data} = await axios.get(API_URL_TOKENLOGIN, {
+          const { data } = await axios.get(API_URL_TOKENLOGIN, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           });
-          const {session} = data;
+          const { session } = data;
           if (session) {
             dispatch(setAuthToken(token));
             dispatch(login());
@@ -88,7 +90,7 @@ const useLogin = () => {
   };
 
   const handleGoogleLogin = (response) => {
-        if (response.credential) {
+    if (response.credential) {
       dispatch(setAuthToken(response.credential));
 
       dispatch(login());
@@ -99,14 +101,20 @@ const useLogin = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     dispatch(logout());
-    alert("Te deslogueaste correctamente");
+    Swal.fire("Éxito", "Te has deslogueado correctamente");
   };
+  
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
   const handleCloseModal = () => {
     setIsModalOpen(false);
+  };
+
+  // Función para alternar entre mostrar/ocultar contraseña
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
   };
 
   return {
@@ -117,6 +125,8 @@ const useLogin = () => {
     handleOpenModal,
     handleCloseModal,
     isModalOpen,
+    showPassword, // Estado para mostrar/ocultar contraseña
+    toggleShowPassword, // Función para alternar mostrar/ocultar contraseña
   };
 };
 
