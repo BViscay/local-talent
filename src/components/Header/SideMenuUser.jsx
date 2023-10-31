@@ -68,7 +68,10 @@ const SideMenuUser = ({ menuOpen, setMenuOpen }) => {
           </div>
           <div className="w-full py-2">
             <div
-              onClick={() => navigate("suscriptions")}
+              onClick={() => {
+                navigate("suscriptions");
+                setMenuOpen(!menuOpen);
+              }}
               className="w-full flex p-3 items-center gap-2 rounded-lg cursor-pointer"
             >
               <Wallet size={28} strokeWidth={2.2} />

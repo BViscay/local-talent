@@ -9,8 +9,8 @@ export default function CardService({ renderServices }) {
           alt="Error al cargar foto"
         />
       </div>
-      <div className="flex flex-col w-2/3 items-start justify-center ml-2">
-        <p className="w-full self-center">{renderServices.title}</p>
+      <div className="flex flex-col w-2/3 items-start ml-2">
+        <p className="">{renderServices.title}</p>
         <div className="flex justify-between w-full mt-1">
           <div className="flex w-full">
             <p className="flex items-center justify-center mr-1">
