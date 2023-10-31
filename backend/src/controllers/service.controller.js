@@ -14,7 +14,7 @@ const ServiceCreateController = async (req, res) => {
 const ServiceFindController = async (req, res) => {
   try {
     const { userId } = req.headers.session
-    const result = await findUserService(userId)
+    const result = await findUserService({ userId, ...req.query })
     res.status(200).json(result)
   } catch ({ message }) {
     res.status(400).json({ message })
