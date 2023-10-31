@@ -86,6 +86,7 @@ const useFilters = () => {
     }
   };
 
+
   const handleFilterByServiceId = async (servId) => {
     try {
       const response = await axios(`${API_URL_SERVICES}?categoryId=${servId}`,{
@@ -103,26 +104,12 @@ const useFilters = () => {
 
   const handleAllServices = async () => {
     try {
-      const { data } = await axios.get(API_URL_ALLSERVICES);
-
+      const {data} = await axios(API_URL_ALLSERVICES);
       if (data) {
-        const sameLocationService = data.filter(
-          (service) =>
-            service.latitude === location?.latitude &&
-            service.longitude === location?.longitude
-        );
-
-        dispatch(setNearServices(sameLocationService));
         dispatch(setAllServices(data));
       }
     } catch (error) {
-      console.error(error);
-
-      Swal.fire({
-        title: "Error",
-        text: "Ocurrió un error al filtrar por ubicación",
-        icon: "error",
-      });
+      console.log(error);
     }
   };
 

@@ -72,7 +72,9 @@ const SideMenuUser = ({ menuOpen, setMenuOpen }) => {
                 navigate("suscriptions");
                 setMenuOpen(!menuOpen);
               }}
-              className='w-full flex p-3 items-center gap-2 rounded-lg cursor-pointer'
+
+              className="w-full flex p-3 items-center gap-2 rounded-lg cursor-pointer"
+
             >
               <Wallet size={28} strokeWidth={2.2} />
               <p className="text-white font-medium text-lg">Suscripciones</p>
