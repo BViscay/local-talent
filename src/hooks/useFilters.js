@@ -82,29 +82,21 @@ const useFilters = () => {
     }
   };
 
-  const handleFilterByLocation = async (location) => {
-    try {
-      const { data } = await axios.get(API_URL_ALLSERVICES);
+  const handleFilterByLocation = (location) => {
+    const roundedLatitude = location.latitude.toFixed(1);
+    const roundedLongitude = location.longitude.toFixed(1);
 
-      if (data) {
-        const sameLocationService = data.filter(
-          (service) =>
-            service.latitude === location?.latitude &&
-            service.longitude === location?.longitude
-        );
+    const sameLocationService = allServices.filter((service) => {
+      const serviceRoundedLatitude = service.latitude.toFixed(1);
+      const serviceRoundedLongitude = service.longitude.toFixed(1);
 
-        dispatch(setNearServices(sameLocationService));
-        dispatch(setAllServices(data));
-      }
-    } catch (error) {
-      console.error(error);
+      return (
+        serviceRoundedLatitude === roundedLatitude &&
+        serviceRoundedLongitude === roundedLongitude
+      );
+    });
 
-      Swal.fire({
-        title: "Error",
-        text: "Ocurrió un error al filtrar por ubicación",
-        icon: "error",
-      });
-    }
+    dispatch(setNearServices(sameLocationService));
   };
 
   return {
