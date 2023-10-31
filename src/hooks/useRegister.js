@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API_URL_REGISTER, API_URL_VALIDATE } from "../config/api";
 import { useDispatch, useSelector } from "react-redux";
-import Swal from "sweetalert2"; // Importa SweetAlert
+import Swal from "sweetalert2";
 
 import {
   login,
@@ -21,7 +21,7 @@ const useRegister = () => {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // Estado para mostrar/ocultar confirmación de contraseña
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); 
 
   const handleRegister = async (userData) => {
     const { name, lastName, email, password, confirmPassword } = userData;
@@ -35,7 +35,7 @@ const useRegister = () => {
       Swal.fire("Error", "El apellido es necesario", "error");
       return;
     }
-    // Validar que la contraseña tenga al menos 8 dígitos y un carácter especial
+    // Validar que la contraseña tenga al menos 8 dígitos y un carácter
     const passwordRegex = /^(?=.*[A-Za-z0-9])(?=.*[.*+\/]).{8,}$/;
     if (!password.match(passwordRegex)) {
       Swal.fire(
