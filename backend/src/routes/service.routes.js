@@ -14,7 +14,7 @@ const {
 
 const router = express.Router()
 
-router.get('/search', validateToken, ServiceSearchController)
+router.get('/search', ServiceSearchController)
 
 // Rutas del ususario
 router.get('/', validateToken, ServiceFindController)

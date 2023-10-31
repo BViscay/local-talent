@@ -2,7 +2,7 @@ const Service = require('../models/service.model')
 const Category = require('../models/category.model')
 const User = require('../models/user.model')
 const { uploadImageCreate, deleteImageDestroy } = require('../services/image.service')
-const { Sequelize } = require('sequelize')
+const { Sequelize, Op } = require('sequelize')
 
 const createService = async (data, dataImg) => {
   const resultImage = await uploadImageCreate(dataImg)
@@ -29,7 +29,7 @@ const createService = async (data, dataImg) => {
 }
 
 const findUserService = async (id) => {
-  // id = Number(id)
+  id = Number(id)
   const resultado = await Service.findAll({ where: { userId: id } })
   console.log(`consulta realizada ${id}`, resultado)
   return resultado
@@ -77,7 +77,7 @@ const deleteService = async (id) => {
 }
 
 const allServices = async () => {
-  const services = await Service.findAll({ include: { model: User, as: 'user', atributes: ['firstname'] } })
+  const services = await Service.findAll({ include: [{ model: User, as: 'user', atributes: ['firstname'] }] })
   return services
 }
 
