@@ -14,7 +14,7 @@ const {
 
 const router = express.Router()
 
-router.get('/search', ServiceSearchController)
+router.get('/search', validateToken, ServiceSearchController)
 
 // Rutas del ususario
 router.get('/', validateToken, ServiceFindController)
@@ -22,7 +22,7 @@ router.post('/', validateToken, ServiceCreateController)
 router.patch('/:id', validateToken, ServiceEditController)
 router.delete('/:id', validateToken, ServiceDeleteController)
 
-//Rutas a pedido FRONT
+// Rutas a pedido FRONT
 router.get('/allservices', ServiceFindALLController)
 
 module.exports = router
