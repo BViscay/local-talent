@@ -22,7 +22,7 @@ router.post('/', validateToken, ServiceCreateController)
 router.patch('/:id', validateToken, ServiceEditController)
 router.delete('/:id', validateToken, ServiceDeleteController)
 
-//Rutas a pedido FRONT
+// Rutas a pedido FRONT
 router.get('/allservices', ServiceFindALLController)
 
 module.exports = router

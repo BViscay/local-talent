@@ -30,15 +30,14 @@ const createService = async (data, dataImg) => {
 
 const findUserService = async (id) => {
   id = Number(id)
-  const resultado = await Service.findAll({
-    where: { userId: id }
-  })
-  console.log(`consulta realizada ${id}`)
+  const resultado = await Service.findAll({ where: { userId: id } })
+  console.log(`consulta realizada ${id}`, resultado)
   return resultado
 }
 
 const searchService = async (query) => {
   const search = query.data
+  console.log(search)
 
   if (!isNaN(query.data)) {
     const resultado = await Service.findAll({
@@ -78,7 +77,7 @@ const deleteService = async (id) => {
 }
 
 const allServices = async () => {
-  const services = await Service.findAll()
+  const services = await Service.findAll({ include: [{ model: User, as: 'user', atributes: ['firstname'] }] })
   return services
 }
 
