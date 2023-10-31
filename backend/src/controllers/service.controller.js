@@ -1,9 +1,10 @@
-const { createService, editService, deleteService } = require('../services/services.service')
+const { createService, editService, deleteService, findUserService, searchService, allServices } = require('../services/services.service')
 
 const ServiceCreateController = async (req, res) => {
   try {
     const { userId } = req.headers.session
-    const result = await createService({ userId, ...req.body }, req.files)
+    
+   const result = await createService({ userId, ...req.body }, req.files)
     res.status(201).json(result)
   } catch ({ message }) {
     res.status(400).json({ message })
@@ -12,9 +13,10 @@ const ServiceCreateController = async (req, res) => {
 
 const ServiceFindController = async (req, res) => {
   try {
-    /*
-    const result = await findService() */
-    res.status(200).json(req.query)
+    const { userId } = req.headers.session
+    const result = await findUserService(userId)
+    res.status(200).json(result)
+
   } catch ({ message }) {
     res.status(400).json({ message })
   }
@@ -22,7 +24,8 @@ const ServiceFindController = async (req, res) => {
 
 const ServiceEditController = async (req, res) => {
   try {
-    const result = await editService(req.body)
+    const { id } = req.params
+    const result = await editService({id, ...req.body})
     res.status(200).send({ message: 'Servicio editado con exito', result })
   } catch ({ message }) {
     res.status(400).json({ message })
@@ -31,8 +34,8 @@ const ServiceEditController = async (req, res) => {
 
 const ServiceSearchController = async (req, res) => {
   try {
-    // const result = await findByService()
-    res.status(200).send(req.query)
+    const result = await searchService(req.query)
+    res.status(200).send(result)
   } catch ({ message }) {
     res.status(400).json({ message })
   }
@@ -48,12 +51,23 @@ const ServiceDeleteController = async (req, res) => {
   }
 }
 
+const ServiceFindALLController = async (req, res) => {
+  try {
+    const result = await allServices()
+    res.status(200).json(result)
+  } catch ({ message }) {
+    res.status(400).json({ message })
+  }
+}
+
 module.exports = {
 
   ServiceCreateController,
   ServiceFindController,
   ServiceEditController,
   ServiceSearchController,
-  ServiceDeleteController
+  ServiceDeleteController,
+
+  ServiceFindALLController
 
 }
