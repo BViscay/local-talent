@@ -1,11 +1,10 @@
-
 import {useSelector} from "react-redux";
 import {getNearServices} from "../../redux/sliceFilters";
 import { isLogged } from "../../redux/sliceLogin";
 import useFilters from "../../hooks/useFilters";
 
 import {ChevronRight} from "lucide-react";
-
+import { useNavigate } from "react-router-dom";
 import IndividualServiceCerc from "./IndividualServiceCerc";
 
 const ServCerc = () => {
@@ -45,15 +44,12 @@ const ServCerc = () => {
                 key={service.id}
                 id = {service.id}
                 image={service.image}
-
                 category={service.categoryName}
                 handleFilterByServiceId = {handleFilterByServiceId}
-
               />
             ))}
         </div>
       ) : (
-
         <div className='flex justify-center items-center h-32'>
           {isLoggedIn ? (
             <div className='animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900'></div>
@@ -62,7 +58,6 @@ const ServCerc = () => {
               Debes loguearte para ver tus servicios cercanos
             </p>
           )}
-
         </div>
       )}
     </div>
