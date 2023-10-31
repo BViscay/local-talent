@@ -15,7 +15,6 @@ import {
 } from "../redux/sliceFilters";
 import Swal from "sweetalert2";
 
-
 const useFilters = () => {
   const token = useSelector(getToken);
   const dispatch = useDispatch();
@@ -31,11 +30,11 @@ const useFilters = () => {
       }
     } catch (error) {
       console.log(error);
-      
+
       Swal.fire({
-        title: 'Error',
-        text: 'No existen servicios de esta categoría',
-        icon: 'error',
+        title: "Error",
+        text: "No existen servicios de esta categoría",
+        icon: "error",
       });
     }
   };
@@ -45,25 +44,25 @@ const useFilters = () => {
       const { data } = await axios.get(`${API_URL_SEARCH}?data=${serviceName}`);
       if (data) {
         dispatch(setFilterByName(data));
+        console.log(data);
       }
     } catch (error) {
       console.log(error);
-      
+
       Swal.fire({
-        title: 'Error',
-        text: 'No existen servicios con este nombre',
-        icon: 'error',
+        title: "Error",
+        text: "No existen servicios con este nombre",
+        icon: "error",
       });
     }
   };
 
   const handleFilterOwnServices = async () => {
     if (!token) {
-      
       Swal.fire({
-        title: 'Aviso',
-        text: 'Por favor inicia sesión o regístrate para buscar tus servicios',
-        icon: 'warning',
+        title: "Aviso",
+        text: "Por favor inicia sesión o regístrate para buscar tus servicios",
+        icon: "warning",
       });
       if (token !== null) {
         try {
@@ -88,8 +87,10 @@ const useFilters = () => {
       const { data } = await axios.get(API_URL_ALLSERVICES);
 
       if (data) {
-        const sameLocationService = data.filter((service) =>
-          service.latitude === location?.latitude && service.longitude === location?.longitude
+        const sameLocationService = data.filter(
+          (service) =>
+            service.latitude === location?.latitude &&
+            service.longitude === location?.longitude
         );
 
         dispatch(setNearServices(sameLocationService));
@@ -97,11 +98,11 @@ const useFilters = () => {
       }
     } catch (error) {
       console.error(error);
-      
+
       Swal.fire({
-        title: 'Error',
-        text: 'Ocurrió un error al filtrar por ubicación',
-        icon: 'error',
+        title: "Error",
+        text: "Ocurrió un error al filtrar por ubicación",
+        icon: "error",
       });
     }
   };

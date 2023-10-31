@@ -18,6 +18,7 @@ import EditeProfile from "./views/EditeProfile";
 import FilteredServicesByCat from "./views/FilteredServicesByCat";
 import Suscriptions from "./views/Suscriptions";
 import SearchedServices from "./views/SearchedServices";
+import FilteredByLocation from "./views/FilteredByLocation";
 
 function App() {
   const location = useLocation();
@@ -48,6 +49,10 @@ function App() {
             />
             <Route path="/suscriptions" element={<Suscriptions />} />
             <Route path="/searched-services" element={<SearchedServices />} />
+            <Route
+              path="/filtered-by-location"
+              element={<FilteredByLocation />}
+            />
           </Routes>
         </div>
       </NextUIProvider>
