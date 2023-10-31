@@ -1,11 +1,17 @@
-import { useSelector } from "react-redux";
-import { getNearServices } from "../../redux/sliceFilters";
-import { useNavigate } from "react-router-dom";
-import { ChevronRight } from "lucide-react";
+
+import {useSelector} from "react-redux";
+import {getNearServices} from "../../redux/sliceFilters";
+import { isLogged } from "../../redux/sliceLogin";
+import useFilters from "../../hooks/useFilters";
+
+import {ChevronRight} from "lucide-react";
+
 import IndividualServiceCerc from "./IndividualServiceCerc";
 
 const ServCerc = () => {
   const nearServices = useSelector(getNearServices);
+  const isLoggedIn = useSelector(isLogged);
+  const {handleFilterByServiceId} =useFilters()
   const activateSpinner = nearServices.length;
   const navigate = useNavigate();
   const renderServ = () => {
@@ -37,14 +43,26 @@ const ServCerc = () => {
             nearServices.map((service) => (
               <IndividualServiceCerc
                 key={service.id}
+                id = {service.id}
                 image={service.image}
-                category={service.categoryId.name}
+
+                category={service.categoryName}
+                handleFilterByServiceId = {handleFilterByServiceId}
+
               />
             ))}
         </div>
       ) : (
-        <div className="flex justify-center items-center h-32">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900"></div>
+
+        <div className='flex justify-center items-center h-32'>
+          {isLoggedIn ? (
+            <div className='animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900'></div>
+          ) : (
+            <p className='font-Inter font text-xl text-gray-400'>
+              Debes loguearte para ver tus servicios cercanos
+            </p>
+          )}
+
         </div>
       )}
     </div>

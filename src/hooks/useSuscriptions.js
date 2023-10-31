@@ -16,10 +16,12 @@ const useSuscriptions = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+
+
       if (data) {
         window.location.href = data.init_point;
       }
-      console.log(data);
+
     } catch (error) {
       console.log(error);
     }
@@ -27,11 +29,12 @@ const useSuscriptions = () => {
 
   const handleGoldSuscription = async () => {
     try {
-      const { data } = await axios(API_URL_GOLDSUSCRIPTION);
+      const {data} = await axios(API_URL_GOLDSUSCRIPTION);
+
       if (data) {
         window.location.href = data.init_point;
       }
-      console.log(data);
+
     } catch (error) {
       console.log(error);
     }
