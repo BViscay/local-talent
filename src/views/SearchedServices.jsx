@@ -13,7 +13,7 @@ export default function SearchedServices() {
       </h2>
       <div>
         {renderServices.map((service) => (
-          <CardService renderServices={service} />
+          <CardService key={service.id} renderServices={service} />
         ))}
       </div>
     </div>

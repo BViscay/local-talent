@@ -18,6 +18,7 @@ import EditeProfile from "./views/EditeProfile";
 import FilteredServicesByCat from "./views/FilteredServicesByCat";
 import Suscriptions from "./views/Suscriptions";
 import SearchedServices from "./views/SearchedServices";
+import ServiceDetail from "./views/ServiceDetail";
 import FilteredByLocation from "./views/FilteredByLocation";
 
 function App() {
@@ -47,8 +48,11 @@ function App() {
               path="/filtered-services"
               element={<FilteredServicesByCat />}
             />
-            <Route path="/suscriptions" element={<Suscriptions />} />
             <Route path="/searched-services" element={<SearchedServices />} />
+
+            <Route path="/suscriptions" element={<Suscriptions />} />
+            <Route path="/service/:id" element={<ServiceDetail />} />
+
             <Route
               path="/filtered-by-location"
               element={<FilteredByLocation />}
