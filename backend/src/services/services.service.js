@@ -32,15 +32,14 @@ const findUserService = async (data) => {
   if (data.id_services) {
     console.log('consulta por servicio')
     const resultado = await Service.findAll({ where: { id: data.id_services } })
-
-    return resultado
+    return consultaHardCode(resultado)
   }
   const id = Number(data.userId)
   if (id) {
     console.log('consulta por usuario')
     const resultado = await Service.findAll({ where: { userId: id } })
     console.log(`consulta realizada ${id}`, resultado)
-    return resultado
+    return consultaHardCode(resultado)
   }
 }
 
@@ -53,7 +52,7 @@ const searchService = async (query) => {
       where: { categoryId: search }
     })
     console.log(`consulta realizada ${search}`)
-    return resultado
+    return consultaHardCode(resultado)
   } else {
     const resultado = await Service.findAll({
       where: {
@@ -66,7 +65,7 @@ const searchService = async (query) => {
       }
     })
     console.log(`consulta realizada ${search}`)
-    return resultado
+    return consultaHardCode(resultado)
   }
 }
 
@@ -88,27 +87,25 @@ const deleteService = async (id) => {
 const allServices = async () => {
   // const services = await Service.findAll({ include: [{ model: User, as: 'user', through: { attributes: ['firstname'] } }] })
 
-  let services = await Service.findAll()
+  const services = await Service.findAll()
+
+  return consultaHardCode(services)
+}
+
+const consultaHardCode = async (services) => {
   const users = await User.findAll()
   const categories = await Category.findAll()
-
   services = services.map((ser) => {
     const categoryService = categories.filter(cat => parseInt(cat.id) === parseInt(ser.categoryId))
     const categoryName = categoryService[0].dataValues.name
-
     const userNameService = users.filter(use => parseInt(use.id) === parseInt(ser.userId))
     const userFirstname = userNameService[0].dataValues.firstname
     const userLastname = userNameService[0].dataValues.lastname
-
     ser.categoryId = { id: ser.categoryId, name: categoryName }
     ser.userId = { id: ser.userId, firstName: userFirstname, lastName: userLastname }
-
     return ser
   })
-
   return services
-
-  // return services
 }
 
 module.exports = {
@@ -118,6 +115,5 @@ module.exports = {
   deleteService,
   findUserService,
   searchService,
-
   allServices
 }
