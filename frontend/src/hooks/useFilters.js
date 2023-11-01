@@ -89,7 +89,7 @@ const useFilters = () => {
 
   const handleFilterByServiceId = async (servId) => {
     try {
-      const response = await axios(`${API_URL_SERVICES}?serviceId=${servId}`,{
+      const response = await axios(`${API_URL_SEARCH}?serviceId=${servId}`,{
             headers: {
               Authorization: `Bearer ${token}`,
             },
