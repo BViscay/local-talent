@@ -1,3 +1,5 @@
+const { OAuth2Client } = require('google-auth-library')
+
 const { USER_STATUS } = require('../config/constants')
 const { generateRandomNumber } = require('../libs/handleRandom')
 const { createToken } = require('../libs/handleToken')
@@ -106,10 +108,15 @@ const reSendCodeValidationService = async (email) => {
   return true
 }
 
+const oAuthService = () => {
+
+}
+
 module.exports = {
   loginService,
   registerService,
   validateUserService,
   reSendCodeValidationService,
-  loginTokenService
+  loginTokenService,
+  oAuthService
 }

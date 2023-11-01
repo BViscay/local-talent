@@ -47,10 +47,15 @@ const resendCodeController = async (req, res) => {
   }
 }
 
+const oAuthController = (req, res) => {
+
+}
+
 module.exports = {
   authTokenController,
   registerController,
   loginController,
   validateController,
-  resendCodeController
+  resendCodeController,
+  oAuthController
 }
