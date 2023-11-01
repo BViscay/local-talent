@@ -59,7 +59,7 @@ const registerService = async (data) => {
 
   const newUser = await createUser({ ...data, validator })
 
-  sendRegisterNotification(newUser)
+  await sendRegisterNotification(newUser)
 
   return {
     id: newUser.id,
@@ -83,7 +83,7 @@ const validateUserService = async (data) => {
 
   const token = createToken({ userId: user.id })
 
-  sendWelcomeMessage({ email })
+  await sendWelcomeMessage({ email })
 
   const session = {
     id: user.id,

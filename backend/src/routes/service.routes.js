@@ -4,7 +4,7 @@ const { validateToken } = require('../middlewares/auth.middleware.js')
 
 const {
   ServiceCreateController,
-  ServiceFindController,
+  findUserServicesController,
   ServiceEditController,
   ServiceSearchController,
   ServiceDeleteController,
@@ -17,7 +17,7 @@ const router = express.Router()
 router.get('/search', ServiceSearchController)
 
 // Rutas del ususario
-router.get('/', validateToken, ServiceFindController)
+router.get('/', validateToken, findUserServicesController)
 router.post('/', validateToken, ServiceCreateController)
 router.patch('/:id', validateToken, ServiceEditController)
 router.delete('/:id', validateToken, ServiceDeleteController)
