@@ -35,7 +35,7 @@ const findUserService = async (data) => {
     return consultaHardCode(resultado)
   }
   const id = Number(data.userId)
-  if (id) {
+  if (id && !data.id_services) {
     console.log('consulta por usuario')
     const resultado = await Service.findAll({ where: { userId: id } })
     console.log(`consulta realizada ${id}`, resultado)
@@ -86,10 +86,14 @@ const deleteService = async (id) => {
 
 const allServices = async () => {
   // const services = await Service.findAll({ include: [{ model: User, as: 'user', through: { attributes: ['firstname'] } }] })
+  // const services = await Service.findAll({
+  //   include: [{ model: User, as: 'user' }]
+  // })
 
   const services = await Service.findAll()
 
   return consultaHardCode(services)
+  // return services
 }
 
 const consultaHardCode = async (services) => {

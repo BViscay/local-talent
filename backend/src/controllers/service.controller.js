@@ -33,7 +33,6 @@ const ServiceEditController = async (req, res) => {
 
 const ServiceSearchController = async (req, res) => {
   try {
-    // Angel Suarez
     const result = await searchService(req.query)
     res.status(200).send(result)
   } catch ({ message }) {
