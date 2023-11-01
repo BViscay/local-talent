@@ -2,7 +2,7 @@ const Service = require('../models/service.model')
 const Category = require('../models/category.model')
 const User = require('../models/user.model')
 const { uploadImageCreate, deleteImageDestroy } = require('../services/image.service')
-const { Sequelize, Op } = require('sequelize')
+const { Op } = require('sequelize')
 
 const createService = async (data, dataImg) => {
   const resultImage = await uploadImageCreate(dataImg)
@@ -28,45 +28,57 @@ const createService = async (data, dataImg) => {
   return newService
 }
 
-const findUserService = async (data) => {
-  if (data.id_services) {
-    console.log('consulta por servicio')
-    const resultado = await Service.findAll({ where: { id: data.id_services } })
-    return consultaHardCode(resultado)
-  }
-  const id = Number(data.userId)
-  if (id) {
-    console.log('consulta por usuario')
-    const resultado = await Service.findAll({ where: { userId: id } })
-    console.log(`consulta realizada ${id}`, resultado)
-    return consultaHardCode(resultado)
-  }
-}
+const findUserServices = async (userId) => await findServiceWhere({ userId })
 
 const searchService = async (query) => {
-  const search = query.data
-  console.log(search)
+  let where
+  let method = 'findAll'
 
-  if (!isNaN(query.data)) {
-    const resultado = await Service.findAll({
-      where: { categoryId: search }
-    })
-    console.log(`consulta realizada ${search}`)
-    return consultaHardCode(resultado)
-  } else {
-    const resultado = await Service.findAll({
-      where: {
-        [Sequelize.Op.or]: [{
-          title: { [Sequelize.Op.iLike]: `%${search}%` }
+  if (query?.serviceId) {
+    method = 'findOne' // Si busco por serviceId cambio el método de busqueda
+    where = { id: query.serviceId }
+  }
+
+  if (query?.categoryId) where = { categoryId: Number(query.categoryId) }
+  if (query?.userId) where = { userId: Number(query.userId) }
+  if (query?.text) {
+    where = {
+      [Op.or]: [
+        {
+          title: {
+            [Op.iLike]: `%${query.text}%`
+          }
         },
         {
-          description: { [Sequelize.Op.iLike]: `%${search}%` }
-        }]
-      }
-    })
-    console.log(`consulta realizada ${search}`)
-    return consultaHardCode(resultado)
+          description: {
+            [Op.iLike]: `%${query.text}%`
+          }
+        }
+      ]
+    }
   }
+
+  if (!where) throw new Error('INVALID_QUERY')
+
+  return await findServiceWhere(where, method)
+}
+
+const findServiceWhere = async (where, method = 'findAll') => {
+  return await Service[method]({
+    where,
+    include: [
+      {
+        model: Category,
+        as: 'category',
+        attributes: ['name', 'description']
+      },
+      {
+        model: User,
+        as: 'user',
+        attributes: ['firstname', 'lastname']
+      }
+    ]
+  })
 }
 
 const editService = async (data) => {
@@ -84,36 +96,14 @@ const deleteService = async (id) => {
   // return destroyImage
 }
 
-const allServices = async () => {
-  // const services = await Service.findAll({ include: [{ model: User, as: 'user', through: { attributes: ['firstname'] } }] })
-
-  const services = await Service.findAll()
-
-  return consultaHardCode(services)
-}
-
-const consultaHardCode = async (services) => {
-  const users = await User.findAll()
-  const categories = await Category.findAll()
-  services = services.map((ser) => {
-    const categoryService = categories.filter(cat => parseInt(cat.id) === parseInt(ser.categoryId))
-    const categoryName = categoryService[0].dataValues.name
-    const userNameService = users.filter(use => parseInt(use.id) === parseInt(ser.userId))
-    const userFirstname = userNameService[0].dataValues.firstname
-    const userLastname = userNameService[0].dataValues.lastname
-    ser.categoryId = { id: ser.categoryId, name: categoryName }
-    ser.userId = { id: ser.userId, firstName: userFirstname, lastName: userLastname }
-    return ser
-  })
-  return services
-}
+const allServices = async () => await findServiceWhere()
 
 module.exports = {
 
   createService,
   editService,
   deleteService,
-  findUserService,
+  findUserServices,
   searchService,
   allServices
 }
