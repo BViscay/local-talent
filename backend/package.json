@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@mercadopago/sdk-js": "github:mercadopago/sdk-js",
+    "axios": "^1.6.0",
     "bcrypt": "^5.1.1",
     "cloudinary": "^1.41.0",
     "cors": "^2.8.5",
