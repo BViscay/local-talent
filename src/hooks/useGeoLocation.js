@@ -3,6 +3,7 @@ import {useDispatch} from "react-redux";
 import {setLocation} from "../redux/sliceLogin";
 import useFilters from "./useFilters";
 
+
 const useGeoLocation = () => {
   const dispatch = useDispatch();
   const {handleFilterByLocation} = useFilters();

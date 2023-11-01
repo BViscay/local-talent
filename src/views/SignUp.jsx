@@ -5,7 +5,7 @@ import logo from "../assets/images/Logo.png";
 import InputTerms from "../components/Login-SignUp/InputTerms";
 import LoginButton from "../components/Login-SignUp/LoginButton";
 import GoogleLoginButton from "../components/Login-SignUp/GoogleLoginButton";
-import Input from "../components/Shared/Input";
+import Input from "../components/Shared/Input"
 
 export default function SignUpForm() {
   const {

@@ -2,6 +2,7 @@ const { createCategory, findCategoriesServices } = require('../services/category
 
 const categoryCreateController = async (req, res) => {
   try {
+    console.log(req.body)
     const result = await createCategory(req.body)
     res.status(200).json(result)
   } catch ({ message }) {

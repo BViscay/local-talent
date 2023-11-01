@@ -58,7 +58,7 @@ export default function LoginForm() {
                 <div>
                   <Input
                     labelText="Password"
-                    type={showPassword ? "text" : "password"} // Muestra u oculta la contraseña según showPassword
+                    type={showPassword ? "text" : "password"} 
                     placeholder="Escriba su contraseña"
                     name="password"
                     register={register}

@@ -3,8 +3,8 @@ const { createService, editService, deleteService, findUserService, searchServic
 const ServiceCreateController = async (req, res) => {
   try {
     const { userId } = req.headers.session
-    
-   const result = await createService({ userId, ...req.body }, req.files)
+
+    const result = await createService({ userId, ...req.body }, req.files)
     res.status(201).json(result)
   } catch ({ message }) {
     res.status(400).json({ message })
@@ -14,9 +14,8 @@ const ServiceCreateController = async (req, res) => {
 const ServiceFindController = async (req, res) => {
   try {
     const { userId } = req.headers.session
-    const result = await findUserService(userId)
+    const result = await findUserService({ userId, ...req.query })
     res.status(200).json(result)
-
   } catch ({ message }) {
     res.status(400).json({ message })
   }
@@ -25,7 +24,7 @@ const ServiceFindController = async (req, res) => {
 const ServiceEditController = async (req, res) => {
   try {
     const { id } = req.params
-    const result = await editService({id, ...req.body})
+    const result = await editService({ id, ...req.body })
     res.status(200).send({ message: 'Servicio editado con exito', result })
   } catch ({ message }) {
     res.status(400).json({ message })
@@ -34,6 +33,7 @@ const ServiceEditController = async (req, res) => {
 
 const ServiceSearchController = async (req, res) => {
   try {
+    // Angel Suarez
     const result = await searchService(req.query)
     res.status(200).send(result)
   } catch ({ message }) {
@@ -45,7 +45,7 @@ const ServiceDeleteController = async (req, res) => {
   try {
     const { id } = req.params
     const result = await deleteService(id)
-    res.status(200).json({ message: 'Servicio eliminado', result })
+    res.status(200).json(result)
   } catch ({ message }) {
     res.status(400).json({ message })
   }
