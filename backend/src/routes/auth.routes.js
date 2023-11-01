@@ -14,7 +14,8 @@ const {
   registerController,
   loginController,
   validateController,
-  resendCodeController
+  resendCodeController,
+  oAuthController
 } = require('../controllers/auth.controller.js')
 
 const router = express.Router()
@@ -27,5 +28,6 @@ router.post('/login', validateLogin, loginController)
 router.post('/validate', validateAccount, validateController)
 router.post('/validate', validateAccount, validateController)
 router.post('/resend/:email', validateCode, resendCodeController)
+router.post('/google', oAuthController)
 
 module.exports = router
