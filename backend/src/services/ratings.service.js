@@ -1,5 +1,5 @@
 const Rating = require('../models/rating.model')
-const { modifyMatch } = require('./mach.service')
+const { modifyMatch } = require('./match.service')
 
 const ratingCreate = async (data) => {
   const { status, id, ...restData } = data

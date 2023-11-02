@@ -1,4 +1,4 @@
-const { ratingCreate } = require('../services/ratings.servce')
+const { ratingCreate } = require('../services/ratings.service')
 
 const ratingCreateController = async (req, res) => {
   try {

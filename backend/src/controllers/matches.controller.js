@@ -1,9 +1,9 @@
-const { createMach, serviceMatch, modifyMatch } = require('../services/mach.service')
+const { createMatch, serviceMatch, modifyMatch } = require('../services/match.service')
 
 const matchCreateController = async (req, res) => {
   try {
     const { userId } = req.headers.session
-    const result = await createMach({ userId, ...req.body })
+    const result = await createMatch({ userId, ...req.body })
     res.status(200).json(result)
   } catch ({ message }) {
     res.status(400).json({ message })
