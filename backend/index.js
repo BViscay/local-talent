@@ -1,14 +1,5 @@
-const paymentRoutes = require('./src/routes/payment.routes')
-const express = require('express')
-const morgan = require('morgan')
-const { config } = require('dotenv')
-config()
-
-const app = express() // Crea una instancia de express
-
-app.use(paymentRoutes)
-
-app.use(morgan('dev')) // Registra las solicitudes en modo 'dev'
+const dotenv = require('dotenv')
+dotenv.config()
 
 const server = require('./src/server')
 const { connectionDatabase } = require('./src/database')

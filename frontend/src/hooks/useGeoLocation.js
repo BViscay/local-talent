@@ -1,12 +1,11 @@
 import {useGeolocated} from "react-geolocated";
 import {useDispatch} from "react-redux";
 import {setLocation} from "../redux/sliceLogin";
-import useFilters from "./useFilters";
 
 
 const useGeoLocation = () => {
   const dispatch = useDispatch();
-  const {handleFilterByLocation} = useFilters();
+ 
   const {isGeolocationAvailable, isGeolocationEnabled} = useGeolocated();
 
   const handleGeoLocation = async () => {
@@ -20,7 +19,7 @@ const useGeoLocation = () => {
           longitude: position.coords.longitude,
         };
         dispatch(setLocation(location));
-        handleFilterByLocation(location);
+      
       } catch (error) {
         console.log(error);
       }

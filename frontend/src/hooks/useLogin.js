@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API_URL_LOGIN, API_URL_TOKENLOGIN } from "../config/api";
 import { useSelector, useDispatch } from "react-redux";
-import Swal from "sweetalert2";
 import {
   login,
   logout,
@@ -13,7 +12,7 @@ import {
   setName,
   setLastName,
 } from "../redux/sliceLogin";
-
+import Swal from "sweetalert2";
 
 const useLogin = () => {
   const navigate = useNavigate();
@@ -28,18 +27,18 @@ const useLogin = () => {
   const handleLogin = async (userData) => {
     const { email, password, rememberUser } = userData;
     const URL = API_URL_LOGIN;
-  
+
     try {
       const { data } = await axios.post(URL, {
         email: email,
         password: password,
       });
       const { token, session } = data;
-  
+
       if (token && rememberUser) {
         localStorage.setItem("token", token);
       }
-  
+
       if (token) {
         dispatch(setAuthToken(token));
         dispatch(login());
@@ -62,7 +61,7 @@ const useLogin = () => {
       }
     }
   };
-  
+
   const handleTokenLogin = async () => {
     if (!isLogin) {
       const token = localStorage.getItem("token");
@@ -104,7 +103,6 @@ const useLogin = () => {
     dispatch(logout());
     Swal.fire("Éxito", "Te has deslogueado correctamente");
   };
-  
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
