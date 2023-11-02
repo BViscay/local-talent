@@ -24,17 +24,27 @@ const createMatch = async ({ userId, message, serviceId }) => {
     userFullName: service.user.firstname,
     message
   })
-
   return newMatch
 }
 
-const serviceMatch = async (userId) => {
-  const match = await Match.findAll({
-    include: { model: Service, where: { userId } }
+const serviceMatch = async (userId) =>
+  await Match.findAll({
+    include: {
+      model: Service,
+      where: { userId },
+      as: 'service'
+    }
   })
 
-  return match
-}
+const matchUser = async (userId) =>
+  await Match.findAll({
+    where: { userId },
+    include: {
+      model: Service,
+      as: 'service',
+      attributes: ['title', 'description']
+    }
+  })
 
 const modifyMatch = async (data) => {
   console.log(data.status)
@@ -46,6 +56,6 @@ const modifyMatch = async (data) => {
 module.exports = {
   createMatch,
   serviceMatch,
-  modifyMatch
-
+  modifyMatch,
+  matchUser
 }
