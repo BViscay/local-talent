@@ -26,7 +26,7 @@ const useFilters = () => {
 
   const handleFilterByCategory = async (catId) => {
     try {
-      const { data } = await axios.get(`${API_URL_SEARCH}?data=${catId}`);
+      const { data } = await axios.get(`${API_URL_SEARCH}?categoryId=${catId}`);
 
       if (data) {
         navigate("/filtered-services");
@@ -45,7 +45,7 @@ const useFilters = () => {
 
   const handleFilterByName = async (serviceName) => {
     try {
-      const { data } = await axios.get(`${API_URL_SEARCH}?data=${serviceName}`);
+      const { data } = await axios.get(`${API_URL_SEARCH}?text=${serviceName}`);
       if (data) {
         dispatch(setFilterByName(data));
         console.log(data);
@@ -88,7 +88,7 @@ const useFilters = () => {
 
   const handleFilterByServiceId = async (servId) => {
     try {
-      const response = await axios(`${API_URL_SERVICES}?categoryId=${servId}`, {
+      const response = await axios(`${API_URL_SEARCH}?serviceId=${servId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
