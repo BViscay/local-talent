@@ -44,7 +44,7 @@ const ServCerc = () => {
                 key={service.id}
                 id = {service.id}
                 image={service.image}
-                category={service.categoryName}
+                category={service.categoryId.name}
                 handleFilterByServiceId = {handleFilterByServiceId}
               />
             ))}

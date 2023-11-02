@@ -1,4 +1,5 @@
-export const API_URL_BASE = "https://local-talent-server.vercel.app/api";
+export const API_URL_BASE =
+  "https://local-talent-server-dev-rqbs.3.us-1.fl0.io/api";
 
 export const API_URL_TOKENLOGIN = API_URL_BASE + "/auth";
 
@@ -14,6 +15,7 @@ export const API_URL_ALLSERVICES = API_URL_SERVICES + "/allservices";
 
 export const API_URL_SEARCH = API_URL_SERVICES + "/search/";
 
-export const API_URL_SILVERSUSCRIPTION = API_URL_BASE + "/pay/subscriptionsilver";
+export const API_URL_SILVERSUSCRIPTION =
+  API_URL_BASE + "/pay/subscriptionsilver";
 
 export const API_URL_GOLDSUSCRIPTION = API_URL_BASE + "/pay/subscriptiongold";
