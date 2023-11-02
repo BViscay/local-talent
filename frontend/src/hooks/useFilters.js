@@ -1,132 +1,143 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { API_URL_LOGIN, API_URL_TOKENLOGIN } from "../config/api";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
-  login,
-  logout,
-  isLogged,
-  setAuthToken,
-  setMail,
-  setName,
-  setLastName,
-} from "../redux/sliceLogin";
+  API_URL_SERVICES,
+  API_URL_ALLSERVICES,
+  API_URL_SEARCH,
+} from "../config/api";
+import { getToken } from "../redux/sliceLogin";
+import {
+  setRenderServices,
+  setFilterByName,
+  setAllServices,
+  setNearServices,
+  getAllServices,
+} from "../redux/sliceFilters";
 import Swal from "sweetalert2";
 
-const useLogin = () => {
-  const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
-  const isLogin = useSelector(isLogged);
+const useFilters = () => {
+  const [detailService, setDetailService] = useState({});
+  const token = useSelector(getToken);
+  const allServices = useSelector(getAllServices);
   const dispatch = useDispatch();
-  const redirectLogin = (navigate) => {
-    navigate("/home");
-  };
+  const navigate = useNavigate();
 
-  const handleLogin = async (userData) => {
-    const { email, password, rememberUser } = userData;
-    const URL = API_URL_LOGIN;
-
+  const handleFilterByCategory = async (catId) => {
     try {
-      const { data } = await axios.post(URL, {
-        email: email,
-        password: password,
-      });
-      const { token, session } = data;
+      const { data } = await axios.get(`${API_URL_SEARCH}?data=${catId}`);
 
-      if (token && rememberUser) {
-        localStorage.setItem("token", token);
-      }
-
-      if (token) {
-        dispatch(setAuthToken(token));
-        dispatch(login());
-        dispatch(setName(session.firstname));
-        dispatch(setLastName(session.lastname));
-        dispatch(setMail(session.email));
-        redirectLogin(navigate);
+      if (data) {
+        navigate("/filtered-services");
+        dispatch(setRenderServices(data));
       }
     } catch (error) {
-      dispatch(logout());
-      if (error.response) {
-        if (error.response.data.message === "USER_NOT_FOUND") {
-          Swal.fire("Error", "Usuario Incorrecto", "error"); // SweetAlert en caso de usuario incorrecto
-        } else if (error.response.data.message === "USER_REQUIRE_VALIDATE") {
-          navigate("/validate");
-          dispatch(setMail(email));
-        } else if (error.response.data.message === "PASSWORD_INVALID") {
-          Swal.fire("Error", "Password Incorrecto", "error"); // SweetAlert en caso de contraseña incorrecta
-        }
-      }
+      console.log(error);
+
+      Swal.fire({
+        title: "Error",
+        text: "No existen servicios de esta categoría",
+        icon: "error",
+      });
     }
   };
 
-  const handleTokenLogin = async () => {
-    if (!isLogin) {
-      const token = localStorage.getItem("token");
+  const handleFilterByName = async (serviceName) => {
+    try {
+      const { data } = await axios.get(`${API_URL_SEARCH}?data=${serviceName}`);
+      if (data) {
+        dispatch(setFilterByName(data));
+        console.log(data);
+      }
+    } catch (error) {
+      console.log(error);
+
+      Swal.fire({
+        title: "Error",
+        text: "No existen servicios con este nombre",
+        icon: "error",
+      });
+    }
+  };
+
+  const handleFilterOwnServices = async () => {
+    if (!token) {
+      Swal.fire({
+        title: "Aviso",
+        text: "Por favor inicia sesión o regístrate para buscar tus servicios",
+        icon: "warning",
+      });
       if (token !== null) {
         try {
-          const { data } = await axios.get(API_URL_TOKENLOGIN, {
+          const { data } = await axios(API_URL_SERVICES, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           });
-          const { session } = data;
-          if (session) {
-            dispatch(setAuthToken(token));
-            dispatch(login());
-            dispatch(setName(session.firstname));
-            dispatch(setLastName(session.lastname));
-            dispatch(setMail(session.email));
-            redirectLogin(navigate);
+
+          if (data) {
+            dispatch(setFilterByName(data));
           }
         } catch (error) {
           console.log(error);
-          dispatch(logout());
         }
       }
     }
   };
 
-  const handleGoogleLogin = (response) => {
-    if (response.credential) {
-      dispatch(setAuthToken(response.credential));
-
-      dispatch(login());
-      redirectLogin(navigate);
+  const handleFilterByServiceId = async (servId) => {
+    try {
+      const response = await axios(`${API_URL_SERVICES}?categoryId=${servId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.data.name) {
+        setDetailService(response.data);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    dispatch(logout());
-    Swal.fire("Éxito", "Te has deslogueado correctamente");
+  const handleAllServices = async () => {
+    try {
+      const { data } = await axios(API_URL_ALLSERVICES);
+      if (data) {
+        dispatch(setAllServices(data));
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+  const handleFilterByLocation = (location) => {
+    const roundedLatitude = location.latitude.toFixed(1);
+    const roundedLongitude = location.longitude.toFixed(1);
 
-  // Función para alternar entre mostrar/ocultar contraseña
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
+    const sameLocationService = allServices.filter((service) => {
+      const serviceRoundedLatitude = service.latitude.toFixed(1);
+      const serviceRoundedLongitude = service.longitude.toFixed(1);
+
+      return (
+        serviceRoundedLatitude === roundedLatitude &&
+        serviceRoundedLongitude === roundedLongitude
+      );
+    });
+
+    dispatch(setNearServices(sameLocationService));
   };
 
   return {
-    handleLogin,
-    handleLogout,
-    handleGoogleLogin,
-    handleTokenLogin,
-    handleOpenModal,
-    handleCloseModal,
-    isModalOpen,
-    showPassword, // Estado para mostrar/ocultar contraseña
-    toggleShowPassword, // Función para alternar mostrar/ocultar contraseña
+    handleFilterByServiceId,
+    handleFilterByCategory,
+    handleFilterByName,
+    handleFilterOwnServices,
+    handleFilterByLocation,
+    handleAllServices,
+    detailService,
   };
 };
 
-export default useLogin;
+export default useFilters;
