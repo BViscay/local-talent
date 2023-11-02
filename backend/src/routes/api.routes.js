@@ -7,5 +7,6 @@ router.use('/service', require('./service.routes'))
 router.use('/category', require('./category.routes'))
 router.use('/match', require('./match.routes'))
 router.use('/pay', require('./payment.routes'))
+router.use('/notification', require('./notification.routes'))
 
 module.exports = router

@@ -75,7 +75,7 @@ const findServiceWhere = async (where, method = 'findAll') => {
       {
         model: User,
         as: 'user',
-        attributes: ['firstname', 'lastname']
+        attributes: ['firstname', 'lastname', 'email']
       }
     ]
   })
@@ -105,5 +105,6 @@ module.exports = {
   deleteService,
   findUserServices,
   searchService,
-  allServices
+  allServices,
+  findServiceWhere
 }

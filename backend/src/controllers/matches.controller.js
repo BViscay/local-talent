@@ -1,19 +1,29 @@
-const { createMach, serviceMatch, modifyMatch } = require('../services/mach.service')
+const { createMatch, serviceMatch, matchUser, modifyMatch } = require('../services/match.service')
 
 const matchCreateController = async (req, res) => {
   try {
     const { userId } = req.headers.session
-    const result = await createMach({ userId, ...req.body })
+    const result = await createMatch({ userId, ...req.body })
     res.status(200).json(result)
   } catch ({ message }) {
     res.status(400).json({ message })
   }
 }
 
-const matchSeeServiceController = async (req, res) => {
+const matchServiceController = async (req, res) => {
   try {
     const { userId } = req.headers.session
     const result = await serviceMatch(userId)
+    res.status(200).json(result)
+  } catch ({ message }) {
+    res.status(400).json({ message })
+  }
+}
+
+const matchUserController = async (req, res) => {
+  try {
+    const { userId } = req.headers.session
+    const result = await matchUser(userId)
     res.status(200).json(result)
   } catch ({ message }) {
     res.status(400).json({ message })
@@ -32,6 +42,7 @@ const matchModifyController = async (req, res) => {
 
 module.exports = {
   matchCreateController,
-  matchSeeServiceController,
+  matchServiceController,
+  matchUserController,
   matchModifyController
 }
