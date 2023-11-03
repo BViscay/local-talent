@@ -1,7 +1,7 @@
 const { transproter } = require('../config/mailer')
 
-const sendRegisterNotification = ({ email, validator }) => {
-  transproter.sendMail({
+const sendRegisterNotification = async ({ email, validator }) => {
+  await transproter.sendMail({
     from: `"Local Talent" <${process.env.SMTP_ACCOUNT}>`,
     to: email,
     subject: 'Confirmación de registro',
@@ -14,8 +14,8 @@ const sendRegisterNotification = ({ email, validator }) => {
   return true
 }
 
-const sendWelcomeMessage = ({ email }) => {
-  transproter.sendMail({
+const sendWelcomeMessage = async ({ email }) => {
+  await transproter.sendMail({
     from: `"Local Talent" <${process.env.SMTP_ACCOUNT}>`,
     to: email,
     subject: 'Bienvenido a LOCAL TALENT',
