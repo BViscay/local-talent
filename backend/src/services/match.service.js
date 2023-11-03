@@ -1,5 +1,7 @@
 const Match = require('../models/match.model')
 const Service = require('../models/service.model')
+const User = require('../models/user.model')
+
 
 const { sendCreateMatch } = require('./email.service')
 const { createNotificationService } = require('./notification.service')
@@ -27,14 +29,23 @@ const createMatch = async ({ userId, message, serviceId }) => {
   return newMatch
 }
 
-const serviceMatch = async (userId) =>
-  await Match.findAll({
+
+const serviceMatch = async (userId) => {
+  const result = await Match.findAll({
     include: {
       model: Service,
       where: { userId },
-      as: 'service'
+      as: 'service',
+      include: {
+        model: User,
+        as: 'user'
+      }
     }
+
   })
+  return result
+}
+
 
 const matchUser = async (userId) =>
   await Match.findAll({
@@ -42,7 +53,12 @@ const matchUser = async (userId) =>
     include: {
       model: Service,
       as: 'service',
-      attributes: ['title', 'description']
+      attributes: ['title', 'description'],
+      include: {
+        model: User,
+        as: 'user'
+
+      }
     }
   })
 

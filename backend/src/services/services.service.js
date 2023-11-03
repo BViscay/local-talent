@@ -1,7 +1,7 @@
 const Service = require('../models/service.model')
 const Category = require('../models/category.model')
 const User = require('../models/user.model')
-const { uploadImageCreate, deleteImageDestroy } = require('../services/image.service')
+const { uploadImageCreate } = require('../services/image.service')
 const { Op } = require('sequelize')
 
 const createService = async (data, dataImg) => {
@@ -9,9 +9,6 @@ const createService = async (data, dataImg) => {
 
   //! PROVISORIO
   data.categoryId = parseInt(data.categoryId)
-  console.log(data.categoryId)
-
-  console.log(data.categoryId)
 
   const newService = await Service.create({
     userId: data.userId,
