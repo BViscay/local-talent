@@ -1,4 +1,3 @@
-import {useState} from "react";
 import axios from "axios";
 import {useSelector, useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
@@ -12,13 +11,13 @@ import {
   setRenderServices,
   setFilterByName,
   setAllServices,
+  setServiceDetail,
   setNearServices,
   getAllServices,
 } from "../redux/sliceFilters";
 import Swal from "sweetalert2";
 
 const useFilters = () => {
-  const [detailService, setDetailService] = useState({});
   const token = useSelector(getToken);
   const allServices = useSelector(getAllServices);
   const dispatch = useDispatch();
@@ -26,7 +25,7 @@ const useFilters = () => {
 
   const handleFilterByCategory = async (catId) => {
     try {
-      const { data } = await axios.get(`${API_URL_SEARCH}?categoryId=${catId}`);
+      const {data} = await axios.get(`${API_URL_SEARCH}?categoryId=${catId}`);
 
       if (data) {
         navigate("/filtered-services");
@@ -45,7 +44,7 @@ const useFilters = () => {
 
   const handleFilterByName = async (serviceName) => {
     try {
-      const { data } = await axios.get(`${API_URL_SEARCH}?text=${serviceName}`);
+      const {data} = await axios.get(`${API_URL_SEARCH}?text=${serviceName}`);
       if (data) {
         dispatch(setFilterByName(data));
         console.log(data);
@@ -88,13 +87,14 @@ const useFilters = () => {
 
   const handleFilterByServiceId = async (servId) => {
     try {
-      const response = await axios(`${API_URL_SEARCH}?serviceId=${servId}`,{
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-      if (response.data.name) {
-        setDetailService(response.data);
+      const response = await axios(`${API_URL_SEARCH}?serviceId=${servId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.data) {
+        dispatch(setServiceDetail(response.data));
       }
     } catch (error) {
       console.log(error);
@@ -136,7 +136,6 @@ const useFilters = () => {
     handleFilterOwnServices,
     handleFilterByLocation,
     handleAllServices,
-    detailService,
   };
 };
 
