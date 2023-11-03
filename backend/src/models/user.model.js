@@ -28,6 +28,9 @@ User.init({
     type: DataTypes.STRING,
     require: true
   },
+  image: {
+    type: DataTypes.STRING
+  },
   score: {
     type: DataTypes.DECIMAL,
     defaultValue: 0
