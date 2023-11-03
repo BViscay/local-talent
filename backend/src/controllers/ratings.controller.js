@@ -1,19 +1,15 @@
-const { ratingCreate } = require('../services/ratings.service')
+const { createRating } = require('../services/rating.services')
 
-const ratingCreateController = async (req, res) => {
+const createRatingController = async (req, res) => {
   try {
     const { userId } = req.headers.session
-    const result = await ratingCreate({ userId, ...req.body })
+    const result = await createRating({ userId, ...req.body })
     res.status(200).json(result)
   } catch ({ message }) {
     res.status(400).json({ message })
   }
 }
 
-// const ratingScore = async (req, res) => {
-
-// }
-
 module.exports = {
-  ratingCreateController
+  createRatingController
 }
