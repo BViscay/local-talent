@@ -92,8 +92,9 @@ const useFilters = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (response.data.name) {
-        setDetailService(response.data);
+
+      if (response.data) {
+        dispatch(setServiceDetail(response.data));
       }
     } catch (error) {
       console.log(error);
