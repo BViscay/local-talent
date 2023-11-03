@@ -1,18 +1,19 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   renderServices: [],
-  filterByName: {},
+  filteredServices: [],
   allServices: [],
-  nearServices:[],
+  nearServices: [],
+  serviceDetail: {},
 };
 
 const filtersHandler = createSlice({
   name: "filterServices",
   initialState,
   reducers: {
-    setFilterByName: (state, action) => {
-      state.filterByName = action.payload;
+    setFilteredServices: (state, action) => {
+      state.filteredServices = action.payload;
     },
     setRenderServices: (state, action) => {
       state.renderServices = action.payload;
@@ -23,14 +24,25 @@ const filtersHandler = createSlice({
     setNearServices: (state, action) => {
       state.nearServices = action.payload;
     },
+    setServiceDetail: (state, action) => {
+      state.serviceDetail = action.payload;
+    },
   },
 });
 
-export const getFilterByName = (state) => state.filterServices.filterByName;
+export const getFilteredServices = (state) =>
+  state.filterServices.filteredServices;
 export const getRenderServices = (state) => state.filterServices.renderServices;
 export const getAllServices = (state) => state.filterServices.allServices;
 export const getNearServices = (state) => state.filterServices.nearServices;
+export const getDetailServices = (state) => state.filterServices.serviceDetail;
 
-export const {setFilterByName, setRenderServices, setAllServices, setNearServices} = filtersHandler.actions;
+export const {
+  setFilteredServices,
+  setRenderServices,
+  setAllServices,
+  setNearServices,
+  setServiceDetail,
+} = filtersHandler.actions;
 
 export default filtersHandler.reducer;

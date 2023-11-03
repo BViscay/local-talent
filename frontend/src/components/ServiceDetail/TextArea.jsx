@@ -1,24 +1,27 @@
-import {Textarea} from "@nextui-org/react";
+import { Textarea } from "@nextui-org/react";
 
-export default function TextArea({user}) {
-  const variants = ["flat", "faded", "bordered", "underlined"];
-
+export default function TextArea({setValue}) {
+  
   return (
-    <div>
-      <div className='flex gap-2 items-center'>
-        <div className='w-1 h-6 bg-primary-800'></div>
-        <p className='font-Inter font-bold font text-xl'>Mensaje para {user}</p>
-      </div>
-      <div className='w-full grid grid-cols-12 gap-4'>
-        {variants.map((variant) => (
+    <div className='w-11/12 mt-5 p-5 shadow-xl bg-slate-100 rounded-xl h-max justify-center items-center'>
+      <div>
+        <div className='flex gap-2 pl-1 items-center'>
+          <div className='w-1.5 rounded-lg h-6 bg-primary-600'></div>
+          <p className='font-Inter font-bold text-lg'>
+            Mensaje para el prestador
+          </p>
+        </div>
+        <div className='w-full grid grid-cols-12 gap-4'>
           <Textarea
-            key={variant}
-            variant={variant}
+            variant='bordered'
             labelPlacement='outside'
-            placeholder='Ingresa un comentario del servicio'
+            placeholder='Ingresa un comentario al prestador del servicio'
             className='col-span-12 md:col-span-6 mb-6 md:mb-0'
+            onValueChange={setValue}
+            minRows={9}
+
           />
-        ))}
+        </div>
       </div>
     </div>
   );
