@@ -49,10 +49,8 @@ function App() {
               element={<FilteredServicesByCat />}
             />
             <Route path="/searched-services" element={<SearchedServices />} />
-
             <Route path="/suscriptions" element={<Suscriptions />} />
             <Route path="/service/:id" element={<ServiceDetail />} />
-
             <Route
               path="/filtered-by-location"
               element={<FilteredByLocation />}

@@ -1,7 +1,14 @@
 import { AiFillStar } from "react-icons/ai";
-export default function CardService({ renderServices }) {
+import { useNavigate } from "react-router-dom";
+
+export default function CardService({ renderServices, id }) {
+  const navigate = useNavigate();
+
   return (
-    <div className="flex w-full h-[160px] gap-2 border-3 border-t-transparent border-x-transparent p-4 justify-center items-center">
+    <div
+      onClick={() => navigate(`/service/${id}`)}
+      className="flex w-full h-[160px] gap-2 border-3 border-t-transparent border-x-transparent p-4 justify-center items-center"
+    >
       <div className="w-1/3 ">
         <img
           className="w-full h-[130px] object-cover rounded-xl"
