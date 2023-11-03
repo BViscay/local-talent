@@ -30,7 +30,8 @@ const connectionDatabase = (force) => {
   Match.belongsTo(User)
 
   Service.hasMany(Match)
-  Match.belongsTo(Service)
+  Match.belongsTo(Service, { foreignKey: 'serviceId' })
+  Match.belongsTo(User, { foreignKey: 'userId' })
 
   Match.hasMany(Rating)
   Rating.belongsTo(Match)

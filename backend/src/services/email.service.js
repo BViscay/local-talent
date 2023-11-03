@@ -25,4 +25,22 @@ const sendWelcomeMessage = async ({ email }) => {
   })
 }
 
-module.exports = { sendRegisterNotification, sendWelcomeMessage }
+const sendCreateMatch = async ({ email, serviceTitle, userFullName, message }) => {
+  await transproter.sendMail({
+    from: `"Local Talent" <${process.env.SMTP_ACCOUNT}>`,
+    to: email,
+    subject: 'Tienes un nuevo MATCH!!!',
+    html: `
+            <h2>Hola ${userFullName}!!!</h2>
+            <h3>Han realizado un nuevo MATCH en tu servicio ${serviceTitle}: </h3>
+            <h3>${message} </h3>
+            <h3>Accede a tu cuenta para concretar la oportunidad...</h3>
+        `
+  })
+}
+
+module.exports = {
+  sendRegisterNotification,
+  sendWelcomeMessage,
+  sendCreateMatch
+}
