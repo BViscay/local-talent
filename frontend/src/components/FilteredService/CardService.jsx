@@ -1,8 +1,14 @@
 import { AiFillStar } from "react-icons/ai";
-export default function CardService({ renderServices }) {
-  const numeroAleatorio = (Math.random() * (5 - 1) + 1).toFixed(1);
+import { useNavigate } from "react-router-dom";
+
+export default function CardService({ renderServices, id }) {
+  const navigate = useNavigate();
+
   return (
-    <div className="flex w-full h-[160px] gap-2 border-3 border-t-transparent border-x-transparent p-4 justify-center items-center">
+    <div
+      onClick={() => navigate(`/service/${id}`)}
+      className="flex w-full h-[160px] gap-2 border-3 border-t-transparent border-x-transparent p-4 justify-center items-center"
+    >
       <div className="w-1/3 ">
         <img
           className="w-full h-[130px] object-cover rounded-xl"
@@ -16,7 +22,7 @@ export default function CardService({ renderServices }) {
           <div className="flex w-full">
             <p className="flex items-center justify-center mr-1">
               <AiFillStar className="text-yellow-400 mr-1" />
-              {renderServices.rating + numeroAleatorio}
+              {renderServices.rating}
             </p>
             <p className="text-primary-963">(30)</p>
           </div>

@@ -4,7 +4,8 @@ const initialState = {
   renderServices: [],
   filterByName: {},
   allServices: [],
-  nearServices:[],
+  nearServices: [],
+  serviceDetail: {},
 };
 
 const filtersHandler = createSlice({
@@ -23,6 +24,9 @@ const filtersHandler = createSlice({
     setNearServices: (state, action) => {
       state.nearServices = action.payload;
     },
+    setServiceDetail: (state, action) => {
+      state.serviceDetail = action.payload;
+    },
   },
 });
 
@@ -30,7 +34,14 @@ export const getFilterByName = (state) => state.filterServices.filterByName;
 export const getRenderServices = (state) => state.filterServices.renderServices;
 export const getAllServices = (state) => state.filterServices.allServices;
 export const getNearServices = (state) => state.filterServices.nearServices;
+export const getDetailServices = (state) => state.filterServices.serviceDetail;
 
-export const {setFilterByName, setRenderServices, setAllServices, setNearServices} = filtersHandler.actions;
+export const {
+  setFilterByName,
+  setRenderServices,
+  setAllServices,
+  setNearServices,
+  setServiceDetail,
+} = filtersHandler.actions;
 
 export default filtersHandler.reducer;

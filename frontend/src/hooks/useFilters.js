@@ -1,4 +1,3 @@
-import { useState } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -12,13 +11,13 @@ import {
   setRenderServices,
   setFilterByName,
   setAllServices,
+  setServiceDetail,
   setNearServices,
   getAllServices,
 } from "../redux/sliceFilters";
 import Swal from "sweetalert2";
 
 const useFilters = () => {
-  const [detailService, setDetailService] = useState({});
   const token = useSelector(getToken);
   const allServices = useSelector(getAllServices);
   const dispatch = useDispatch();
@@ -136,7 +135,6 @@ const useFilters = () => {
     handleFilterOwnServices,
     handleFilterByLocation,
     handleAllServices,
-    detailService,
   };
 };
 
