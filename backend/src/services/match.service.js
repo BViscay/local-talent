@@ -37,8 +37,7 @@ const serviceMatch = async (userId) => {
       as: 'service',
       include: {
         model: User,
-        as: 'user',
-        attributes: ['id', 'firstname', 'lastname', 'email', 'whatsapp', 'image', 'score', 'rating']
+        as: 'user'
 
       }
     }
@@ -47,26 +46,30 @@ const serviceMatch = async (userId) => {
   return result
 }
 
-const matchUser = async (userId) =>
-  await Match.findAll({
+const matchUser = async (userId) => {
+  const matches = await Match.findAll({
     where: { userId },
-    include: [{
-      model: Service,
-      as: 'service',
-      attributes: ['title', 'description'],
-      include: {
-        model: Category,
-        as: 'category',
-        attributes: ['id', 'name']
+    include: [
+      {
+        model: Service,
+        as: 'service',
+        attributes: ['title', 'description'],
+        include: [
+          {
+            model: User,
+            as: 'user'
+          },
+          {
+            model: Category,
+            as: 'category'
+          }
+        ]
       }
-    },
-    {
-      model: User,
-      as: 'user',
-      attributes: ['id', 'firstname', 'lastname', 'email', 'whatsapp', 'image', 'score', 'rating']
-
-    }]
+    ]
   })
+
+  return matches
+}
 
 const modifyMatch = async (data) => {
   console.log(data.status)
