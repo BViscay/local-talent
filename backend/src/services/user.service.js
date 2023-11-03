@@ -1,4 +1,5 @@
 const User = require('../models/user.model')
+const { uploadImageCreate } = require('./image.service')
 
 const findUserData = async (where) => {
   const user = await User.findOne({ where })
@@ -17,4 +18,17 @@ const createUser = async (data) => {
   return user
 }
 
-module.exports = { findUserData, findUser, createUser }
+const userImage = async (dataImg, dataId) => {
+  const resultImage = await uploadImageCreate(dataImg)
+
+  const modifyUser = await User.update(
+    {
+      image: resultImage
+    },
+    { where: { id: dataId } }
+  )
+
+  return modifyUser
+}
+
+module.exports = { findUserData, findUser, createUser, userImage }
