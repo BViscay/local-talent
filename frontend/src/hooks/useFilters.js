@@ -9,17 +9,21 @@ import {
 import { getToken } from "../redux/sliceLogin";
 import {
   setRenderServices,
-  setFilterByName,
   setAllServices,
   setServiceDetail,
   setNearServices,
   getAllServices,
+  getRenderServices,
+  getFilteredServices,
+  setFilteredServices,
 } from "../redux/sliceFilters";
 import Swal from "sweetalert2";
 
 const useFilters = () => {
   const token = useSelector(getToken);
   const allServices = useSelector(getAllServices);
+  const renderServices = useSelector(getRenderServices);
+  const filteredServices = useSelector(getFilteredServices);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -29,6 +33,7 @@ const useFilters = () => {
 
       if (data) {
         navigate("/filtered-services");
+        dispatch(setFilteredServices(data));
         dispatch(setRenderServices(data));
       }
     } catch (error) {
@@ -46,8 +51,8 @@ const useFilters = () => {
     try {
       const { data } = await axios.get(`${API_URL_SEARCH}?text=${serviceName}`);
       if (data) {
-        dispatch(setFilterByName(data));
-        console.log(data);
+        dispatch(setRenderServices(data));
+        dispatch(setFilteredServices(data));
       }
     } catch (error) {
       console.log(error);
@@ -129,6 +134,64 @@ const useFilters = () => {
     dispatch(setNearServices(sameLocationService));
   };
 
+  const filterByRating = (rating) => {
+    if (rating === "rating") {
+      dispatch(setRenderServices(renderServices));
+    } else if (rating === "Menor") {
+      const descendentOrder = [...renderServices];
+      descendentOrder.sort((a, b) => {
+        const nameA = a.rating;
+        const nameB = b.rating;
+        if (nameA > nameB) return -1;
+        if (nameA < nameB) return 1;
+      });
+      dispatch(setRenderServices(descendentOrder));
+    } else if (rating === "Mayor") {
+      const ascendentOrder = [...renderServices];
+      ascendentOrder.sort((a, b) => {
+        const nameA = a.rating;
+        const nameB = b.rating;
+        if (nameA < nameB) return -1;
+        if (nameA > nameB) return 1;
+      });
+      dispatch(setRenderServices(ascendentOrder));
+    }
+  };
+
+  const filterByPrice = (price) => {
+    if (price === "price") {
+      dispatch(setRenderServices(renderServices));
+    } else if (price === "Menor") {
+      const descendentOrder = [...renderServices];
+      descendentOrder.sort((a, b) => {
+        const nameA = a.price;
+        const nameB = b.price;
+        if (nameA > nameB) return -1;
+        if (nameA < nameB) return 1;
+      });
+      dispatch(setRenderServices(descendentOrder));
+    } else if (price === "Mayor") {
+      const ascendentOrder = [...renderServices];
+      ascendentOrder.sort((a, b) => {
+        const nameA = a.price;
+        const nameB = b.price;
+        if (nameA < nameB) return -1;
+        if (nameA > nameB) return 1;
+      });
+      dispatch(setRenderServices(ascendentOrder));
+    }
+  };
+
+  const filterByCategory = (category) => {
+    if (category === "categoria") {
+      dispatch(setRenderServices(filteredServices));
+    } else {
+      const categoryFiltered = filteredServices.filter((service) =>
+        service.category.name.includes(category)
+      );
+      dispatch(setRenderServices(categoryFiltered));
+    }
+  };
   return {
     handleFilterByServiceId,
     handleFilterByCategory,
@@ -136,6 +199,9 @@ const useFilters = () => {
     handleFilterOwnServices,
     handleFilterByLocation,
     handleAllServices,
+    filterByRating,
+    filterByPrice,
+    filterByCategory,
   };
 };
 
