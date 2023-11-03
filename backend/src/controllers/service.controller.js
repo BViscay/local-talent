@@ -1,4 +1,10 @@
-const { createService, editService, deleteService, findUserService, searchService, allServices } = require('../services/services.service')
+const {
+  createService,
+  editService,
+  deleteService,
+  findUserServices,
+  searchService, allServices
+} = require('../services/services.service')
 
 const ServiceCreateController = async (req, res) => {
   try {
@@ -11,10 +17,10 @@ const ServiceCreateController = async (req, res) => {
   }
 }
 
-const ServiceFindController = async (req, res) => {
+const findUserServicesController = async (req, res) => {
   try {
     const { userId } = req.headers.session
-    const result = await findUserService({ userId, ...req.query })
+    const result = await findUserServices(userId)
     res.status(200).json(result)
   } catch ({ message }) {
     res.status(400).json({ message })
@@ -63,7 +69,7 @@ const ServiceFindALLController = async (req, res) => {
 module.exports = {
 
   ServiceCreateController,
-  ServiceFindController,
+  findUserServicesController,
   ServiceEditController,
   ServiceSearchController,
   ServiceDeleteController,

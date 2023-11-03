@@ -10,9 +10,14 @@ Match.init({
     primaryKey: true,
     allowNull: false
   },
+  message: {
+    type: DataTypes.TEXT
+  },
   status: {
     type: DataTypes.ENUM,
-    values: ['create', 'cancel', 'accept', 'qualifyUser', 'qualifyServ', 'finished']
+    values: ['create', 'cancel', 'accept', 'qualifyUser', 'qualifyServ', 'finished'],
+    defaultValue: 'create',
+    allowNull: false
   }
 
 },

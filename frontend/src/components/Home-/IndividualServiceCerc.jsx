@@ -5,10 +5,10 @@ export default function IndividualServiceCerc({image, category, id}) {
   return (
     <div
       onClick={() => navigate(`/service/${id}`)}
-      className='min-w-[140px] h-48 flex flex-col'
+      className='min-w-[140px] h-48 flex flex-col mt-2 mb-2'
     >
       <img className='h-44 object-cover rounded-2xl' src={image} alt='' />
-      <p className='text-sm text-primary-959'>{category}</p>
+      <p className='font-Inter text-lg text-primary-960'>{category}</p>
     </div>
   );
 }

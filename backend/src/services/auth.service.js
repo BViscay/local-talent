@@ -6,6 +6,7 @@ const { createToken } = require('../libs/handleToken')
 
 const { sendRegisterNotification, sendWelcomeMessage } = require('./email.service')
 const { findUser, createUser } = require('./user.service')
+const { countNewUserNotificationsService } = require('./notification.service')
 
 // Funcion para valdiar session por token
 const loginTokenService = async (userId) => {
@@ -15,12 +16,16 @@ const loginTokenService = async (userId) => {
 
   const token = createToken({ userId: user.id })
 
+  // Busco si tiene nuevas notificaciones
+  const newNotifications = await countNewUserNotificationsService(user.id)
+
   const session = {
     id: user.id,
     firstname: user.firstname,
     lastname: user.lastname,
     email: user.email,
-    status: user.status
+    status: user.status,
+    newNotifications
   }
 
   return { session, token }
@@ -37,12 +42,16 @@ const loginService = async ({ email, password }) => {
 
   const token = createToken({ userId: user.id })
 
+  // Busco si tiene nuevas notificaciones
+  const newNotifications = await countNewUserNotificationsService(user.id)
+
   const session = {
     id: user.id,
     firstname: user.firstname,
     lastname: user.lastname,
     email,
-    status: user.status
+    status: user.status,
+    newNotifications
   }
 
   return { session, token }
@@ -59,7 +68,7 @@ const registerService = async (data) => {
 
   const newUser = await createUser({ ...data, validator })
 
-  sendRegisterNotification(newUser)
+  await sendRegisterNotification(newUser)
 
   return {
     id: newUser.id,
@@ -83,7 +92,7 @@ const validateUserService = async (data) => {
 
   const token = createToken({ userId: user.id })
 
-  sendWelcomeMessage({ email })
+  await sendWelcomeMessage({ email })
 
   const session = {
     id: user.id,
