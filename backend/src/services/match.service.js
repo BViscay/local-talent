@@ -29,19 +29,43 @@ const createMatch = async ({ userId, message, serviceId }) => {
   return newMatch
 }
 
+// const serviceMatch = async (userId) => {
+//   const result = await Match.findAll({
+//     include: {
+//       model: Service,
+//       where: { userId },
+//       as: 'service',
+//       include: {
+//         model: User,
+//         as: 'user'
+
+//       }
+//     }
+
+//   })
+//   return result
+// }
+
 const serviceMatch = async (userId) => {
   const result = await Match.findAll({
-    include: {
-      model: Service,
-      where: { userId },
-      as: 'service',
-      include: {
+    include: [
+      {
+        model: Service,
+        as: 'service',
+        where: { userId },
+        include: [
+          {
+            model: Category,
+            as: 'category'
+          }
+
+        ]
+      },
+      {
         model: User,
         as: 'user'
-
       }
-    }
-
+    ]
   })
   return result
 }
@@ -57,11 +81,13 @@ const matchUser = async (userId) => {
         include: [
           {
             model: User,
-            as: 'user'
+            as: 'user',
+            attributes: ['id', 'firstname', 'lastname', 'email', 'whatsapp', 'image', 'score', 'rating', 'status']
           },
           {
             model: Category,
             as: 'category'
+
           }
         ]
       }
