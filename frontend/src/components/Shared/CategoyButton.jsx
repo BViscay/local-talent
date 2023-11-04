@@ -14,15 +14,15 @@ export default function CategoyButton({
   };
 
   return (
-    <div className='flex flex-col items-center justify-center w-20 h-28'>
+    <div className='flex flex-col items-center justify-center w-20 h-max'>
       <div
         onClick={handleClick}
-        className='w-20 h-20 flex items-center justify-center rounded-full'
+        className='w-[90px] h-[90px] flex items-center justify-center rounded-full shadow-lg'
         style={buttonStyle}
       >
-        <img src={icon} alt='' />
+        <img src={icon} alt='' className="'w-[45px] h-[45px]" />
       </div>
-      <div>{text}</div>
+      <div className='mt-2'>{text}</div>
     </div>
   );
 }

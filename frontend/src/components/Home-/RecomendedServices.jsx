@@ -1,11 +1,11 @@
-import { ChevronRight, Info } from "lucide-react";
+import {ChevronRight, Info} from "lucide-react";
 import washMachine from "../../assets/images/wash-machine.png";
 
 export default function RecomendedServices() {
   return (
-    <div className='w-full h-[270px] p-5 mb-10'>
+    <div className='w-full h-[270px] p-4 pt-2 mb-0'>
       <div className='flex gap-2 items-center'>
-        <div className='w-1 h-6 bg-primary-800'></div>
+        <div className='w-1.5 rounded-lg h-6 bg-primary-800'></div>
         <p className='font-Inter font-bold font text-xl'>
           Servicios Recomendados
         </p>

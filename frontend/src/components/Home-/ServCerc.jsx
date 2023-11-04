@@ -17,9 +17,9 @@ const ServCerc = () => {
     navigate("/filtered-by-location");
   };
   return (
-    <div className='flex flex-col w-full bg-white items p-2 my-2'>
+    <div className='flex flex-col w-full bg-white items p-2 my-1'>
       <div className='flex items-center justify-between mx-2 mt-1'>
-        <div className='w-1 h-6 bg-primary-800'>
+         <div className='w-1.5 rounded-lg h-6 bg-primary-600'>
           <div className='w-52'>
             <p className='font-Inter font-bold font text-xl items-start ml-2'>
               Servicios Cercanos
@@ -37,7 +37,7 @@ const ServCerc = () => {
       </div>
 
       {activateSpinner ? (
-        <div className='w-full flex flex-row gap-3 h-56 overflow-x-auto pl-3 pt-3'>
+        <div className='w-full flex flex-row gap-3 h-56 overflow-x-auto pl-2 pt-3'>
           {nearServices.length &&
             nearServices.map((service) => (
               <IndividualServiceCerc
