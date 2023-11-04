@@ -1,8 +1,9 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-    ownMatches: [],
-    myMatches: []};
+  ownMatches: [],
+  myMatches: [],
+};
 
 const matchesHandler = createSlice({
   name: "matches",
