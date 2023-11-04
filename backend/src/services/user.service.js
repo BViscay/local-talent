@@ -30,5 +30,20 @@ const userImage = async (dataImg, dataId) => {
 
   return modifyUser
 }
+const userModify = async (data, dataId) => {
+  const modifyUser = await User.update(
+    {
+      firstname: data.firstname,
+      lastname: data.lastname,
+      email: data.email,
+      whatsapp: data.whatsapp
 
-module.exports = { findUserData, findUser, createUser, userImage }
+    },
+    { where: { id: dataId } }
+
+  )
+  console.log(modifyUser)
+  return modifyUser
+}
+
+module.exports = { findUserData, findUser, createUser, userImage, userModify }
