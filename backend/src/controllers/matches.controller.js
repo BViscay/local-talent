@@ -32,7 +32,6 @@ const matchUserController = async (req, res) => {
 
 const matchModifyController = async (req, res) => {
   try {
-    console.log(req.query)
     const result = await modifyMatch({ ...req.query })
     res.status(200).json(result)
   } catch ({ message }) {

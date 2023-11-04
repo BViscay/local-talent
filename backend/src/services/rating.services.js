@@ -5,6 +5,11 @@ const createRating = async ({ score, comment, type, matchId, userId }) => {
   return newRating
 }
 
+// const serviceRating = async ({ userId, matchId, type }) => {
+//   const rating = await Rating.findAll({where: { }})
+
+// }
+
 module.exports = {
   createRating
 }
