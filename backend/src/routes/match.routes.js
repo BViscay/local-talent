@@ -12,6 +12,6 @@ const router = express.Router()
 router.post('/', validateToken, matchCreateController)
 router.get('/service', validateToken, matchServiceController)
 router.get('/user', validateToken, matchUserController)
-router.put('/', validateToken, matchModifyController)
+router.patch('/', validateToken, matchModifyController)
 
 module.exports = router
