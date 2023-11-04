@@ -1,6 +1,9 @@
 import {useSelector} from "react-redux";
 import {getLocation} from "../../redux/sliceLogin";
+
 import {GoogleMap, Marker, useJsApiLoader} from "@react-google-maps/api";
+
+
 import {MAPS_API_KEY} from "../../services/Google";
 
 export default function MyMap() {
@@ -37,6 +40,7 @@ export default function MyMap() {
       ) : (
         <></>
       )}
+
     </div>
   );
 }

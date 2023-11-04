@@ -83,6 +83,7 @@ const useMatches = () => {
 
   const handleStatusChange = async (id, status) => {
     const matchData = {id, status};
+
     console.log(matchData);
     try {
       const {data} = await axios.put(
@@ -110,6 +111,7 @@ const useMatches = () => {
           icon: "error",
         });
       }
+
     } catch (error) {
       if (error.response) {
         Swal.fire({
@@ -117,7 +119,9 @@ const useMatches = () => {
           text: "Hubo un error cambiar el estado 😣",
           icon: "error",
         });
+
         console.log("Response Data:", error);
+
       }
     }
   };
