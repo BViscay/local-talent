@@ -15,8 +15,8 @@ export default function CategoriesPage() {
   const {handleFilterByCategory} = useFilters();
 
   return (
-    <div className='flex flex-col w-full h-[450px] items-center justify-center gap-10'>
-      <div className='w-1 h-6 bg-primary-600'></div>
+    <div className='flex flex-col w-full mt-5 h-[450px] items-center justify-center pt-2 gap-10'>
+      <div className='w-1.5 rounded-lg h-6 bg-primary-800'></div>
       <p className='font-Inter font-bold font text-xl'>Todas las categorías</p>
       <div className='flex w-full h-screen items-center justify-center gap-12'>
         <CategoyButton
