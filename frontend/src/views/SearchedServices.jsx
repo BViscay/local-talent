@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { getRenderServices } from "../redux/sliceFilters";
 import CardService from "../components/FilteredService/CardService";
 import SearchBar from "../components/Header/SearchBar";
-import RenderFilters from "../components/FilteredService/renderFilters";
+import RenderFilters from "../components/FilteredService/RenderFilters";
 
 export default function SearchedServices() {
   const renderServices = useSelector(getRenderServices);
