@@ -33,7 +33,7 @@ const userImage = async (dataImg, dataId) => {
 const userModify = async (data, dataId) => {
   const modifyUser = await User.update(
     {
-      fistname: data.fistname,
+      firstname: data.firstname,
       lastname: data.lastname,
       email: data.email,
       whatsapp: data.whatsapp
@@ -42,6 +42,7 @@ const userModify = async (data, dataId) => {
     { where: { id: dataId } }
 
   )
+  console.log(modifyUser)
   return modifyUser
 }
 
