@@ -49,8 +49,6 @@ const useMatches = () => {
         },
       });
       dispatch(setOwnMatches(data));
-
-      console.log(data);
     } catch (error) {
       if (error.response) {
         Swal.fire({
@@ -71,7 +69,6 @@ const useMatches = () => {
         },
       });
       dispatch(setMyMatches(data));
-      console.log(data);
     } catch (error) {
       if (error.response) {
         Swal.fire({
