@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import { API_URL_LOGIN, API_URL_TOKENLOGIN } from "../config/api";
-import { useSelector, useDispatch } from "react-redux";
+import {API_URL_LOGIN, API_URL_TOKENLOGIN} from "../config/api";
+import {useSelector, useDispatch} from "react-redux";
 import {
   login,
   logout,
@@ -11,6 +11,7 @@ import {
   setMail,
   setName,
   setLastName,
+  setImage,
 } from "../redux/sliceLogin";
 import Swal from "sweetalert2";
 
@@ -25,15 +26,15 @@ const useLogin = () => {
   };
 
   const handleLogin = async (userData) => {
-    const { email, password, rememberUser } = userData;
+    const {email, password, rememberUser} = userData;
     const URL = API_URL_LOGIN;
 
     try {
-      const { data } = await axios.post(URL, {
+      const {data} = await axios.post(URL, {
         email: email,
         password: password,
       });
-      const { token, session } = data;
+      const {token, session} = data;
 
       if (token && rememberUser) {
         localStorage.setItem("token", token);
@@ -41,10 +42,11 @@ const useLogin = () => {
 
       if (token) {
         dispatch(setAuthToken(token));
-        dispatch(login());
         dispatch(setName(session.firstname));
         dispatch(setLastName(session.lastname));
         dispatch(setMail(session.email));
+        dispatch(setImage(session.image));
+        dispatch(login());
         redirectLogin(navigate);
       }
     } catch (error) {
@@ -67,18 +69,20 @@ const useLogin = () => {
       const token = localStorage.getItem("token");
       if (token !== null) {
         try {
-          const { data } = await axios.get(API_URL_TOKENLOGIN, {
+          const {data} = await axios.get(API_URL_TOKENLOGIN, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           });
-          const { session } = data;
+          const {session} = data;
+
           if (session) {
             dispatch(setAuthToken(token));
-            dispatch(login());
             dispatch(setName(session.firstname));
             dispatch(setLastName(session.lastname));
             dispatch(setMail(session.email));
+            dispatch(setImage(session.image));
+            dispatch(login());
             redirectLogin(navigate);
           }
         } catch (error) {

@@ -3,7 +3,7 @@ import {useState} from "react";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {LiaHandshakeSolid} from "react-icons/lia";
-import {AiOutlineAppstoreAdd} from "react-icons/ai";
+//import {AiOutlineAppstoreAdd} from "react-icons/ai";
 import {
   Navbar,
   NavbarBrand,
@@ -37,10 +37,10 @@ const NavBar = () => {
         <NavbarItem onClick={() => navigate("/home")}>
           <Home size={30} strokeWidth={2.2} color='#266DD3' />
         </NavbarItem>
-
+        {/* 
         <NavbarItem onClick={() => navigate("/create-service")}>
           <AiOutlineAppstoreAdd className='text-[34px] text-[#266DD3]' />
-        </NavbarItem>
+        </NavbarItem> */}
 
         <NavbarItem onClick={() => navigate("/matchs")}>
           <LiaHandshakeSolid className='text-[34px] text-[#266DD3]' />
