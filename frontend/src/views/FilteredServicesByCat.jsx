@@ -1,13 +1,13 @@
-import { useSelector } from "react-redux";
-import { getRenderServices } from "../redux/sliceFilters";
+import {useSelector} from "react-redux";
+import {getRenderServices} from "../redux/sliceFilters";
 import CardService from "../components/FilteredService/CardService";
 import SearchBar from "../components/Header/SearchBar";
 import useFilters from "../hooks/useFilters";
-import RenderFilters from "../components/FilteredService/renderFilters";
+import RenderFilters from "../components/FilteredService/RenderFilters";
 
 export default function FilteredServicesByCat() {
   const renderServices = useSelector(getRenderServices);
-  const { handleFilterByServiceId } = useFilters();
+  const {handleFilterByServiceId} = useFilters();
 
   return (
     <div>
