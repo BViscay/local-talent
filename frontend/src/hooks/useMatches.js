@@ -81,7 +81,43 @@ const useMatches = () => {
     }
   };
 
-  return {handleUserMatch, handleOwnMatches, handleMyMatches};
+  const handleStatusChange = async (id, status) => {
+    const matchData = {id, status};
+
+    try {
+      const {data} = await axios.put(API_URL_MATCH, matchData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(data);
+
+      // Reemplaza alert con SweetAlert
+      Swal.fire({
+        title: "Éxito",
+        text: "Estado cambiado correctamente 🎉",
+        icon: "success",
+      }).then(() => {
+        navigate("/matchs");
+      });
+    } catch (error) {
+      if (error.response) {
+        Swal.fire({
+          title: "Error",
+          text: "Hubo un error cambiar el estado 😣",
+          icon: "error",
+        });
+        console.log("Response Data:", error.response.data);
+      }
+    }
+  };
+
+  return {
+    handleUserMatch,
+    handleOwnMatches,
+    handleMyMatches,
+    handleStatusChange,
+  };
 };
 
 export default useMatches;
