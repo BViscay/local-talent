@@ -9,7 +9,7 @@ export default function Categories() {
   const {handleFilterByCategory} = useFilters();
 
   return (
-    <div className='flex justify-center w-full h-[110px] mt-3'>
+    <div className='flex justify-center w-full h-[110px] mt-3 bg-white'>
       <div className='flex gap-10'>
         <LittleRoundedBtn
           icon={aaIcon}
