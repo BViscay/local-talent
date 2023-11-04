@@ -25,3 +25,5 @@ export const API_URL_MATCH = API_URL_BASE + "/match";
 export const API_URL_OWNMATCH = API_URL_MATCH + "/service";
 
 export const API_URL_MYMATCH = API_URL_MATCH + "/user";
+
+export const API_URL_USERIMAGE = API_URL_BASE + "/user/image"
