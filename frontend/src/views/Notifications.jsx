@@ -1,14 +1,21 @@
 "use client"
 
 import {useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
 import {Select, SelectItem} from "@nextui-org/react";
 import { Bell } from "lucide-react";
 import Notification from "../components/Notification/Notification";
+import useNotifications from "../hooks/useNotifications";
 
 
 export default function Notifications() {
 
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn); 
+
   const navigate = useNavigate();
+
+  const { newNotificationsCount } = useNotifications();
+
   const mockNotifications = [
     {
       id: 1,
@@ -47,6 +54,8 @@ export default function Notifications() {
     },
   ];
 
+  console.log(newNotificationsCount);
+
   return (
     <div className="bg-[#f9f9f9] p-4 h-screen">
       <div className="flex items-center w-full mb-2">
@@ -77,7 +86,12 @@ export default function Notifications() {
           <button onClick={() => navigate("/categories")} className="bg-[#266DD3] text-white p-4 rounded-lg">Ver Servicios</button>
         </div> :
         <div className="flex flex-col rounded-lg w-full p-4 bg-white items-center justify-center">
-          {mockNotifications.map(n => 
+          {isLoggedIn ? (
+            <div>Estas Logeado</div>
+          ) : (
+            <div>¡Logeate para ver tus notificaciones!</div>
+          )}
+          {/* {mockNotifications.map(n => 
             <Notification 
               key={n.id}
               title={n.title}
@@ -85,7 +99,7 @@ export default function Notifications() {
               timestamp={n.timestamp}
               read={n.read}
             />  
-          )}
+          )} */}
         </div>
       }  
     </div>
