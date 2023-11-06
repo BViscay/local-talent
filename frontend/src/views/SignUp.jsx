@@ -5,7 +5,8 @@ import logo from "../assets/images/Logo.png";
 import InputTerms from "../components/Login-SignUp/InputTerms";
 import LoginButton from "../components/Login-SignUp/LoginButton";
 import GoogleLoginButton from "../components/Login-SignUp/GoogleLoginButton";
-import Input from "../components/Shared/Input"
+import Input from "../components/Shared/Input";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function SignUpForm() {
   const {
@@ -14,7 +15,13 @@ export default function SignUpForm() {
     formState: { errors },
   } = useForm();
 
-  const { handleRegister, showPassword, showConfirmPassword, setShowPassword, setShowConfirmPassword } = useRegister();
+  const {
+    handleRegister,
+    showPassword,
+    showConfirmPassword,
+    setShowPassword,
+    setShowConfirmPassword,
+  } = useRegister();
 
   const { handleGeoLocation } = useGeoLocation();
 
@@ -69,7 +76,7 @@ export default function SignUpForm() {
               />
             </div>
 
-            <div>
+            <div className="w-full flex flex-col h-28">
               <Input
                 labelText="Password"
                 type={showPassword ? "text" : "password"}
@@ -79,14 +86,15 @@ export default function SignUpForm() {
                 error={errors.password?.message}
               />
               <button
+                className="relative self-end bottom-14 right-3"
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? "Ocultar Contraseña" : "Mostrar Contraseña"}
+                {showPassword ? <Eye /> : <EyeOff />}
               </button>
             </div>
 
-            <div>
+            <div className="w-full flex flex-col h-28">
               <Input
                 labelText="Confirmar Password"
                 type={showConfirmPassword ? "text" : "password"}
@@ -96,10 +104,11 @@ export default function SignUpForm() {
                 error={errors.password?.message}
               />
               <button
+                className="relative self-end bottom-14 right-3"
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
               >
-                {showConfirmPassword ? "Ocultar Confirmación" : "Mostrar Confirmación"}
+                {showConfirmPassword ? <Eye /> : <EyeOff />}
               </button>
             </div>
 

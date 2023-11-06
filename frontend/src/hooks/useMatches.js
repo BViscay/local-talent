@@ -82,6 +82,7 @@ const useMatches = () => {
   };
 
   const handleStatusChange = async (id, status) => {
+
     try {
       const {data} = await axios.patch(
         `${API_URL_MATCH}?status=${status}&id=${id}`
@@ -103,6 +104,7 @@ const useMatches = () => {
           icon: "error",
         });
       }
+
     } catch (error) {
       if (error.response) {
         Swal.fire({
@@ -110,7 +112,9 @@ const useMatches = () => {
           text: "Hubo un error cambiar el estado 😣",
           icon: "error",
         });
+
         console.log("Response Data:", error);
+
       }
     }
   };
