@@ -27,6 +27,8 @@ export default function Matches() {
     matchesToRender = myMatches;
   }
 
+   const isMyMatches = matchesToRender === myMatches;
+
   return (
     <div className='bg-[#f9f9f9] p-4 h-screen'>
       <div className='flex justify-between items-center w-full mb-2'>
@@ -85,6 +87,7 @@ export default function Matches() {
                 : match.user.whatsapp
             }
             avatar={match.avatar}
+            isMyMatches={isMyMatches}
           />
         ))}
       </div>
