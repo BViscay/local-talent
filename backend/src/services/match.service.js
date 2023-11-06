@@ -8,8 +8,6 @@ const { createNotificationService } = require('./notification.service')
 const { findServiceWhere } = require('./services.service')
 
 const createMatch = async ({ userId, message, serviceId }) => {
-  console.log({ userId, message, serviceId })
-
   const newMatch = await Match.create({ userId, message, serviceId })
 
   await createNotificationService({
@@ -29,23 +27,6 @@ const createMatch = async ({ userId, message, serviceId }) => {
   return newMatch
 }
 
-// const serviceMatch = async (userId) => {
-//   const result = await Match.findAll({
-//     include: {
-//       model: Service,
-//       where: { userId },
-//       as: 'service',
-//       include: {
-//         model: User,
-//         as: 'user'
-
-//       }
-//     }
-
-//   })
-//   return result
-// }
-
 const serviceMatch = async (userId) => {
   const result = await Match.findAll({
     include: [
@@ -63,7 +44,8 @@ const serviceMatch = async (userId) => {
       },
       {
         model: User,
-        as: 'user'
+        as: 'user',
+        attributes: ['id', 'firstname', 'lastname', 'email', 'whatsapp', 'image', 'score', 'rating', 'status']
       }
     ]
   })

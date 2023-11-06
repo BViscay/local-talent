@@ -22,7 +22,7 @@ class PaymentService {
         Authorization: `Bearer ${process.env.ACCESS_TOKEN}`
       }
     })
-      return subscription.data
+    return subscription.data
   }
 
   async createSubscriptionSilver () {
