@@ -9,6 +9,7 @@ import LoginButton from "../components/Login-SignUp/LoginButton";
 import RegisterLink from "../components/Login-SignUp/RegisterLink";
 import ForgotPassLink from "../components/Login-SignUp/ForgotPassLink";
 import GoogleLoginButton from "../components/Login-SignUp/GoogleLoginButton";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function LoginForm() {
   const {
@@ -17,14 +18,24 @@ export default function LoginForm() {
     formState: { errors },
   } = useForm();
 
-  const { handleLogin, isModalOpen, handleCloseModal, handleOpenModal, showPassword, toggleShowPassword } = useLogin();
+  const {
+    handleLogin,
+    isModalOpen,
+    handleCloseModal,
+    handleOpenModal,
+    showPassword,
+    toggleShowPassword,
+  } = useLogin();
   const { handleGeoLocation } = useGeoLocation();
 
   return (
     <div className="flex w-full -mt-10">
       <section className="flex w-full h-screen items-center justify-center">
         <div className="flex flex-col items-center justify-center ml-0 py-8 w-full md:h-screen lg:py-0">
-          <a href="#" className="flex items-center text-2xl font-semibold text-gray-900 dark:text-white">
+          <a
+            href="#"
+            className="flex items-center text-2xl font-semibold text-gray-900 dark:text-white"
+          >
             <img className="w-[300px] h-[113px] mb-2" src={logo} alt="logo" />
           </a>
           <h1 className="font-family:'Lato-SemiBold',Helvetica font-semibold text-[#003049] text-[40px] text-center tracking-[0] leading-[normal] whitespace-nowrap mb-4">
@@ -55,19 +66,23 @@ export default function LoginForm() {
                     className="font-family:'Lato-SemiBold',Helvetica font-semibold text-[#003049] text-[14px] tracking-[0] leading-[norma]"
                   />
                 </div>
-                <div>
+                <div className="w-full flex flex-col">
                   <Input
                     labelText="Password"
-                    type={showPassword ? "text" : "password"} 
+                    type={showPassword ? "text" : "password"}
                     placeholder="Escriba su contraseña"
                     name="password"
                     register={register}
                     error={errors.password?.message}
                   />
+                  <button
+                    className="self-end relative bottom-14 right-3"
+                    type="button"
+                    onClick={toggleShowPassword}
+                  >
+                    {showPassword ? <Eye /> : <EyeOff />}
+                  </button>
                 </div>
-                <button type="button" onClick={toggleShowPassword}> {/* Botón para mostrar/ocultar contraseña */}
-                  {showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
-                </button>
                 <div className="flex items-center justify-between">
                   <RememberUser register={register} />
                   <ForgotPassLink handleOpenModal={handleOpenModal} />
