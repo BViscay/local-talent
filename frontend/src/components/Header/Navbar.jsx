@@ -3,7 +3,7 @@ import {useState} from "react";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {LiaHandshakeSolid} from "react-icons/lia";
-import {AiOutlineAppstoreAdd} from "react-icons/ai";
+//import {AiOutlineAppstoreAdd} from "react-icons/ai";
 import {
   Navbar,
   NavbarBrand,
@@ -31,16 +31,16 @@ const NavBar = () => {
   const menuItems = ["Profile", "Dashboard", "Activity", "Log Out"];
 
   return (
-    <Navbar height='5rem' className='bg-white' maxWidth='xl'>
+    <Navbar height='5rem' className='bg-primary-100' maxWidth='xl'>
       {/*Navbar Mobile*/}
       <NavbarContent className='md:hidden justify-evenly w-full' justify='none'>
         <NavbarItem onClick={() => navigate("/home")}>
           <Home size={30} strokeWidth={2.2} color='#266DD3' />
         </NavbarItem>
-
+        {/* 
         <NavbarItem onClick={() => navigate("/create-service")}>
           <AiOutlineAppstoreAdd className='text-[34px] text-[#266DD3]' />
-        </NavbarItem>
+        </NavbarItem> */}
 
         <NavbarItem onClick={() => navigate("/matchs")}>
           <LiaHandshakeSolid className='text-[34px] text-[#266DD3]' />

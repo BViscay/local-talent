@@ -1,10 +1,15 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import Match from "../components/Match/Match.jsx";
 import {Button, ButtonGroup} from "@nextui-org/react";
 import useMatches from "../hooks/useMatches.js";
+import {useSelector} from "react-redux";
+import {getMyMatches, getOwnMatches} from "../redux/sliceMatches.js";
 
 export default function Matches() {
   const {handleMyMatches, handleOwnMatches} = useMatches();
+  const ownMatches = useSelector(getOwnMatches);
+  const myMatches = useSelector(getMyMatches);
+  const [activeButton, setActiveButton] = useState("ofrecidos");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -15,76 +20,71 @@ export default function Matches() {
     //eslint-disable-next-line
   }, []);
 
-  const mockMatches = [
-    {
-      id: 101,
-      categoria: "Hogar",
-      subcategoria: "Reparacion",
-      codigo: "HOG-101",
-      estado: "Confirmado",
-      nombre: "Juan Pérez",
-      avatar: "https://example.com/avatar1.jpg",
-    },
-    {
-      id: 102,
-      categoria: "Belleza",
-      subcategoria: "Corte de Pelo",
-      codigo: "BEL-102",
-      estado: "Pendiente",
-      nombre: "Ana Martínez",
-      avatar: "https://example.com/avatar2.jpg",
-    },
-    {
-      id: 103,
-      categoria: "Electricidad",
-      subcategoria: "Instalacion",
-      codigo: "ELE-103",
-      estado: "Confirmado",
-      nombre: "Luis Rodríguez",
-      avatar: "https://example.com/avatar3.jpg",
-    },
-    {
-      id: 104,
-      categoria: "Fletes",
-      subcategoria: "Transporte",
-      codigo: "FLE-104",
-      estado: "Pendiente",
-      nombre: "María García",
-      avatar: "https://example.com/avatar4.jpg",
-    },
-    {
-      id: 105,
-      categoria: "Limpieza",
-      subcategoria: "Servicio Doméstico",
-      codigo: "LIM-105",
-      estado: "Confirmado",
-      nombre: "Carolina López",
-      avatar: "https://example.com/avatar5.jpg",
-    },
-  ];
+  let matchesToRender;
+  if (activeButton === "ofrecidos") {
+    matchesToRender = ownMatches;
+  } else {
+    matchesToRender = myMatches;
+  }
 
   return (
     <div className='bg-[#f9f9f9] p-4 h-screen'>
-      <div className='flex items-center w-full mb-2'>
-        <div className='bg-[#266DD3] h-5 w-1 rounded'></div>
-        <h1 className='font-[900] text-xl mx-2'>Matches</h1>
-      </div>
-      <div className='flex rounded-lg w-full p-4 bg-white items-center justify-start gap-2'>
+      <div className='flex justify-between items-center w-full mb-2'>
+        <div className='flex items-center'>
+          <div className='w-1.5 rounded-lg h-6 bg-primary-600'></div>
+          <h1 className='font-[900] text-2xl mx-2'>Matches</h1>
+        </div>
         <ButtonGroup>
-          <Button variant='flat'>Ofrecidos</Button>
-          <Button variant='flat'>Pedidos</Button>
+          <Button
+            onClick={() => setActiveButton("ofrecidos")}
+            variant='flat'
+            className={`${
+              activeButton === "ofrecidos"
+                ? "bg-blue-500 text-white"
+                : "bg-primary-100 text-black"
+            } `}
+          >
+            Ofrecidos
+          </Button>
+          <Button
+            onClick={() => setActiveButton("pedidos")}
+            variant='flat'
+            className={`${
+              activeButton === "pedidos"
+                ? "bg-blue-500 text-white"
+                : "bg-primary-100 text-black"
+            } `}
+          >
+            Pedidos
+          </Button>
         </ButtonGroup>
       </div>
+      <div className=''></div>
       <div className='flex flex-col rounded-lg w-full p-4 bg-white items-center justify-center'>
-        {mockMatches.map((n) => (
+        {matchesToRender.map((match) => (
           <Match
-            key={n.id}
-            categoria={n.categoria}
-            subcategoria={n.subcategoria}
-            codigo={n.codigo}
-            estado={n.estado}
-            nombre={n.nombre}
-            avatar={n.avatar}
+            key={match.id}
+            id={match.id}
+            titulo={match.service.title}
+            categoria={match.service.category.name}
+            codigo={match.id.slice(0, 8)}
+            estado={match.status}
+            nombre={
+              matchesToRender === myMatches
+                ? match.service.user.firstname
+                : match.user.firstname
+            }
+            apellido={
+              matchesToRender === myMatches
+                ? match.service.user.lastname
+                : match.user.lastname
+            }
+            whatsapp={
+              matchesToRender === myMatches
+                ? match.service.user.whatsapp
+                : match.user.whatsapp
+            }
+            avatar={match.avatar}
           />
         ))}
       </div>

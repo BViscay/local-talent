@@ -26,6 +26,8 @@ export const API_URL_OWNMATCH = API_URL_MATCH + "/service";
 
 export const API_URL_MYMATCH = API_URL_MATCH + "/user";
 
+export const API_URL_USERIMAGE = API_URL_BASE + "/user/image";
+
 export const API_URL_NOTIFICATIONS = API_URL_BASE + "/notification";
 
 export const API_URL_COUNT_NOTIFICATIONS = API_URL_NOTIFICATIONS + "/look";

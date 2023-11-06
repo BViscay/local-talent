@@ -25,6 +25,7 @@ const loginTokenService = async (userId) => {
     lastname: user.lastname,
     email: user.email,
     status: user.status,
+    image: user.image,
     newNotifications
   }
 
@@ -50,6 +51,7 @@ const loginService = async ({ email, password }) => {
     firstname: user.firstname,
     lastname: user.lastname,
     email,
+    image: user.image,
     status: user.status,
     newNotifications
   }
