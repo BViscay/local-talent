@@ -17,6 +17,18 @@ const ServiceCreateController = async (req, res) => {
   }
 }
 
+const CreateRatingService = async (req, res) => {
+  try {
+    const { userId } = req.headers.session
+    const { id } = req.params
+    const match = await 
+    const result = await createService({ userId, ...req.body }, req.files)
+    res.status(201).json(result)
+  } catch ({ message }) {
+    res.status(400).json({ message })
+  }
+}
+
 const findUserServicesController = async (req, res) => {
   try {
     const { userId } = req.headers.session
@@ -72,7 +84,7 @@ module.exports = {
   ServiceEditController,
   ServiceSearchController,
   ServiceDeleteController,
-
-  ServiceFindALLController
+  ServiceFindALLController,
+  CreateRatingService
 
 }

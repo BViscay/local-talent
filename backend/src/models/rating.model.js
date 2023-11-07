@@ -2,6 +2,7 @@ const { Model, DataTypes } = require('sequelize')
 const { sequelize } = require('../database')
 const User = require('./user.model')
 const Match = require('./match.model')
+const Service = require('./service.model')
 
 class Rating extends Model {}
 
@@ -35,6 +36,13 @@ Rating.init({
   },
   comment: {
     type: DataTypes.TEXT
+  },
+  refId: {
+    type: DataTypes.UUID,
+    references: {
+      model: Service,
+      key: 'id'
+    }
   }
 },
 {

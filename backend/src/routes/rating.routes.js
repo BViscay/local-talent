@@ -2,10 +2,11 @@ const express = require('express')
 const { validateToken } = require('../middlewares/auth.middleware')
 const router = express.Router()
 
-const { createRatingController, ratingAllController } = require('../controllers/ratings.controller')
+const { createRatingController, ratingServiceController, ratingUserController, ratingController } = require('../controllers/ratings.controller')
 
 router.post('/', validateToken, createRatingController)
-router.get('/', validateToken, ratingAllController)
-// router.get('/user', validateToken, userRatingController)
+router.get('/service', validateToken, ratingServiceController)
+router.get('/user', validateToken, ratingUserController)
+router.get('/', validateToken, ratingController)
 
 module.exports = router

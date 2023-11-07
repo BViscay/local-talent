@@ -9,7 +9,8 @@ const {
   ServiceSearchController,
   ServiceDeleteController,
 
-  ServiceFindALLController
+  ServiceFindALLController,
+  CreateRatingService
 } = require('../controllers/service.controller.js')
 
 const router = express.Router()
@@ -21,6 +22,7 @@ router.get('/', validateToken, findUserServicesController)
 router.post('/', validateToken, ServiceCreateController)
 router.patch('/:id', validateToken, ServiceEditController)
 router.delete('/:id', validateToken, ServiceDeleteController)
+router.post('/:id/rating', validateToken, CreateRatingService)
 
 // Rutas a pedido FRONT
 router.get('/allservices', ServiceFindALLController)
