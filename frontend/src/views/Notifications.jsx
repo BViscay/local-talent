@@ -1,6 +1,7 @@
 "use client"
 
 import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
 import {useSelector} from "react-redux";
 import {Select, SelectItem} from "@nextui-org/react";
 import { Bell } from "lucide-react";
@@ -14,7 +15,7 @@ export default function Notifications() {
 
   const navigate = useNavigate();
 
-  const { newNotificationsCount } = useNotifications();
+  const { handleCountNotifications, handleNewsNotifications } = useNotifications();
 
   const mockNotifications = [
     {
@@ -54,7 +55,10 @@ export default function Notifications() {
     },
   ];
 
-  console.log(newNotificationsCount);
+  useEffect(() => {
+    handleCountNotifications();
+    handleNewsNotifications();
+  },[])
 
   return (
     <div className="bg-[#f9f9f9] p-4 h-screen">
@@ -70,8 +74,8 @@ export default function Notifications() {
             label="Orden" 
             className="max-w-xs" 
           >
-            <SelectItem>Recientes</SelectItem>
-            <SelectItem>Antiguos</SelectItem>
+            <SelectItem>Nuevas</SelectItem>
+            <SelectItem>Todas</SelectItem>
           </Select>
         </div>
       </div>

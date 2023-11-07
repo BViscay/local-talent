@@ -8,6 +8,7 @@ import useMatches from "../hooks/useMatches";
 import {AiFillStar} from "react-icons/ai";
 
 export default function ServiceDetail() {
+
   const {id} = useParams();
   const detailService = useSelector(getDetailServices);
   const {handleFilterByServiceId} = useFilters();
@@ -62,7 +63,7 @@ export default function ServiceDetail() {
           Guardar
         </button>
         <button
-          onClick={() => handleUserMatch(id, value)}
+          onClick={() => {handleUserMatch(id, value)}}
           className='w-32 text-white font-medium rounded-xl text-lg p-1.5 text-center bg-primary-600 hover:bg-cyan-900 active:bg-orange-300'
         >
           Conectar
