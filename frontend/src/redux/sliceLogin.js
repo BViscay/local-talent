@@ -7,6 +7,8 @@ const initialState = {
   name: "",
   lastname: "",
   image: null,
+  notifications: null,
+  rol: null,
   whatsapp: null,
   location: null,
 };
@@ -40,6 +42,12 @@ export const userHandler = createSlice({
     setImage: (state, action) => {
       state.image = action.payload;
     },
+    setNotifications: (state, action) => {
+      state.notifications = action.payload;
+    },
+    setRol: (state, action) => {
+      state.rol = action.payload;
+    },
     setLocation: (state, action) => {
       state.location = {
         latitude: action.payload.latitude,
@@ -54,6 +62,8 @@ export const getToken = (state) => state?.user?.token;
 export const getMail = (state) => state?.user?.email;
 export const getName = (state) => state?.user?.name;
 export const getImage = (state) => state?.user?.image;
+export const getNotifications = (state) => state?.user?.notifications;
+export const getRol = (state) => state?.user?.rol;
 export const getLastName = (state) => state?.user?.lastname;
 export const getLocation = (state) => state?.user?.location;
 
@@ -66,6 +76,8 @@ export const {
   setName,
   setLastName,
   setImage,
+  setRol,
+  setNotifications,
   setLocation,
 } = userHandler.actions;
 

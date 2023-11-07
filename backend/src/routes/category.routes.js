@@ -1,10 +1,9 @@
 const express = require('express')
 
-const { categoryCreateController, findCategoriesController } = require('../controllers/category.controller.js')
+const { findAllCagoriesService } = require('../controllers/category.controller.js')
 
 const router = express.Router()
 
-router.get('/', findCategoriesController)
-router.post('/', categoryCreateController)
+router.get('/', findAllCagoriesService)
 
 module.exports = router

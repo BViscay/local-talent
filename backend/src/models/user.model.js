@@ -45,6 +45,11 @@ User.init({
   status: {
     type: DataTypes.INTEGER,
     defaultValue: 0
+  },
+  rol: {
+    type: DataTypes.ENUM,
+    values: ['user', 'admin'],
+    defaultValue: 'user'
   }
 },
 {

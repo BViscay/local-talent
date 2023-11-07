@@ -14,8 +14,8 @@ const countNewUserNotificationsService = (userId) =>
 const clearNewUserNotificationsService = (userId) =>
   Notification.update({ status: 1 }, { userId })
 
-const updateNotificationServiceService = (userId, notificationId) => {
-  const res = Notification.update({ status: 1 }, { where: { userId, id: notificationId } })
+const updateNotificationServiceService = (where) => {
+  const res = Notification.update({ status: 1 }, { where })
   if (!res) throw new Error('NOTIFICATION_NOT_FOUND')
   return res
 }

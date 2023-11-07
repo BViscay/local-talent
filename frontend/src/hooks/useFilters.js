@@ -81,7 +81,7 @@ const useFilters = () => {
           });
 
           if (data) {
-            dispatch(setFilterByName(data));
+           console.log(data)
           }
         } catch (error) {
           console.log(error);

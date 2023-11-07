@@ -8,17 +8,17 @@ const { createNotificationService } = require('./notification.service')
 const { findServiceWhere } = require('./services.service')
 
 const createMatch = async ({ userId, message, serviceId }) => {
-  console.log({ userId, message, serviceId })
+  const service = await findServiceWhere({ id: serviceId }, 'findOne')
+
+  if (!service) throw new Error('INVALID_SERVICE')
 
   const newMatch = await Match.create({ userId, message, serviceId })
 
   await createNotificationService({
-    userId,
+    userId: service.userId,
     refId: serviceId,
     type: 1
   })
-
-  const service = await findServiceWhere({ id: serviceId }, 'findOne')
 
   await sendCreateMatch({
     email: service.user.email,
@@ -28,23 +28,6 @@ const createMatch = async ({ userId, message, serviceId }) => {
   })
   return newMatch
 }
-
-// const serviceMatch = async (userId) => {
-//   const result = await Match.findAll({
-//     include: {
-//       model: Service,
-//       where: { userId },
-//       as: 'service',
-//       include: {
-//         model: User,
-//         as: 'user'
-
-//       }
-//     }
-
-//   })
-//   return result
-// }
 
 const serviceMatch = async (userId) => {
   const result = await Match.findAll({
@@ -63,7 +46,8 @@ const serviceMatch = async (userId) => {
       },
       {
         model: User,
-        as: 'user'
+        as: 'user',
+        attributes: ['id', 'firstname', 'lastname', 'email', 'whatsapp', 'image', 'score', 'rating', 'status']
       }
     ]
   })
