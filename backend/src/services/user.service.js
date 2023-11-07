@@ -1,6 +1,8 @@
 const User = require('../models/user.model')
 const { uploadImageCreate } = require('./image.service')
 
+const attributes = ['id', 'firstname', 'lastname', 'email', 'whatsapp', 'image', 'rating', 'status']
+
 const findUserData = async (where) => {
   const user = await User.findOne({ where })
   if (!user) return {}
@@ -8,12 +10,18 @@ const findUserData = async (where) => {
   return { id, name, email, status }
 }
 
-const findUser = async (where) => {
-  const user = await User.findOne({ where })
+const findUserService = async (where) => {
+  const user = await User.findOne({
+    where,
+    attributes
+  })
+
+  if (!user) throw new Error('USER_NOT_FOUND')
+
   return user
 }
 
-const createUser = async (data) => {
+const createUserService = async (data) => {
   const user = await User.create(data)
   return user
 }
@@ -30,20 +38,26 @@ const userImage = async (dataImg, dataId) => {
 
   return modifyUser
 }
-const userModify = async (data, dataId) => {
-  const modifyUser = await User.update(
-    {
-      firstname: data.firstname,
-      lastname: data.lastname,
-      email: data.email,
-      whatsapp: data.whatsapp
 
-    },
-    { where: { id: dataId } }
-
-  )
-  console.log(modifyUser)
-  return modifyUser
+const changePasswordService = async (userId, password) => {
+  const user = await User.update({ password }, { where: { id: userId } })
+  console.log(user)
+  return user
 }
 
-module.exports = { findUserData, findUser, createUser, userImage, userModify }
+const userUpdateService = async (values, userId) => await User.update(values, { where: { id: userId } })
+
+const findAllUsersService = async (where) => await User.findAll({
+  where,
+  attributes
+})
+
+module.exports = {
+  findUserData,
+  findUserService,
+  createUserService,
+  userImage,
+  userUpdateService,
+  findAllUsersService,
+  changePasswordService
+}

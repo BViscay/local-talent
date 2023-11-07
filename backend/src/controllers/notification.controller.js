@@ -1,6 +1,7 @@
 const {
   countNewUserNotificationsService,
-  findUserNotificationService
+  findUserNotificationService,
+  updateNotificationServiceService
 } = require('../services/notification.service')
 
 const countNewUserNotificationController = async (req, res) => {
@@ -23,7 +24,30 @@ const findNewsNotificationsController = async (req, res) => {
   }
 }
 
+const readOneNotificationController = async (req, res) => {
+  try {
+    const { userId } = req.headers.session
+    const { id } = req.params
+    const result = await updateNotificationServiceService({ id, userId, status: 0 })
+    res.status(200).json(result)
+  } catch ({ message }) {
+    res.status(400).json({ message })
+  }
+}
+
+const cleanAllNotificationsController = async (req, res) => {
+  try {
+    const { userId } = req.headers.session
+    const result = await updateNotificationServiceService({ userId, status: 0 })
+    res.status(200).json(result)
+  } catch ({ message }) {
+    res.status(400).json({ message })
+  }
+}
+
 module.exports = {
   countNewUserNotificationController,
-  findNewsNotificationsController
+  findNewsNotificationsController,
+  readOneNotificationController,
+  cleanAllNotificationsController
 }
