@@ -26,6 +26,7 @@ const loginTokenService = async (userId) => {
     email: user.email,
     status: user.status,
     image: user.image,
+    rol: user.rol || 'user',
     newNotifications
   }
 
@@ -41,7 +42,7 @@ const loginService = async ({ email, password }) => {
   if (user.status === 0) throw new Error('USER_REQUIRE_VALIDATE')
   if (!user.comparePassword(password)) throw new Error('PASSWORD_INVALID')
 
-  const token = createToken({ userId: user.id })
+  const token = createToken({ userId: user.id, rol: user.rol || 'user' })
 
   // Busco si tiene nuevas notificaciones
   const newNotifications = await countNewUserNotificationsService(user.id)
@@ -53,6 +54,7 @@ const loginService = async ({ email, password }) => {
     email,
     image: user.image,
     status: user.status,
+    rol: user.rol || 'user',
     newNotifications
   }
 
@@ -76,7 +78,8 @@ const registerService = async (data) => {
     id: newUser.id,
     firstname: newUser.firstname,
     lastname: newUser.lastname,
-    email: newUser.email
+    email: newUser.email,
+    rol: user.rol || 'user'
   }
 }
 
@@ -92,7 +95,7 @@ const validateUserService = async (data) => {
   user.status = USER_STATUS.VALIDATE
   await user.save()
 
-  const token = createToken({ userId: user.id })
+  const token = createToken({ userId: user.id, rol: user.rol || 'user' })
 
   await sendWelcomeMessage({ email })
 
@@ -101,7 +104,8 @@ const validateUserService = async (data) => {
     firstname: user.firstname,
     lastname: user.lastname,
     email,
-    status: user.status
+    status: user.status,
+    rol: user.rol || 'user'
   }
 
   return { session, token }
