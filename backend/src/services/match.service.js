@@ -88,9 +88,12 @@ const modifyMatch = async (data) => {
   return match
 }
 
+const findAllMatch = async (where) => await Match.findAll({ where })
+
 module.exports = {
   createMatch,
   serviceMatch,
   modifyMatch,
-  matchUser
+  matchUser,
+  findAllMatch
 }

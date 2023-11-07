@@ -22,7 +22,7 @@ router.get('/', validateToken, findUserServicesController)
 router.post('/', validateToken, ServiceCreateController)
 router.patch('/:id', validateToken, ServiceEditController)
 router.delete('/:id', validateToken, ServiceDeleteController)
-router.post('/:id/rating', validateToken, CreateRatingService)
+router.post('/:id/rating/:matchId', validateToken, CreateRatingService)
 
 // Rutas a pedido FRONT
 router.get('/allservices', ServiceFindALLController)

@@ -5,6 +5,8 @@ const {
   findUserServices,
   searchService, allServices
 } = require('../services/services.service')
+const { findAllMatch } = require('../services/match.service')
+const { createRating } = require('../services/rating.service')
 
 const ServiceCreateController = async (req, res) => {
   try {
@@ -19,11 +21,32 @@ const ServiceCreateController = async (req, res) => {
 
 const CreateRatingService = async (req, res) => {
   try {
+    // Cuando califica el usuario
     const { userId } = req.headers.session
-    const { id } = req.params
-    const match = await 
-    const result = await createService({ userId, ...req.body }, req.files)
-    res.status(201).json(result)
+    const { serviceId } = req.params
+    const { matchId } = req.params
+    const match = await findAllMatch({ userId, serviceId, matchId })
+    if (match) {
+      const result = await createRating({ userId, refId: serviceId, matchId, ...req.body })
+      res.status(201).json(result)
+    }
+  } catch ({ message }) {
+    res.status(400).json({ message })
+  }
+}
+
+const CreateRatingServiceService = async (req, res) => {
+  try {
+    // cuando califica el prestador
+    const { userId } = req.headers.session
+    const { serviceId } = req.params
+    const { matchId } = req.params
+    const service = await findAllService({ userId, serviceId })
+    const match = await findAllMatch({ serviceId, matchId })
+    if (match && service) {
+      const result = await createRating({ userId, refId: serviceId, matchId, ...req.body })
+      res.status(201).json(result)
+    }
   } catch ({ message }) {
     res.status(400).json({ message })
   }
@@ -95,10 +118,7 @@ module.exports = {
   ServiceSearchController,
   ServiceDeleteController,
   ServiceFindALLController,
-<<<<<<< HEAD
-  CreateRatingService
-
-=======
-  deleteServiceController
->>>>>>> 48e9488b45360c8a3254d3da8880753bb2c3d6c9
+  deleteServiceController,
+  CreateRatingService,
+  CreateRatingServiceService
 }
