@@ -2,7 +2,7 @@ import axios from "axios";
 import {
     // API_URL_NOTIFICATIONS,
     API_URL_COUNT_NOTIFICATIONS,
-    API_URL_CREATE_NOTIFICATION,
+    //API_URL_CREATE_NOTIFICATION,
     API_URL_NEWS_NOTIFICATIONS,
 } from "../config/api";
 import Swal from "sweetalert2";
@@ -11,37 +11,6 @@ import { getToken } from "../redux/sliceLogin";
 
 const useNotifications = () => {
     const token = useSelector(getToken);
-
-    const createNotification = async (refId, type) => {
-        const notificationData = { refId, type };
-
-        try {
-            const { data } = await axios.post(
-                API_URL_CREATE_NOTIFICATION,
-                notificationData,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-            console.log(data);
-            Swal.fire({
-                title: "Notificaciones",
-                text: `Tienes ${data} nuevas notificaciones🎉`,
-                icon: "success",
-            });
-        } catch (error) {
-            if (error.response) {
-                Swal.fire({
-                    title: "Error",
-                    text: "Hubo un error al crear nueva notificacion 😣",
-                    icon: "error",
-                });
-                console.log("Response Data:", error.response.data);
-            }
-        }
-    };
 
     const handleCountNotifications = async () => {
         try {
