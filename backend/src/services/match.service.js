@@ -8,15 +8,17 @@ const { createNotificationService } = require('./notification.service')
 const { findServiceWhere } = require('./services.service')
 
 const createMatch = async ({ userId, message, serviceId }) => {
+  const service = await findServiceWhere({ id: serviceId }, 'findOne')
+
+  if (!service) throw new Error('INVALID_SERVICE')
+
   const newMatch = await Match.create({ userId, message, serviceId })
 
   await createNotificationService({
-    userId,
+    userId: service.userId,
     refId: serviceId,
     type: 1
   })
-
-  const service = await findServiceWhere({ id: serviceId }, 'findOne')
 
   await sendCreateMatch({
     email: service.user.email,
