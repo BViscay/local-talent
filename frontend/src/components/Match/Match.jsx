@@ -23,6 +23,7 @@ const Match = ({
   apellido,
   avatar,
   whatsapp,
+  isMyMatches,
 }) => {
   function obtenerIconoCategoria(categoria) {
     const iconos = {
@@ -67,7 +68,7 @@ const Match = ({
       <hr />
       <div className='flex justify-between items-center p-4'>
         <p className='m-0'>Estado</p>
-        <StatusButtons estado={estado} id={id} />
+        <StatusButtons estado={estado} id={id} isMyMatches={isMyMatches} />
       </div>
       <div className='flex p-4 items-center justify-between'>
         <div className='flex items-center'>

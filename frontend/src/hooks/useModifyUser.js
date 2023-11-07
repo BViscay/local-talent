@@ -27,6 +27,7 @@ const useModifyUser = () => {
           icon: "success",
         }).then(() => {
           navigate("/home");
+          window.location.reload();
         });
       }
     } catch (error) {
