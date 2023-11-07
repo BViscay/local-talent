@@ -61,8 +61,10 @@ const searchService = async (query) => {
 }
 
 const findServiceWhere = async (where, method = 'findAll') => {
+  where = { ...where, status: 0 } // status = 0 => AVTIVO BORRADO LOGICO
   return await Service[method]({
     where,
+    attributes: { exclude: 'status' },
     include: [
       {
         model: Category,
@@ -81,16 +83,14 @@ const findServiceWhere = async (where, method = 'findAll') => {
 const editService = async (data) => {
   const { id } = data
   await Service.update(data, {
-    where: { id }
+    where: { id, status: 0 }
   })
 }
 
 const deleteService = async (id) => {
-  console.log(id)
-  // const destroyImagen = await Service.findOne({ where: { id } })
-  await Service.destroy({ where: { id } })
-  // const destroyImage = await deleteImageDestroy(destroyImagen.image_public_id)
-  // return destroyImage
+  const result = await Service.update({ status: 2 }, { where: { id, status: 0 } })
+  if (result[0] === 0) throw new Error('SERVICE_NOT_FOUND')
+  return true
 }
 
 const allServices = async () => await findServiceWhere()
