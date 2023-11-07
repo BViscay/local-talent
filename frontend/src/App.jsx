@@ -22,6 +22,7 @@ import ServiceDetail from "./views/ServiceDetail";
 import FilteredByLocation from "./views/FilteredByLocation";
 import MyMap from "./components/MyMap/MyMap";
 import MyServices from "./views/MyServices";
+import DashboardAdmin from "./views/DashboardAdmin";
 
 function App() {
   const location = useLocation();
@@ -41,6 +42,7 @@ function App() {
             <Route path='/login' element={<LoginForm />} />
             <Route path='/sign-up' element={<SignUp />} />
             <Route path='/validate' element={<NumericValidation />} />
+            <Route path='/dashboard-admin' element={<DashboardAdmin />} />
             <Route path='/my-location' element={<MyMap />} />
             <Route path='/categories' element={<CategoriesPage />} />
             <Route path='/create-service' element={<CreateService />} />
