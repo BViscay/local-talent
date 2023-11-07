@@ -1,16 +1,16 @@
-const { OAuth2Client } = require('google-auth-library')
+// const { OAuth2Client } = require('google-auth-library')
 
 const { USER_STATUS } = require('../config/constants')
 const { generateRandomNumber } = require('../libs/handleRandom')
 const { createToken } = require('../libs/handleToken')
 
 const { sendRegisterNotification, sendWelcomeMessage } = require('./email.service')
-const { findUser, createUser } = require('./user.service')
+const { findUserService, createUserService } = require('./user.service')
 const { countNewUserNotificationsService } = require('./notification.service')
 
 // Funcion para valdiar session por token
 const loginTokenService = async (userId) => {
-  const user = await findUser({ id: userId })
+  const user = await findUserService({ id: userId })
   if (!user) throw new Error('USER_NOT_FOUND')
   if (user.status === 0) throw new Error('USER_REQUIRE_VALIDATE')
 
@@ -24,6 +24,7 @@ const loginTokenService = async (userId) => {
     firstname: user.firstname,
     lastname: user.lastname,
     email: user.email,
+    whatsapp: user.whatsapp,
     status: user.status,
     image: user.image,
     rol: user.rol || 'user',
@@ -35,7 +36,7 @@ const loginTokenService = async (userId) => {
 
 const loginService = async ({ email, password }) => {
   // Busco por el email
-  const user = await findUser({ email })
+  const user = await findUserService({ email })
 
   // Validacion de usuario
   if (!user) throw new Error('USER_NOT_FOUND')
@@ -51,9 +52,10 @@ const loginService = async ({ email, password }) => {
     id: user.id,
     firstname: user.firstname,
     lastname: user.lastname,
-    email,
-    image: user.image,
+    email: user.email,
+    whatsapp: user.whatsapp,
     status: user.status,
+    image: user.image,
     rol: user.rol || 'user',
     newNotifications
   }
@@ -65,12 +67,12 @@ const loginService = async ({ email, password }) => {
 const registerService = async (data) => {
   const { email } = data
 
-  const user = await findUser({ email })
+  const user = await findUserService({ email })
   if (user) throw new Error('USER_EXIST')
 
   const validator = generateRandomNumber().toString()
 
-  const newUser = await createUser({ ...data, validator })
+  const newUser = await createUserService({ ...data, validator })
 
   await sendRegisterNotification(newUser)
 
@@ -79,6 +81,7 @@ const registerService = async (data) => {
     firstname: newUser.firstname,
     lastname: newUser.lastname,
     email: newUser.email,
+    whatsapp: user.whatsapp,
     rol: user.rol || 'user'
   }
 }
@@ -87,9 +90,9 @@ const registerService = async (data) => {
 const validateUserService = async (data) => {
   const { email, code } = data
 
-  const user = await findUser({ email })
+  const user = await findUserService({ email })
   if (!user) throw new Error('USER_NO_EXIST')
-  if (user.status !== 0) throw new Error('USER_NO_REQUIRE_VALIDATE')
+  if (user.status > 1) throw new Error('USER_BLOCKED')
   if (user.validator !== code) throw new Error('IVALID_CODE')
 
   user.status = USER_STATUS.VALIDATE
@@ -113,11 +116,16 @@ const validateUserService = async (data) => {
 
 // Funcion para reenvío de codigo de validación
 const reSendCodeValidationService = async (email) => {
-  const user = await findUser({ email })
+  const user = await findUserService({ email })
   if (!user) throw new Error('USER_NO_EXIST')
-  if (user.status !== 0) throw new Error('USER_NO_REQUIRE_VALIDATE')
 
-  const { validator } = user
+  // Creo un nuevo CODIGO VALIDADOR
+  const validator = generateRandomNumber()
+
+  // Actualizo el ususario
+  user.validator = validator
+  await user.save()
+
   sendRegisterNotification({ email, validator })
 
   return true
