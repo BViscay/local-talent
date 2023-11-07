@@ -12,7 +12,7 @@ const {
 
 const router = express.Router()
 
-// Rutas del ususario
+// Rutas de notificaciones
 router.get('/look', validateToken, countNewUserNotificationController)
 router.get('/news', validateToken, findNewsNotificationsController)
 router.patch('/:id', validateId, validateToken, readOneNotificationController)

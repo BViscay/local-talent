@@ -77,6 +77,16 @@ const ServiceFindALLController = async (req, res) => {
   }
 }
 
+const deleteServiceController = async (req, res) => {
+  try {
+    const { id } = req.params
+    const result = await deleteService(id)
+    res.status(200).json({ message: result })
+  } catch ({ message }) {
+    res.status(400).json({ message })
+  }
+}
+
 module.exports = {
 
   ServiceCreateController,
@@ -85,6 +95,10 @@ module.exports = {
   ServiceSearchController,
   ServiceDeleteController,
   ServiceFindALLController,
+<<<<<<< HEAD
   CreateRatingService
 
+=======
+  deleteServiceController
+>>>>>>> 48e9488b45360c8a3254d3da8880753bb2c3d6c9
 }
