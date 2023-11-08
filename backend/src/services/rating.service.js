@@ -1,61 +1,10 @@
 // const Match = require('../models/match.model')
 const Rating = require('../models/rating.model')
-const { Op } = require('sequelize')
+const { Sequelize } = require('sequelize')
 const Service = require('../models/service.model')
-const Match = require('../models/match.model')
 const { findOneMatchService } = require('./match.service')
 const { MATCH_STATUS, MATCH_TYPES } = require('../config/constants')
-const { updateScoreService } = require('./services.service')
-
-const createRating = async ({ score, comment, type, matchId, userId, refId }) => {
-  const newRating = await Rating.create({ score, comment, type, matchId, userId, refId })
-  return newRating
-}
-
-// const serviceRating = async ({ serviceId }) => {
-//   const ratings = await Rating.findAll({
-//     where: { [Op.and]: [{ refId: serviceId }, { type: 'user' }] }
-
-//   })
-
-//   return ratings
-// }
-
-const serviceRating = async (userId) => {
-  const ratings = await Service.findAll({
-    where: { userId },
-    include: [
-      { model: Match, as: 'match' }
-    ]
-  })
-
-  return ratings
-}
-
-const userRating = async ({ matchId }) => {
-  const ratings = await Rating.findAll({
-    where: { [Op.and]: [{ matchId }, { type: 'service' }] }
-
-  })
-
-  return ratings
-}
-
-// const getRatings = async ({ id, type }) => {
-//   const whereClause = type === 'service' ? { serviceId: id } : { matchId: id }
-//   console.log('hola', whereClause, type)
-//   const ratings = await Match.findAll({
-//     where: whereClause,
-//     include: [{
-//       model: Rating,
-//       as: 'rating',
-//       where: { type },
-//       attributes: ['id', 'score', 'comment']
-//     }]
-//   })
-//   console.log(ratings)
-//   return ratings
-// }
+const User = require('../models/user.model')
 
 const createServiceRatingService = async (userId, values) => {
   const { matchId, score, comment } = values
@@ -78,14 +27,39 @@ const createServiceRatingService = async (userId, values) => {
   match.status = MATCH_STATUS.QUALIFY_USER
   match.save()
 
-  await updateScoreService(match.serviceId)
+  // Actualizo el rating del servicio
+  // ! Esto se podría reemplazar por un trigger
+  const newRating = await avgRatingService(match.serviceId)
+  await Service.update(newRating, { where: { id: match.serviceId } })
 
   return rating
 }
 
+const avgRatingService = async (refId) => {
+  const res = await Rating.findOne({
+    where: { refId },
+    attributes: [
+      [Sequelize.fn('avg', Sequelize.col('score')), 'score'],
+      [Sequelize.fn('count', Sequelize.col('id')), 'rating']
+    ],
+    raw: true,
+    group: ['refId']
+  })
+  return res
+}
+
+const findRatinsService = async (refId) => await Rating.findAll({
+  where: { refId },
+  attributes: ['id', 'score', 'comment', 'createdAt'],
+  include: {
+    model: User,
+    as: 'user',
+    attributes: ['firstname', 'lastname', 'email', 'id']
+  }
+})
+
 module.exports = {
-  createRating,
-  serviceRating,
-  userRating,
-  createServiceRatingService
+  createServiceRatingService,
+  avgRatingService,
+  findRatinsService
 }
