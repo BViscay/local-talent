@@ -3,4 +3,14 @@ const USER_STATUS = {
   VALIDATE: 1
 }
 
-module.exports = { USER_STATUS }
+const MATCH_STATUS = {
+  ACCEPT: 'accept',
+  QUALIFY_USER: 'qualifyUser'
+}
+
+const MATCH_TYPES = {
+  SERVICE: 'service',
+  USER: 'user'
+}
+
+module.exports = { USER_STATUS, MATCH_STATUS, MATCH_TYPES }

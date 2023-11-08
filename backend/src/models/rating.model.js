@@ -31,18 +31,18 @@ Rating.init({
     type: DataTypes.ENUM,
     values: ['user', 'service']
   },
-  score: {
-    type: DataTypes.INTEGER
-  },
-  comment: {
-    type: DataTypes.TEXT
-  },
   refId: {
     type: DataTypes.UUID,
     references: {
       model: Service,
       key: 'id'
     }
+  },
+  score: {
+    type: DataTypes.INTEGER
+  },
+  comment: {
+    type: DataTypes.TEXT
   }
 },
 {

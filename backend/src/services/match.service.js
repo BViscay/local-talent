@@ -90,10 +90,19 @@ const modifyMatch = async (data) => {
 
 const findAllMatch = async (where) => await Match.findAll({ where })
 
+const findOneMatchService = async (id) => await Match.findByPk(id, {
+  include: {
+    model: Service,
+    as: 'service',
+    attributes: ['userId']
+  }
+})
+
 module.exports = {
   createMatch,
   serviceMatch,
   modifyMatch,
   matchUser,
-  findAllMatch
+  findAllMatch,
+  findOneMatchService
 }
