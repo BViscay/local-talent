@@ -1,9 +1,9 @@
 import "./App.css";
-import {Provider} from "react-redux";
-import {store} from "../src/redux/store";
-import {Route, Routes} from "react-router-dom";
-import {useLocation} from "react-router-dom";
-import {NextUIProvider} from "@nextui-org/react";
+import { Provider } from "react-redux";
+import { store } from "../src/redux/store";
+import { Route, Routes } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { NextUIProvider } from "@nextui-org/react";
 
 import LoginForm from "./views/LoginForm";
 import SignUp from "./views/SignUp";
@@ -23,6 +23,7 @@ import FilteredByLocation from "./views/FilteredByLocation";
 import MyMap from "./components/MyMap/MyMap";
 import MyServices from "./views/MyServices";
 import DashboardAdmin from "./views/DashboardAdmin";
+import RatingMatch from "./components/RatingMatch/RatingMatch";
 
 function App() {
   const location = useLocation();
@@ -33,34 +34,34 @@ function App() {
   return (
     <Provider store={store}>
       <NextUIProvider>
-        <div className='w-full'>
+        <div className="w-full">
           {!isLoginPage && !isRegisterPage && !isValidatePage && <NavBar />}
 
           <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/home' element={<Home />} />
-            <Route path='/login' element={<LoginForm />} />
-            <Route path='/sign-up' element={<SignUp />} />
-            <Route path='/validate' element={<NumericValidation />} />
-            <Route path='/dashboard-admin' element={<DashboardAdmin />} />
-            <Route path='/my-location' element={<MyMap />} />
-            <Route path='/categories' element={<CategoriesPage />} />
-            <Route path='/create-service' element={<CreateService />} />
-            <Route path='/my-services' element={<MyServices />} />
-            <Route path='/matchs' element={<Matches />} />
-            <Route path='/notifications' element={<Notifications />} />
-            <Route path='/editProfile' element={<EditeProfile />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/validate" element={<NumericValidation />} />
+            <Route path="/my-location" element={<MyMap />} />
+            <Route path="/categories" element={<CategoriesPage />} />
+            <Route path="/create-service" element={<CreateService />} />
+            <Route path="/my-services" element={<MyServices />} />
+            <Route path="/matchs" element={<Matches />} />
+            <Route path="/notifications" element={<Notifications />} />
+            <Route path="/editProfile" element={<EditeProfile />} />
             <Route
-              path='/filtered-services'
+              path="/filtered-services"
               element={<FilteredServicesByCat />}
             />
-            <Route path='/searched-services' element={<SearchedServices />} />
-            <Route path='/suscriptions' element={<Suscriptions />} />
-            <Route path='/service/:id' element={<ServiceDetail />} />
+            <Route path="/searched-services" element={<SearchedServices />} />
+            <Route path="/suscriptions" element={<Suscriptions />} />
+            <Route path="/service/:id" element={<ServiceDetail />} />
             <Route
-              path='/filtered-by-location'
+              path="/filtered-by-location"
               element={<FilteredByLocation />}
             />
+            <Route path="/qualify" element={<RatingMatch />} />
           </Routes>
         </div>
       </NextUIProvider>
