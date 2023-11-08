@@ -82,17 +82,10 @@ const useMatches = () => {
   };
 
   const handleStatusChange = async (id, status) => {
-    const matchData = {id, status};
 
-    console.log(matchData);
     try {
-      const {data} = await axios.put(
-        `${API_URL_MATCH}?status=${status}&id=${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+      const {data} = await axios.patch(
+        `${API_URL_MATCH}?status=${status}&id=${id}`
       );
       console.log(data);
       if (data[0] === 1) {

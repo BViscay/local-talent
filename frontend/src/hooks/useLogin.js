@@ -12,6 +12,8 @@ import {
   setName,
   setLastName,
   setImage,
+  setRol,
+  setNotifications,
 } from "../redux/sliceLogin";
 import Swal from "sweetalert2";
 
@@ -46,6 +48,7 @@ const useLogin = () => {
         dispatch(setLastName(session.lastname));
         dispatch(setMail(session.email));
         dispatch(setImage(session.image));
+        dispatch(setRol(session.rol));
         dispatch(login());
         redirectLogin(navigate);
       }
@@ -76,12 +79,16 @@ const useLogin = () => {
           });
           const {session} = data;
 
+          console.log(data.session);
+
           if (session) {
             dispatch(setAuthToken(token));
             dispatch(setName(session.firstname));
             dispatch(setLastName(session.lastname));
             dispatch(setMail(session.email));
             dispatch(setImage(session.image));
+            dispatch(setNotifications(session.newNotifications));
+            dispatch(setRol(session.rol));
             dispatch(login());
             redirectLogin(navigate);
           }

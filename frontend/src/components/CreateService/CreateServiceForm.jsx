@@ -1,11 +1,14 @@
 import {useForm, useController} from "react-hook-form";
 import useServices from "../../hooks/useServices";
+import useNotifications from "../../hooks/useNotifications";
 
 import Select from "react-select";
 import Input from "../Shared/Input";
 
 export default function CreateServiceForm() {
   const {handleCreateService} = useServices();
+  const {createNotification} = useNotifications();
+
   const {
     handleSubmit,
     register,
@@ -41,6 +44,7 @@ export default function CreateServiceForm() {
         className='space-y-1 w-full h-max pb-5 mb-4'
         onSubmit={handleSubmit((newEvent) => {
           handleCreateService(newEvent);
+          createNotification('Nuevo servicio creado');
         })}
       >
         <div>

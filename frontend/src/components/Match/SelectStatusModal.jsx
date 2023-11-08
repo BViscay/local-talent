@@ -1,13 +1,12 @@
-import { Button } from "@nextui-org/react";
+import {Button} from "@nextui-org/react";
 import useMatches from "../../hooks/useMatches";
 
-export default function SelectStatusModal({ onClose, id }) {
-  const {handleStatusChange } = useMatches()
+export default function SelectStatusModal({onClose, id, isMyMatches}) {
+  const {handleStatusChange} = useMatches();
 
   const handleClick = (status) => {
     onClose();
-    handleStatusChange(id, status)
-
+    handleStatusChange(id, status);
   };
 
   return (
@@ -22,12 +21,16 @@ export default function SelectStatusModal({ onClose, id }) {
               </h1>
             </div>
             <div className='mt-5 w-full justify-center items-center gap-3 flex flex-col'>
-              <Button
-                onClick={()=>handleClick("accept")}
-                className='bg-green-500/30 text-green-500 font-semibold text-lg w-36'
-              >
-                Confirmar
-              </Button>
+              {!isMyMatches && (
+                <div>
+                  <Button
+                    onClick={() => handleClick("accept")}
+                    className='bg-green-500/30 text-green-500 font-semibold text-lg w-36'
+                  >
+                    Confirmar
+                  </Button>
+                </div>
+              )}
               <Button
                 onClick={handleClick}
                 className='bg-red-500/30 text-red-500 font-semibold text-lg w-36'

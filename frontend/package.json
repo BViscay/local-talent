@@ -24,6 +24,7 @@
     "framer-motion": "^10.16.4",
     "lucide-react": "^0.288.0",
     "react": "^18.2.0",
+    "react-autoql": "^8.0.3",
     "react-dom": "^18.2.0",
     "react-geolocated": "^4.1.2",
     "react-hook-form": "^7.47.0",

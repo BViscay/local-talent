@@ -22,6 +22,7 @@ import {Home, Bell} from "lucide-react";
 import CustomMenuToggle from "./CustomMenuToggle";
 import SideMenuUser from "./SideMenuUser";
 import SideMenu from "./SideMenu";
+import RedPointNotification from "../Notification/RedPointNotification";
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -37,17 +38,14 @@ const NavBar = () => {
         <NavbarItem onClick={() => navigate("/home")}>
           <Home size={30} strokeWidth={2.2} color='#266DD3' />
         </NavbarItem>
-        {/* 
-        <NavbarItem onClick={() => navigate("/create-service")}>
-          <AiOutlineAppstoreAdd className='text-[34px] text-[#266DD3]' />
-        </NavbarItem> */}
 
         <NavbarItem onClick={() => navigate("/matchs")}>
           <LiaHandshakeSolid className='text-[34px] text-[#266DD3]' />
         </NavbarItem>
 
-        <NavbarItem onClick={() => navigate("/notifications")}>
+        <NavbarItem onClick={() => navigate("/notifications")} className='flex'>
           <Bell size={30} strokeWidth={2.2} color='#266DD3' />
+          <RedPointNotification />
         </NavbarItem>
 
         <CustomMenuToggle menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
