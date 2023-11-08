@@ -79,8 +79,6 @@ const useLogin = () => {
           });
           const {session} = data;
 
-          console.log(data.session);
-
           if (session) {
             dispatch(setAuthToken(token));
             dispatch(setName(session.firstname));
