@@ -1,10 +1,15 @@
 const express = require('express')
-const { validateToken } = require('../middlewares/auth.middleware.js')
-const { userImageController, userModifyController } = require('../controllers/user.controller.js')
+
+const {
+  userImageController,
+  userUpdateController,
+  changePasswordController
+} = require('../controllers/user.controller.js')
 
 const router = express.Router()
 
-router.put('/image', validateToken, userImageController)
-router.put('/', validateToken, userModifyController)
+router.put('/image', userImageController)
+router.put('/', userUpdateController)
+router.patch('/password', changePasswordController)
 
 module.exports = router

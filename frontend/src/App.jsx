@@ -22,6 +22,7 @@ import ServiceDetail from "./views/ServiceDetail";
 import FilteredByLocation from "./views/FilteredByLocation";
 import MyMap from "./components/MyMap/MyMap";
 import MyServices from "./views/MyServices";
+import DashboardAdmin from "./views/DashboardAdmin";
 import RatingMatch from "./components/RatingMatch/RatingMatch";
 
 function App() {

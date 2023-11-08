@@ -1,6 +1,7 @@
 const { Model, DataTypes } = require('sequelize')
 const { sequelize } = require('../database')
 const bcrypt = require('bcrypt')
+const { hashPassword } = require('../libs/handleEncrynpt')
 
 class User extends Model {}
 
@@ -45,12 +46,17 @@ User.init({
   status: {
     type: DataTypes.INTEGER,
     defaultValue: 0
+  },
+  rol: {
+    type: DataTypes.ENUM,
+    values: ['user', 'admin'],
+    defaultValue: 'user'
   }
 },
 {
   hooks: {
     beforeCreate: async (user) => {
-      const hashedPassword = await bcrypt.hash(user.password, 10)
+      const hashedPassword = await hashPassword(user.password)
       user.password = hashedPassword
     }
   },
