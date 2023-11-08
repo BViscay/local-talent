@@ -54,20 +54,20 @@ Service.init({
     type: DataTypes.INTEGER,
     defaultValue: 0
   },
-  categoryId: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: 'Category', 
-      key: 'id', 
-    }
-    },
-  userId: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: 'User', 
-      key: 'id', 
-    }
-    },
+  // categoryId: {
+  //   type: DataTypes.INTEGER,
+  //   references: {
+  //     model: Category, 
+  //     key: 'id', 
+  //   }
+  // },
+  // userId: {
+  //   type: DataTypes.INTEGER,
+  //   references: {
+  //     model: User, 
+  //     key: 'id', 
+  //   }
+  // },
 },
 {
   sequelize,

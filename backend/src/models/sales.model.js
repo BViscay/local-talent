@@ -9,10 +9,10 @@ SalesModel.init({
     primaryKey: true,
     autoIncrement: true
   },
-  // user_id: {
-  //   type: DataTypes.INTEGER,
-  //   allowNull: false
-  // },
+  user_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
   product_id: {
     type: DataTypes.INTEGER,
     allowNull: false
