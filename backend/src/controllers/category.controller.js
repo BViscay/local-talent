@@ -1,15 +1,15 @@
-const { createCategory, findCategoriesServices } = require('../services/category.service')
+const { createCategoryService, findCategoriesServices, updateCategoryService } = require('../services/category.service')
 
-const categoryCreateController = async (req, res) => {
+const createCategoryController = async (req, res) => {
   try {
-    const result = await createCategory(req.body)
+    const result = await createCategoryService(req.body)
     res.status(200).json(result)
   } catch ({ message }) {
     res.status(400).json({ message })
   }
 }
 
-const findCategoriesController = async (req, res) => {
+const findAllCagoriesService = async (req, res) => {
   try {
     const result = await findCategoriesServices()
     res.status(200).json(result)
@@ -18,7 +18,18 @@ const findCategoriesController = async (req, res) => {
   }
 }
 
+const updateCategoryController = async (req, res) => {
+  try {
+    const { id } = req.params
+    const result = await updateCategoryService(req.body, id)
+    res.status(200).json({ message: result })
+  } catch ({ message }) {
+    res.status(400).json({ message })
+  }
+}
+
 module.exports = {
-  findCategoriesController,
-  categoryCreateController
+  findAllCagoriesService,
+  createCategoryController,
+  updateCategoryController
 }

@@ -1,7 +1,7 @@
 const { transproter } = require('../config/mailer')
 
-const sendRegisterNotification = ({ email, validator }) => {
-  transproter.sendMail({
+const sendRegisterNotification = async ({ email, validator }) => {
+  await transproter.sendMail({
     from: `"Local Talent" <${process.env.SMTP_ACCOUNT}>`,
     to: email,
     subject: 'Confirmación de registro',
@@ -14,8 +14,8 @@ const sendRegisterNotification = ({ email, validator }) => {
   return true
 }
 
-const sendWelcomeMessage = ({ email }) => {
-  transproter.sendMail({
+const sendWelcomeMessage = async ({ email }) => {
+  await transproter.sendMail({
     from: `"Local Talent" <${process.env.SMTP_ACCOUNT}>`,
     to: email,
     subject: 'Bienvenido a LOCAL TALENT',
@@ -25,4 +25,22 @@ const sendWelcomeMessage = ({ email }) => {
   })
 }
 
-module.exports = { sendRegisterNotification, sendWelcomeMessage }
+const sendCreateMatch = async ({ email, serviceTitle, userFullName, message }) => {
+  await transproter.sendMail({
+    from: `"Local Talent" <${process.env.SMTP_ACCOUNT}>`,
+    to: email,
+    subject: 'Tienes un nuevo MATCH!!!',
+    html: `
+            <h2>Hola ${userFullName}!!!</h2>
+            <h3>Han realizado un nuevo MATCH en tu servicio ${serviceTitle}: </h3>
+            <h3>${message} </h3>
+            <h3>Accede a tu cuenta para concretar la oportunidad...</h3>
+        `
+  })
+}
+
+module.exports = {
+  sendRegisterNotification,
+  sendWelcomeMessage,
+  sendCreateMatch
+}
