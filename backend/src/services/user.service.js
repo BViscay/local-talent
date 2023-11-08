@@ -1,6 +1,7 @@
 const User = require('../models/user.model')
 const { uploadImageCreate } = require('./image.service')
-const bcrypt = require('bcrypt')
+
+const { hashPassword } = require('../libs/handleEncrynpt')
 
 const attributes = ['id', 'firstname', 'lastname', 'email', 'whatsapp', 'image', 'rating', 'status']
 
@@ -35,7 +36,7 @@ const userImage = async (dataImg, dataId) => {
 }
 
 const changePasswordService = async (userId, password) => {
-  password = await bcrypt.hash(password, 10)
+  password = await hashPassword(password)
   const res = await User.update({ password }, { where: { id: userId } })
   if (res[0] === 0) throw new Error('USER_NOT_FOUND')
   return true
