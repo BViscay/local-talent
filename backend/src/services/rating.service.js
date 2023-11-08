@@ -34,18 +34,63 @@ const createServiceRatingService = async (userId, values) => {
   return rating
 }
 
-const avgRatingService = async (refId) => {
+const createUserRatingService = async (userId, values) => {
+  const { matchId, score, comment, serviceId } = values
+
+  const match = await findOneMatchService(matchId)
+
+  if (!match) throw new Error('MATCH_NOT_FOUND')
+  if (match.serviceId !== serviceId) throw new Error('MATCH_NOT_FOUND')
+  if (match.status !== MATCH_STATUS.QUALIFY_USER) throw new Error('MATCH_NOT_FOUND')
+  console.log(match.serviceId)
+
+  const rating = await Rating.create({
+    userId, // Soy yo como Service calificador
+    matchId,
+    type: MATCH_TYPES.USER,
+    refId: match.serviceId,
+    score,
+    comment
+  })
+
+  match.status = MATCH_STATUS.FINISHED
+  match.save()
+
+  // Actualizo el rating del servicio
+  // ! Esto se podría reemplazar por un trigger
+  const newRating = await avgRatingService(match.userId)
+  await User.update(newRating, { where: { id: match.userId } })
+
+  return rating
+}
+
+const avgRatingService = async (operador) => {
+  const whereClause = Number.isInteger(operador) ? { userId: operador } : { refId: operador }
   const res = await Rating.findOne({
-    where: { refId },
+    where: whereClause,
     attributes: [
       [Sequelize.fn('avg', Sequelize.col('score')), 'score'],
       [Sequelize.fn('count', Sequelize.col('id')), 'rating']
     ],
     raw: true,
-    group: ['refId']
+    group: Number.isInteger(operador) ? ['userId'] : ['refId']
+
   })
   return res
 }
+
+// const avgRatingService = async (refId) => {
+//   const res = await Rating.findOne({
+//     where: { userId: refId },
+//     attributes: [
+//       [Sequelize.fn('avg', Sequelize.col('score')), 'score'],
+//       [Sequelize.fn('count', Sequelize.col('id')), 'rating']
+//     ],
+//     raw: true,
+//     group: ['refId']
+//   })
+//   return res
+// }
 
 const findRatinsService = async (refId) => await Rating.findAll({
   where: { refId },
@@ -59,6 +104,8 @@ const findRatinsService = async (refId) => await Rating.findAll({
 
 module.exports = {
   createServiceRatingService,
+  createUserRatingService,
   avgRatingService,
   findRatinsService
+
 }

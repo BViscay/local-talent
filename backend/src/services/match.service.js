@@ -84,7 +84,6 @@ const matchUser = async (userId) => {
 const modifyMatch = async (data) => {
   console.log(data)
   const match = await Match.update(data, { where: { id: data.id } })
-
   return match
 }
 

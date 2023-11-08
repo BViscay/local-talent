@@ -1,9 +1,10 @@
-const { createRating, serviceRating, userRating, createServiceRatingService, avgRatingService } = require('../services/rating.service')
+const { serviceRating, userRating, createUserRatingService, createServiceRatingService, avgRatingService } = require('../services/rating.service')
 
 const createUserRatingController = async (req, res) => {
   try {
     const { userId } = req.headers.session
-    const result = await createRating({ userId, ...req.body })
+    const { body } = req
+    const result = await createUserRatingService(userId, body)
     res.status(201).json(result)
   } catch ({ message }) {
     res.status(400).json({ message })
@@ -15,7 +16,7 @@ const createServiceRatingController = async (req, res) => {
     const { userId } = req.headers.session
     const { body } = req
     const result = await createServiceRatingService(userId, body)
-    res.status(200).json(result)
+    res.status(201).json(result)
   } catch ({ message }) {
     res.status(400).json({ message })
   }
