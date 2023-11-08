@@ -39,17 +39,6 @@ const searchService = async (query) => {
     where = { id: query.serviceId }
   }
 
-<<<<<<< HEAD
-  const resultado = await Service.findAll({
-      where: {
-        [Sequelize.Op.or]: [{
-            title: {
-              [Sequelize.Op.iLike]: `%${search}%`}
-            },
-          { description: {
-              [Sequelize.Op.iLike]: `%${search}%` }
-          }]
-=======
   if (query?.categoryId) where = { categoryId: Number(query.categoryId) }
   if (query?.userId) where = { userId: Number(query.userId) }
   if (query?.text) {
@@ -89,7 +78,6 @@ const findServiceWhere = async (where, method = 'findAll') => {
         model: User,
         as: 'user',
         attributes: ['firstname', 'lastname', 'email']
->>>>>>> b622f51bf9ce1b019d8a89c496fee9a4c5209783
       }
     ]
   })
@@ -108,14 +96,7 @@ const deleteService = async (id) => {
   return true
 }
 
-<<<<<<< HEAD
-const allServices = async () => {
-  const services = await Service.findAll()
-  return services;
-};
-=======
 const allServices = async () => await findServiceWhere()
->>>>>>> b622f51bf9ce1b019d8a89c496fee9a4c5209783
 
 const updateScoreService = async (id) => {
   await Rating.findOne({

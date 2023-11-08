@@ -69,8 +69,8 @@ const loginService = async ({ email, password }) => {
 const registerService = async (data) => {
   const { email } = data
 
-  const user = await findUserService({ email })
-  if (user) throw new Error('USER_EXIST')
+  //const user = await findUserService({ email })
+  //if (user) throw new Error('USER_EXIST')
 
   const validator = generateRandomNumber().toString()
 
@@ -83,8 +83,8 @@ const registerService = async (data) => {
     firstname: newUser.firstname,
     lastname: newUser.lastname,
     email: newUser.email,
-    whatsapp: user.whatsapp,
-    rol: user.rol || 'user'
+    //whatsapp: user.whatsapp,
+    //rol: user.rol || 'user'
   }
 }
 

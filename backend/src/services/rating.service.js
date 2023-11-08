@@ -61,6 +61,7 @@ const createServiceRatingService = async (userId, values) => {
   const { matchId, score, comment } = values
 
   const match = await findOneMatchService(matchId)
+  console.log(match)
   if (!match) throw new Error('MATCH_NOT_FOUND')
   if (match.userId !== userId) throw new Error('MATCH_NOT_FOUND')
   if (match.status !== MATCH_STATUS.ACCEPT) throw new Error('MATCH_NOT_FOUND')
