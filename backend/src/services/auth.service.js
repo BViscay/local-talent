@@ -41,7 +41,9 @@ const loginService = async ({ email, password }) => {
   // Validacion de usuario
   if (!user) throw new Error('USER_NOT_FOUND')
   if (user.status === 0) throw new Error('USER_REQUIRE_VALIDATE')
-  if (!user.comparePassword(password)) throw new Error('PASSWORD_INVALID')
+
+  const isCorrectPassword = await user.comparePassword(password)
+  if (!isCorrectPassword) throw new Error('PASSWORD_INVALID')
 
   const token = createToken({ userId: user.id, rol: user.rol || 'user' })
 

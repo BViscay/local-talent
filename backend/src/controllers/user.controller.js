@@ -38,7 +38,7 @@ const changePasswordController = async (req, res) => {
     const { userId } = req.headers.session
     const { password } = req.body
     const result = await changePasswordService(userId, password)
-    res.status(200).json(result)
+    res.status(200).json({ message: result })
   } catch ({ message }) {
     res.status(400).json({ message })
   }
