@@ -5,6 +5,7 @@ import {getLocation} from "../redux/sliceLogin";
 import useLogin from "../hooks/useLogin";
 import useGeoLocation from "../hooks/useGeoLocation";
 import useFilters from "../hooks/useFilters";
+import useNotifications from "../hooks/useNotifications";
 
 import Descuentos from "../components/Home-/CarrDesc";
 import Categories from "../components/Home-/Categories";
@@ -14,6 +15,7 @@ import SearchBar from "../components/Header/SearchBar";
 import Greet from "../components/Header/Greet";
 
 export default function Home() {
+  const {handleCountNotifications} = useNotifications();
   const {handleTokenLogin} = useLogin();
   const {handleGeoLocation} = useGeoLocation();
   const {handleFilterByLocation, handleAllServices} = useFilters();
@@ -24,6 +26,7 @@ export default function Home() {
       await handleGeoLocation();
       await handleAllServices();
     };
+    handleCountNotifications();
     handleTokenLogin();
     fetchData();
     //eslint-disable-next-line
