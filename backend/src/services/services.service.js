@@ -10,20 +10,12 @@ const { MATCH_TYPES } = require('../config/constants')
 const createService = async (data, dataImg) => {
   const resultImage = await uploadImageCreate(dataImg)
 
-  //! PROVISORIO
   data.categoryId = parseInt(data.categoryId)
+  data.image = resultImage
 
-  const newService = await Service.create({
-    userId: data.userId,
-    image: resultImage,
-    title: data.title,
-    categoryId: data.categoryId,
-    description: data.description,
-    price: data.price,
-    city: data.city,
-    latitude: data.latitude,
-    longitude: data.longitude
-  })
+  console.log(data)
+
+  const newService = await Service.create(data)
 
   return newService
 }

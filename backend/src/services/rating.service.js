@@ -26,15 +26,16 @@ const createServiceRatingService = async (userId, values) => {
   match.status = MATCH_STATUS.QUALIFY_USER
   match.save()
 
-  // Actualizo el rating del servicio
+  // Actualizo el rating del servicio de forma asyncrona
   // ! Esto se podría reemplazar por un trigger
-  const newRating = await avgRatingService(match.serviceId)
-  await Service.update(newRating, { where: { id: match.serviceId } })
+  avgRatingReference(match.serviceId).then(
+    newRating => Service.update(newRating, { where: { id: match.serviceId } })
+  )
 
   return rating
 }
 
-const avgRatingService = async (refId) => {
+const avgRatingReference = async (refId) => {
   const res = await Rating.findOne({
     where: { refId },
     attributes: [
@@ -59,6 +60,6 @@ const findRatinsService = async (refId) => await Rating.findAll({
 
 module.exports = {
   createServiceRatingService,
-  avgRatingService,
+  avgRatingReference,
   findRatinsService
 }

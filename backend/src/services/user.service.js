@@ -12,13 +12,7 @@ const findUserData = async (where) => {
   return { id, name, email, status }
 }
 
-const findUserService = async (where) => {
-  const user = await User.findOne({ where })
-
-  if (!user) throw new Error('USER_NOT_FOUND')
-
-  return user
-}
+const findUserService = async (where) => await User.findOne({ where })
 
 const createUserService = async (data) => await User.create(data)
 
@@ -49,6 +43,8 @@ const findAllUsersService = async (where) => await User.findAll({
   attributes
 })
 
+const countUsers = async () => await User.count()
+
 module.exports = {
   findUserData,
   findUserService,
@@ -56,5 +52,6 @@ module.exports = {
   userImage,
   userUpdateService,
   findAllUsersService,
-  changePasswordService
+  changePasswordService,
+  countUsers
 }
