@@ -14,9 +14,8 @@ import ServCerc from "../components/Home-/ServCerc";
 import SearchBar from "../components/Header/SearchBar";
 import Greet from "../components/Header/Greet";
 
-
 export default function Home() {
-  const {handleNewsNotifications} = useNotifications();
+  const {handleCountNotifications} = useNotifications();
   const {handleTokenLogin} = useLogin();
   const {handleGeoLocation} = useGeoLocation();
   const {handleFilterByLocation, handleAllServices} = useFilters();
@@ -26,8 +25,8 @@ export default function Home() {
     const fetchData = async () => {
       await handleGeoLocation();
       await handleAllServices();
-      await handleNewsNotifications();
     };
+    handleCountNotifications();
     handleTokenLogin();
     fetchData();
     //eslint-disable-next-line
