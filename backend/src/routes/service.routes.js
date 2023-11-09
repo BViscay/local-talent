@@ -8,13 +8,17 @@ const {
   ServiceEditController,
   ServiceSearchController,
   ServiceDeleteController,
-
-  ServiceFindALLController
+  ServiceFindALLController,
+  findServiceByIdController,
+  findServiceRatingController
 } = require('../controllers/service.controller.js')
 
 const router = express.Router()
 
+// Rutas públicas
 router.get('/search', ServiceSearchController)
+router.get('/:id', findServiceByIdController)
+router.get('/:id/rating', findServiceRatingController)
 
 // Rutas del ususario
 router.get('/', validateToken, findUserServicesController)

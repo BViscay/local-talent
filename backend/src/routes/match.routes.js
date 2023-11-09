@@ -1,5 +1,5 @@
 const express = require('express')
-const { validateToken } = require('../middlewares/auth.middleware')
+
 const {
   matchCreateController,
   matchServiceController,
@@ -9,9 +9,9 @@ const {
 
 const router = express.Router()
 
-router.post('/', validateToken, matchCreateController)
-router.get('/service', validateToken, matchServiceController)
-router.get('/user', validateToken, matchUserController)
+router.post('/', matchCreateController)
+router.get('/service', matchServiceController)
+router.get('/user', matchUserController)
 router.patch('/', matchModifyController)
 
 module.exports = router
