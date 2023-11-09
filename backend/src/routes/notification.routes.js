@@ -1,7 +1,6 @@
 const express = require('express')
 
 const { validateId } = require('../validators/notification.validator.js')
-const { validateToken } = require('../middlewares/auth.middleware.js')
 
 const {
   countNewUserNotificationController,
@@ -13,9 +12,9 @@ const {
 const router = express.Router()
 
 // Rutas de notificaciones
-router.get('/look', validateToken, countNewUserNotificationController)
-router.get('/news', validateToken, findNewsNotificationsController)
-router.patch('/:id', validateId, validateToken, readOneNotificationController)
-router.patch('/', validateToken, cleanAllNotificationsController)
+router.get('/look', countNewUserNotificationController)
+router.get('/news', findNewsNotificationsController)
+router.patch('/:id', validateId, readOneNotificationController)
+router.patch('/', cleanAllNotificationsController)
 
 module.exports = router

@@ -2,6 +2,7 @@ const { Model, DataTypes } = require('sequelize')
 const { sequelize } = require('../database')
 const User = require('./user.model')
 const Match = require('./match.model')
+const Service = require('./service.model')
 
 class Rating extends Model {}
 
@@ -20,7 +21,7 @@ Rating.init({
     }
   },
   userId: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     references: {
       model: User,
       key: 'id'
@@ -29,6 +30,13 @@ Rating.init({
   type: {
     type: DataTypes.ENUM,
     values: ['user', 'service']
+  },
+  refId: {
+    type: DataTypes.UUID,
+    references: {
+      model: Service,
+      key: 'id'
+    }
   },
   score: {
     type: DataTypes.INTEGER
