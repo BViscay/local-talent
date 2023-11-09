@@ -23,7 +23,13 @@ import FilteredByLocation from "./views/FilteredByLocation";
 import MyMap from "./components/MyMap/MyMap";
 import MyServices from "./views/MyServices";
 import DashboardAdmin from "./views/DashboardAdmin";
+import ActiveServices from "./components/Dashboard-/ActiveServices";
+import Modifications from "./components/Dashboard-/Modifications";
+import Users from "./components/Dashboard-/Users";
+import Billing from "./components/Dashboard-/Billing";
+import InboxAdmin from "./components/Dashboard-/ImboxAdmin";
 import RatingMatch from "./components/RatingMatch/RatingMatch";
+
 
 function App() {
   const location = useLocation();
@@ -43,6 +49,12 @@ function App() {
             <Route path='/login' element={<LoginForm />} />
             <Route path='/sign-up' element={<SignUp />} />
             <Route path='/validate' element={<NumericValidation />} />
+            <Route path='/dashboard-admin' element={<DashboardAdmin />} />
+            <Route path='/active-services' element={<ActiveServices />} />
+            <Route path='/modifications' element={<Modifications />} />
+            <Route path='/users' element={<Users />} />
+            <Route path='/billing' element={<Billing />} />
+            <Route path='/consultations-claims' element={<InboxAdmin />} />
             <Route path='/my-location' element={<MyMap />} />
             <Route path='/dashboard' element={<DashboardAdmin />} />
             <Route path='/categories' element={<CategoriesPage />} />
