@@ -16,6 +16,7 @@ const {
 const router = express.Router()
 
 // Rutas públicas
+router.get('/allservices', ServiceFindALLController)
 router.get('/search', ServiceSearchController)
 router.get('/:id', findServiceByIdController)
 router.get('/:id/rating', findServiceRatingController)
@@ -25,8 +26,5 @@ router.get('/', validateToken, findUserServicesController)
 router.post('/', validateToken, ServiceCreateController)
 router.patch('/:id', validateToken, ServiceEditController)
 router.delete('/:id', validateToken, ServiceDeleteController)
-
-// Rutas a pedido FRONT
-router.get('/allservices', ServiceFindALLController)
 
 module.exports = router
