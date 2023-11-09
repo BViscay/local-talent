@@ -1,7 +1,11 @@
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import {API_URL_LOGIN, API_URL_TOKENLOGIN} from "../config/api";
+import {
+  API_URL_LOGIN,
+  API_URL_RECOVER,
+  API_URL_TOKENLOGIN,
+} from "../config/api";
 import {useSelector, useDispatch} from "react-redux";
 import {
   login,
@@ -13,7 +17,6 @@ import {
   setLastName,
   setImage,
   setRol,
-  setNotifications,
 } from "../redux/sliceLogin";
 import Swal from "sweetalert2";
 
@@ -79,15 +82,12 @@ const useLogin = () => {
           });
           const {session} = data;
 
-          console.log(data.session);
-
           if (session) {
             dispatch(setAuthToken(token));
             dispatch(setName(session.firstname));
             dispatch(setLastName(session.lastname));
             dispatch(setMail(session.email));
             dispatch(setImage(session.image));
-            dispatch(setNotifications(session.newNotifications));
             dispatch(setRol(session.rol));
             dispatch(login());
             redirectLogin(navigate);
@@ -106,6 +106,22 @@ const useLogin = () => {
 
       dispatch(login());
       redirectLogin(navigate);
+    }
+  };
+
+  const handleRecoveryPassword = async (mail) => {
+    try {
+      const {data} = await axios.post(`${API_URL_RECOVER}/${mail}`);
+
+      if (data === "RESEND_SUCCESSFUL") {
+        dispatch(setMail(mail));
+        navigate("/validate");
+      }
+    } catch (error) {
+      dispatch(logout());
+      if (error.response) {
+        Swal.fire("Error", "Usuario Incorrecto", "error"); // SweetAlert en caso de usuario incorrecto
+      }
     }
   };
 
@@ -134,6 +150,7 @@ const useLogin = () => {
     handleTokenLogin,
     handleOpenModal,
     handleCloseModal,
+    handleRecoveryPassword,
     isModalOpen,
     showPassword, // Estado para mostrar/ocultar contraseña
     toggleShowPassword, // Función para alternar mostrar/ocultar contraseña

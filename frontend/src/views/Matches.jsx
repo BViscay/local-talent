@@ -1,16 +1,20 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import Match from "../components/Match/Match.jsx";
 import {Button, ButtonGroup} from "@nextui-org/react";
 import useMatches from "../hooks/useMatches.js";
-import {useSelector} from "react-redux";
-import {getMyMatches, getOwnMatches} from "../redux/sliceMatches.js";
+import {useDispatch, useSelector} from "react-redux";
+import {
+  getMyMatches,
+  getOwnMatches,
+  setIsMyMatches,
+} from "../redux/sliceMatches.js";
 
 export default function Matches() {
-  const {handleMyMatches, handleOwnMatches} = useMatches();
+  const {handleMyMatches, handleOwnMatches, activeButton, setActiveButton} =
+    useMatches();
   const ownMatches = useSelector(getOwnMatches);
   const myMatches = useSelector(getMyMatches);
-  const [activeButton, setActiveButton] = useState("ofrecidos");
-
+  const dispatch = useDispatch();
   useEffect(() => {
     const fetchData = async () => {
       await handleMyMatches();
@@ -19,15 +23,16 @@ export default function Matches() {
     fetchData();
     //eslint-disable-next-line
   }, []);
-
   let matchesToRender;
   if (activeButton === "ofrecidos") {
     matchesToRender = ownMatches;
+    dispatch(setIsMyMatches(true));
   } else {
     matchesToRender = myMatches;
+    dispatch(setIsMyMatches(false));
   }
 
-   const isMyMatches = matchesToRender === myMatches;
+  const isMyMatches = matchesToRender === myMatches;
 
   return (
     <div className='bg-[#f9f9f9] p-4 h-screen'>
