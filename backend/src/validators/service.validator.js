@@ -1,4 +1,4 @@
-const { body, header } = require('express-validator')
+const { body } = require('express-validator')
 const { validateResult } = require('../libs/validator.js')
 
 const ValidateCreateService = [
@@ -19,11 +19,11 @@ const ValidateCreateService = [
   body('price')
     .exists().withMessage('price must exist as a property')
     .notEmpty().withMessage('precio must be complete')
-    .isDecimal({ decimal_digits: '2' }),
-  // image es un req.file
+    .isDecimal({ decimal_digits: '1,2' }).withMessage('the price must have a maximum of 2 decimal places'),
+  // image es un req.file: si no se carga una imagen por defecto no se crea
   // body('image')
-  body('latitude').exists().notEmpty().isDecimal({ decimal_digits: '2' }),
-  body('longitude').exists().notEmpty().isDecimal({ decimal_digits: '2' }),
+  body('latitude').exists().notEmpty().isDecimal(),
+  body('longitude').exists().notEmpty().isDecimal(),
 
   (req, res, next) => validateResult(req, res, next)
 ]

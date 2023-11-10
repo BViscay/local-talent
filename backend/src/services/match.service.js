@@ -83,31 +83,44 @@ const matchUser = async (userId) => {
   return matches
 }
 
-const modifyMatch = async (data) => {
-  console.log(data)
-  const match = await Match.update(data, { where: { id: data.id } })
-  return match
-}
-
 const matchAccept = async ({ serviceId, matchId, userId }) => {
   const match = await findOneMatchService(matchId)
-  if (!match) throw new Error('MATCH_NOT_FOUND')
-  if (match.serviceId !== serviceId) throw new Error('MATCH_NOT_FOUND')
-  if (match.service.userId !== userId) throw new Error('MATCH_NOT_FOUND')
-  if (match.status !== MATCH_STATUS.CREATE) throw new Error('MATCH_NOT_FOUND')
 
-  const modify = await Match.update({ status: MATCH_STATUS.ACCEPT }, { where: { id: match.id } })
-  return modify
+  await verify(match, serviceId)
+
+  if (match.service.userId !== userId) throw new Error('MATCH_NOT_FOUND')
+
+  await modify(MATCH_STATUS.CANCEL, match.id)
 }
 
-const matchCancel = async ({ serviceId, matchId }) => {
+const matchCancelService = async ({ serviceId, matchId, userId }) => {
   const match = await findOneMatchService(matchId)
+
+  await verify(match, serviceId)
+
+  if (match.service.userId !== userId) throw new Error('MATCH_NOT_FOUND')
+
+  await modify(MATCH_STATUS.CANCEL, match.id)
+}
+
+const matchCancelUser = async ({ serviceId, matchId, userId }) => {
+  const match = await findOneMatchService(matchId)
+
+  await verify(match, serviceId)
+
+  if (match.userId !== userId) throw new Error('MATCH_NOT_FOUND')
+
+  await modify(MATCH_STATUS.CANCEL, match.id)
+}
+
+const verify = async (match, serviceId) => {
   if (!match) throw new Error('MATCH_NOT_FOUND')
   if (match.serviceId !== serviceId) throw new Error('MATCH_NOT_FOUND')
   if (match.status !== MATCH_STATUS.CREATE) throw new Error('MATCH_NOT_FOUND')
+}
 
-  const modify = await Match.update({ status: MATCH_STATUS.CANCEL }, { where: { id: match.id } })
-  return modify
+const modify = async (status, id) => {
+  await Match.update({ status }, { where: { id } })
 }
 
 const findAllMatch = async (where) => await Match.findAll({ where })
@@ -123,11 +136,11 @@ const findOneMatchService = async (id) => await Match.findByPk(id, {
 module.exports = {
   createMatch,
   serviceMatch,
-  modifyMatch,
   matchUser,
   findAllMatch,
   findOneMatchService,
   matchAccept,
-  matchCancel
+  matchCancelService,
+  matchCancelUser
 
 }
