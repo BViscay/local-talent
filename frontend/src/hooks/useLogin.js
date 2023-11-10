@@ -81,6 +81,7 @@ const useLogin = () => {
             },
           });
           const {session} = data;
+          console.log(session);
 
           if (session) {
             dispatch(setAuthToken(token));

@@ -7,35 +7,44 @@ import {
 import Swal from "sweetalert2";
 import {useSelector, useDispatch} from "react-redux";
 import {getToken, isLogged} from "../redux/sliceLogin";
-import {setNotifications, setCountNotifications} from "../redux/sliceLogin";
+import {
+  setNotifications,
+  setCountNotifications,
+  setFirstLoad,
+  getFirstLoad,
+} from "../redux/sliceLogin";
 
 const useNotifications = () => {
   const token = useSelector(getToken);
   const isLogin = useSelector(isLogged);
+  const isFirstLoad = useSelector(getFirstLoad);
   const dispatch = useDispatch();
 
   const handleCountNotifications = async () => {
-    try {
-      const {data} = await axios.get(API_URL_COUNT_NOTIFICATIONS, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      dispatch(setCountNotifications(data));
-      Swal.fire({
-        title: "Notificaciones",
-        text: `Tienes ${data.newNotifications} nuevas notificaciones🎉`,
-        icon: "success",
-      });
-    } catch (error) {
-      if (error.response) {
-        if (isLogin) {
-          Swal.fire({
-            title: "Error",
-            text: "Hubo un error al contar tus notificaciones nuevas 😣",
-            icon: "error",
-          });
-          console.log("Response Data:", error.response.data);
+    if (isFirstLoad) {
+      try {
+        const {data} = await axios.get(API_URL_COUNT_NOTIFICATIONS, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        dispatch(setCountNotifications(data));
+        dispatch(setFirstLoad(false));
+        Swal.fire({
+          title: "Notificaciones",
+          text: `Tienes ${data.newNotifications} nuevas notificaciones🎉`,
+          icon: "success",
+        });
+      } catch (error) {
+        if (error.response) {
+          if (isLogin) {
+            Swal.fire({
+              title: "Error",
+              text: "Hubo un error al contar tus notificaciones nuevas 😣",
+              icon: "error",
+            });
+            console.log("Response Data:", error.response.data);
+          }
         }
       }
     }
