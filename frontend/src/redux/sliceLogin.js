@@ -10,7 +10,7 @@ const initialState = {
   notifications: null,
   countNotifications: null,
   rol: null,
-  whatsapp: null,
+  firstLoad: true,
   location: null,
 };
 export const userHandler = createSlice({
@@ -30,6 +30,9 @@ export const userHandler = createSlice({
     },
     setAuthToken: (state, action) => {
       state.token = action.payload;
+    },
+    setFirstLoad: (state, action) => {
+      state.firstLoad = action.payload;
     },
     setMail: (state, action) => {
       state.email = action.payload;
@@ -63,6 +66,7 @@ export const userHandler = createSlice({
 
 export const isLogged = (state) => state.user.isLoggedIn;
 export const getToken = (state) => state?.user?.token;
+export const getFirstLoad = (state) => state?.user?.firstLoad;
 export const getMail = (state) => state?.user?.email;
 export const getName = (state) => state?.user?.name;
 export const getImage = (state) => state?.user?.image;
@@ -76,6 +80,7 @@ export const {
   login,
   logout,
   setAuthToken,
+  setFirstLoad,
   setAuthId,
   setMail,
   setName,

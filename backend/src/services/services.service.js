@@ -1,26 +1,21 @@
 const Service = require('../models/service.model')
 const Category = require('../models/category.model')
 const User = require('../models/user.model')
+const Rating = require('../models/rating.model')
+
 const { uploadImageCreate } = require('../services/image.service')
-const { Op } = require('sequelize')
+const { Op, Sequelize } = require('sequelize')
+const { MATCH_TYPES } = require('../config/constants')
 
 const createService = async (data, dataImg) => {
   const resultImage = await uploadImageCreate(dataImg)
 
-  //! PROVISORIO
   data.categoryId = parseInt(data.categoryId)
+  data.image = resultImage
 
-  const newService = await Service.create({
-    userId: data.userId,
-    image: resultImage,
-    title: data.title,
-    categoryId: data.categoryId,
-    description: data.description,
-    price: data.price,
-    city: data.city,
-    latitude: data.latitude,
-    longitude: data.longitude
-  })
+  console.log(data)
+
+  const newService = await Service.create(data)
 
   return newService
 }
@@ -95,6 +90,21 @@ const deleteService = async (id) => {
 
 const allServices = async () => await findServiceWhere()
 
+const updateScoreService = async (id) => {
+  await Rating.findOne({
+    attributes: [
+      [Sequelize.fn('AVG', Sequelize.col('calificacion')), 'score'],
+      [Sequelize.fn('COUNT', Sequelize.col('calificacion')), 'ratings']
+    ],
+    where: {
+      type: MATCH_TYPES.SERVICE,
+      refId: id
+    }
+  })
+
+  return true
+}
+
 module.exports = {
 
   createService,
@@ -103,5 +113,6 @@ module.exports = {
   findUserServices,
   searchService,
   allServices,
-  findServiceWhere
+  findServiceWhere,
+  updateScoreService
 }
