@@ -29,7 +29,6 @@ import Users from "./components/Dashboard-/Users";
 import Billing from "./components/Dashboard-/Billing";
 import InboxAdmin from "./components/Dashboard-/ImboxAdmin";
 import RatingMatch from "./components/RatingMatch/RatingMatch";
-
 import About from "./views/About";
 
 function App() {
@@ -50,6 +49,12 @@ function App() {
             <Route path="/login" element={<LoginForm />} />
             <Route path="/sign-up" element={<SignUp />} />
             <Route path="/validate" element={<NumericValidation />} />
+            <Route path="/dashboard-admin" element={<DashboardAdmin />} />
+            <Route path="/active-services" element={<ActiveServices />} />
+            <Route path="/modifications" element={<Modifications />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/billing" element={<Billing />} />
+            <Route path="/consultations-claims" element={<InboxAdmin />} />
             <Route path="/my-location" element={<MyMap />} />
             <Route path="/dashboard" element={<DashboardAdmin />} />
             <Route path="/categories" element={<CategoriesPage />} />

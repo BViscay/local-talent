@@ -46,17 +46,19 @@ const SideMenuUser = ({ menuOpen, setMenuOpen }) => {
             onClick={() => setMenuOpen(!menuOpen)}
           />
         </div>
-        <div className="flex flex-col px-12">
+        <div className="flex flex-col px-12 w-full items-center justify-center">
           <div className="w-full flex pb-10 gap-4">
-            <Avatar
-              className="w-16 h-16"
-              src={
-                image
-                  ? image
-                  : "https://i.pravatar.cc/150?u=a042581f4e29026024d"
-              }
-            />
-            <div className="flex flex-col justify-center items-start">
+            <div className="w-[25%]">
+              <Avatar
+                className="w-full h-full object-cover"
+                src={
+                  image
+                    ? image
+                    : "https://i.pravatar.cc/150?u=a042581f4e29026024d"
+                }
+              />
+            </div>
+            <div className="flex flex-col justify-center items-start w-[75%]">
               <p className="text-xl font-medium">
                 {name} {lastName}
               </p>

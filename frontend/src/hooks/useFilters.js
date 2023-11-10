@@ -16,6 +16,7 @@ import {
   getRenderServices,
   getFilteredServices,
   setFilteredServices,
+  setMyServices,
 } from "../redux/sliceFilters";
 import Swal from "sweetalert2";
 
@@ -72,24 +73,21 @@ const useFilters = () => {
         text: "Por favor inicia sesión o regístrate para buscar tus servicios",
         icon: "warning",
       });
-      if (token !== null) {
-        try {
-          const { data } = await axios(API_URL_SERVICES, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
+    }
+    try {
+      const { data } = await axios(API_URL_SERVICES, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-          if (data) {
-            console.log(data);
-          }
-        } catch (error) {
-          console.log(error);
-        }
+      if (data) {
+        dispatch(setMyServices(data));
       }
+    } catch (error) {
+      console.log(error.response);
     }
   };
-
   const handleFilterByServiceId = async (servId) => {
     try {
       const response = await axios(`${API_URL_SEARCH}?serviceId=${servId}`, {

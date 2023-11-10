@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function About() {
-  return <div>Sobre Nosotros</div>;
+  return <p>Quienes Somos?</p>;
 }
