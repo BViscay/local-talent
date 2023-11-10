@@ -12,6 +12,7 @@ const {
   findServiceByIdController,
   findServiceRatingController
 } = require('../controllers/service.controller.js')
+const { ValidateCreateService } = require('../validators/service.validator.js')
 
 const router = express.Router()
 
@@ -23,7 +24,7 @@ router.get('/:id/rating', findServiceRatingController)
 
 // Rutas del ususario
 router.get('/', validateToken, findUserServicesController)
-router.post('/', validateToken, ServiceCreateController)
+router.post('/', ValidateCreateService, validateToken, ServiceCreateController)
 router.patch('/:id', validateToken, ServiceEditController)
 router.delete('/:id', validateToken, ServiceDeleteController)
 
