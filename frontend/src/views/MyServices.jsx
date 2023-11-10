@@ -1,3 +1,4 @@
+
 import { useEffect } from "react";
 import useFilters from "../hooks/useFilters";
 import { useSelector } from "react-redux";
@@ -7,9 +8,11 @@ import CardService from "../components/FilteredService/CardService";
 export default function MyServices() {
   const { handleFilterOwnServices } = useFilters();
   const myServices = useSelector(getMyServices);
+
   useEffect(() => {
     handleFilterOwnServices();
   }, []);
+
 
   return (
     <div>

@@ -1,12 +1,12 @@
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import {useSelector, useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
 import {
   API_URL_SERVICES,
   API_URL_ALLSERVICES,
   API_URL_SEARCH,
 } from "../config/api";
-import { getToken } from "../redux/sliceLogin";
+import {getToken} from "../redux/sliceLogin";
 import {
   setRenderServices,
   setAllServices,
@@ -30,7 +30,7 @@ const useFilters = () => {
 
   const handleFilterByCategory = async (catId) => {
     try {
-      const { data } = await axios.get(`${API_URL_SEARCH}?categoryId=${catId}`);
+      const {data} = await axios.get(`${API_URL_SEARCH}?categoryId=${catId}`);
 
       if (data) {
         navigate("/filtered-services");
@@ -50,7 +50,7 @@ const useFilters = () => {
 
   const handleFilterByName = async (serviceName) => {
     try {
-      const { data } = await axios.get(`${API_URL_SEARCH}?text=${serviceName}`);
+      const {data} = await axios.get(`${API_URL_SEARCH}?text=${serviceName}`);
       if (data) {
         dispatch(setRenderServices(data));
         dispatch(setFilteredServices(data));
@@ -75,13 +75,17 @@ const useFilters = () => {
       });
     }
     try {
+
+
       const { data } = await axios(API_URL_SERVICES, {
+
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
       if (data) {
+
         dispatch(setMyServices(data));
       }
     } catch (error) {
@@ -106,7 +110,7 @@ const useFilters = () => {
 
   const handleAllServices = async () => {
     try {
-      const { data } = await axios(API_URL_ALLSERVICES);
+      const {data} = await axios(API_URL_ALLSERVICES);
       if (data) {
         dispatch(setAllServices(data));
       }
