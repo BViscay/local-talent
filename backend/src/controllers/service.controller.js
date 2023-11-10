@@ -1,3 +1,4 @@
+const { findRatinsService } = require('../services/rating.service')
 const {
   createService,
   editService,
@@ -75,13 +76,34 @@ const deleteServiceController = async (req, res) => {
   }
 }
 
-module.exports = {
+const findServiceByIdController = async (req, res) => {
+  try {
+    const { id } = req.params
+    const result = await searchService({ serviceId: id })
+    res.status(200).json(result)
+  } catch ({ message }) {
+    res.status(400).json({ message })
+  }
+}
 
+const findServiceRatingController = async (req, res) => {
+  try {
+    const { id } = req.params
+    const result = await findRatinsService(id)
+    res.status(200).json(result)
+  } catch ({ message }) {
+    res.status(400).json({ message })
+  }
+}
+
+module.exports = {
   ServiceCreateController,
   findUserServicesController,
   ServiceEditController,
   ServiceSearchController,
   ServiceDeleteController,
   ServiceFindALLController,
-  deleteServiceController
+  deleteServiceController,
+  findServiceByIdController,
+  findServiceRatingController
 }

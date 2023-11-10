@@ -33,9 +33,10 @@ const connectionDatabase = (force) => {
   Match.belongsTo(Service, { foreignKey: 'serviceId' })
   Match.belongsTo(User, { foreignKey: 'userId' })
 
-  Match.hasMany(Rating)
-  Rating.belongsTo(Match)
+  Match.hasMany(Rating, { foreignKey: 'matchId' })
+  Rating.belongsTo(Match, { foreignKey: 'matchId' })
   Rating.belongsTo(User, { foreignKey: 'userId' })
+  Service.hasMany(Rating, { foreignKey: 'refId' })
 
   Category.hasMany(Service, { foreignKey: 'categoryId' }) // Category puede tener muchos Services
   Service.belongsTo(Category, { foreignKey: 'categoryId' }) // Cada Service pertenece a una Category

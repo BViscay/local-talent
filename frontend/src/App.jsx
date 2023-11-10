@@ -23,7 +23,13 @@ import FilteredByLocation from "./views/FilteredByLocation";
 import MyMap from "./components/MyMap/MyMap";
 import MyServices from "./views/MyServices";
 import DashboardAdmin from "./views/DashboardAdmin";
+import ActiveServices from "./components/Dashboard-/ActiveServices";
+import Modifications from "./components/Dashboard-/Modifications";
+import Users from "./components/Dashboard-/Users";
+import Billing from "./components/Dashboard-/Billing";
+import InboxAdmin from "./components/Dashboard-/ImboxAdmin";
 import RatingMatch from "./components/RatingMatch/RatingMatch";
+
 import About from "./views/About";
 
 function App() {

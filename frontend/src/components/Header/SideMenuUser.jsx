@@ -71,13 +71,15 @@ const SideMenuUser = ({ menuOpen, setMenuOpen }) => {
           </div>
 
           {isAdmin && (
-            <div className="w-full py-2">
+            <div
+              className="w-full py-2"
+              onClick={() => {
+                navigate("/dashboard-admin");
+                setMenuOpen(!menuOpen);
+              }}
+            >
               <div className="w-full flex p-3 items-center gap-2 bg-primary-100 rounded-lg cursor-pointer">
                 <BarChartHorizontal
-                  onClick={() => {
-                    navigate("/dashboard-admin");
-                    setMenuOpen(!menuOpen);
-                  }}
                   size={28}
                   strokeWidth={2.2}
                   className="text-primary-600"

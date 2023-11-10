@@ -1,6 +1,9 @@
 const { Model, DataTypes } = require('sequelize')
 const { sequelize } = require('../database')
 
+const Service = require('./service.model')
+const User = require('./user.model')
+
 class Match extends Model {}
 
 Match.init({
@@ -9,6 +12,20 @@ Match.init({
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
     allowNull: false
+  },
+  userId: {
+    type: DataTypes.UUID,
+    references: {
+      model: User,
+      key: 'id'
+    }
+  },
+  serviceId: {
+    type: DataTypes.UUID,
+    references: {
+      model: Service,
+      key: 'id'
+    }
   },
   message: {
     type: DataTypes.TEXT
