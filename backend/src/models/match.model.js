@@ -14,7 +14,7 @@ Match.init({
     allowNull: false
   },
   userId: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     references: {
       model: User,
       key: 'id'

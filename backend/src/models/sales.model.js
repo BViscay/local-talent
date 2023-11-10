@@ -10,7 +10,7 @@ SalesModel.init({
     autoIncrement: true
   },
   user_id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false
   },
   product_id: {

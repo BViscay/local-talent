@@ -10,20 +10,12 @@ const { MATCH_TYPES } = require('../config/constants')
 const createService = async (data, dataImg) => {
   const resultImage = await uploadImageCreate(dataImg)
 
-  //! PROVISORIO
   data.categoryId = parseInt(data.categoryId)
+  data.image = resultImage
 
-  const newService = await Service.create({
-    userId: data.userId,
-    image: resultImage,
-    title: data.title,
-    categoryId: data.categoryId,
-    description: data.description,
-    price: data.price,
-    city: data.city,
-    latitude: data.latitude,
-    longitude: data.longitude
-  })
+  console.log(data)
+
+  const newService = await Service.create(data)
 
   return newService
 }
@@ -40,7 +32,7 @@ const searchService = async (query) => {
   }
 
   if (query?.categoryId) where = { categoryId: Number(query.categoryId) }
-  if (query?.userId) where = { userId: Number(query.userId) }
+  if (query?.userId) where = { userId: query.userId }
   if (query?.text) {
     where = {
       [Op.or]: [
@@ -64,10 +56,13 @@ const searchService = async (query) => {
 }
 
 const findServiceWhere = async (where, method = 'findAll') => {
-  where = { ...where, status: 0 } // status = 0 => AVTIVO BORRADO LOGICO
+  // where = { ...where, status: 0 }
+
+  console.log(where)
+
   return await Service[method]({
     where,
-    attributes: { exclude: 'status' },
+    attributes: { exclude: ['status', 'deletedAt'] },
     include: [
       {
         model: Category,
@@ -91,7 +86,7 @@ const editService = async (data) => {
 }
 
 const deleteService = async (id) => {
-  const result = await Service.update({ status: 2 }, { where: { id, status: 0 } })
+  const result = await Service.destroy({ where: { id } })
   if (result[0] === 0) throw new Error('SERVICE_NOT_FOUND')
   return true
 }
