@@ -81,7 +81,7 @@ const useFilters = () => {
           });
 
           if (data) {
-           console.log(data)
+            console.log(data);
           }
         } catch (error) {
           console.log(error);
@@ -113,7 +113,7 @@ const useFilters = () => {
         dispatch(setAllServices(data));
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
 

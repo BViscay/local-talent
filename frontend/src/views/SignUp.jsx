@@ -113,11 +113,11 @@ export default function SignUpForm() {
             </div>
 
             <InputTerms />
-            <div className="flex w-[370px] items-start pt-5 -ml-5 mb-12">
-              <LoginButton text="Registrarme" />
-              <GoogleLoginButton />
-            </div>
           </form>
+          <div className="flex w-full justify-around pt-5 mb-12">
+            <LoginButton text="Registrarme" />
+            <GoogleLoginButton />
+          </div>
         </div>
       </div>
     </div>
