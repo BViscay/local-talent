@@ -48,7 +48,7 @@ const createUserRatingService = async (userId, values) => {
     userId, // Soy yo como Service calificador
     matchId,
     type: MATCH_TYPES.USER,
-    refId: match.serviceId,
+    refId: match.userId,
     score,
     comment
   })
@@ -64,33 +64,18 @@ const createUserRatingService = async (userId, values) => {
   return rating
 }
 
-const avgRatingService = async (operador) => {
-  const whereClause = Number.isInteger(operador) ? { userId: operador } : { refId: operador }
+const avgRatingService = async (refId) => {
   const res = await Rating.findOne({
-    where: whereClause,
+    where: { refId },
     attributes: [
       [Sequelize.fn('avg', Sequelize.col('score')), 'score'],
       [Sequelize.fn('count', Sequelize.col('id')), 'rating']
     ],
     raw: true,
-    group: Number.isInteger(operador) ? ['userId'] : ['refId']
-
+    group: ['refId']
   })
   return res
 }
-
-// const avgRatingService = async (refId) => {
-//   const res = await Rating.findOne({
-//     where: { userId: refId },
-//     attributes: [
-//       [Sequelize.fn('avg', Sequelize.col('score')), 'score'],
-//       [Sequelize.fn('count', Sequelize.col('id')), 'rating']
-//     ],
-//     raw: true,
-//     group: ['refId']
-//   })
-//   return res
-// }
 
 const findRatinsService = async (refId) => await Rating.findAll({
   where: { refId },
