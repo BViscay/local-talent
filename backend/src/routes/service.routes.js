@@ -24,7 +24,7 @@ router.get('/:id/rating', findServiceRatingController)
 
 // Rutas del ususario
 router.get('/', validateToken, findUserServicesController)
-router.post('/', ValidateCreateService, validateToken, ServiceCreateController)
+router.post('/', validateToken, ServiceCreateController)
 router.patch('/:id', validateToken, ServiceEditController)
 router.delete('/:id', validateToken, ServiceDeleteController)
 

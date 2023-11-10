@@ -7,6 +7,8 @@ const { sendCreateMatch } = require('./email.service')
 const { createNotificationService } = require('./notification.service')
 const { findServiceWhere } = require('./services.service')
 
+const { MATCH_STATUS } = require('../config/constants')
+
 const createMatch = async ({ userId, message, serviceId }) => {
   const service = await findServiceWhere({ id: serviceId }, 'findOne')
 
@@ -87,6 +89,27 @@ const modifyMatch = async (data) => {
   return match
 }
 
+const matchAccept = async ({ serviceId, matchId, userId }) => {
+  const match = await findOneMatchService(matchId)
+  if (!match) throw new Error('MATCH_NOT_FOUND')
+  if (match.serviceId !== serviceId) throw new Error('MATCH_NOT_FOUND')
+  if (match.service.userId !== userId) throw new Error('MATCH_NOT_FOUND')
+  if (match.status !== MATCH_STATUS.CREATE) throw new Error('MATCH_NOT_FOUND')
+
+  const modify = await Match.update({ status: MATCH_STATUS.ACCEPT }, { where: { id: match.id } })
+  return modify
+}
+
+const matchCancel = async ({ serviceId, matchId }) => {
+  const match = await findOneMatchService(matchId)
+  if (!match) throw new Error('MATCH_NOT_FOUND')
+  if (match.serviceId !== serviceId) throw new Error('MATCH_NOT_FOUND')
+  if (match.status !== MATCH_STATUS.CREATE) throw new Error('MATCH_NOT_FOUND')
+
+  const modify = await Match.update({ status: MATCH_STATUS.CANCEL }, { where: { id: match.id } })
+  return modify
+}
+
 const findAllMatch = async (where) => await Match.findAll({ where })
 
 const findOneMatchService = async (id) => await Match.findByPk(id, {
@@ -103,5 +126,8 @@ module.exports = {
   modifyMatch,
   matchUser,
   findAllMatch,
-  findOneMatchService
+  findOneMatchService,
+  matchAccept,
+  matchCancel
+
 }

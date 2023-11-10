@@ -13,8 +13,6 @@ const createService = async (data, dataImg) => {
   data.categoryId = parseInt(data.categoryId)
   data.image = resultImage
 
-  console.log(data)
-
   const newService = await Service.create(data)
 
   return newService

@@ -4,6 +4,8 @@ const USER_STATUS = {
 }
 
 const MATCH_STATUS = {
+  CANCEL: 'cancel',
+  CREATE: 'create',
   ACCEPT: 'accept',
   QUALIFY_USER: 'qualifyUser',
   FINISHED: 'finished'
