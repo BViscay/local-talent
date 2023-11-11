@@ -4,7 +4,9 @@ const {
   editService,
   deleteService,
   findUserServices,
-  searchService, allServices
+  searchService,
+  allServices,
+  serviceImagenModify
 } = require('../services/services.service')
 
 const ServiceCreateController = async (req, res) => {
@@ -27,10 +29,21 @@ const findUserServicesController = async (req, res) => {
   }
 }
 
+// const ServiceEditController = async (req, res) => {
+//   try {
+//     const { id } = req.params
+//     const result = await editService({ id, ...req.body })
+//     res.status(200).send({ message: 'Servicio editado con exito', result })
+//   } catch ({ message }) {
+//     res.status(400).json({ message })
+//   }
+// }
+
 const ServiceEditController = async (req, res) => {
   try {
+    const { userId } = req.headers.session
     const { id } = req.params
-    const result = await editService({ id, ...req.body })
+    const result = await editService(userId, id, req.body)
     res.status(200).send({ message: 'Servicio editado con exito', result })
   } catch ({ message }) {
     res.status(400).json({ message })
@@ -95,6 +108,17 @@ const findServiceRatingController = async (req, res) => {
   }
 }
 
+const serviceImagenModifyController = async (req, res) => {
+  try {
+    const { userId } = req.headers.session
+    const { id } = req.params
+    const result = await serviceImagenModify(userId, id, req.files)
+    res.status(200).json(result)
+  } catch ({ message }) {
+    res.status(400).json({ message })
+  }
+}
+
 module.exports = {
   ServiceCreateController,
   findUserServicesController,
@@ -104,5 +128,6 @@ module.exports = {
   ServiceFindALLController,
   deleteServiceController,
   findServiceByIdController,
-  findServiceRatingController
+  findServiceRatingController,
+  serviceImagenModifyController
 }
