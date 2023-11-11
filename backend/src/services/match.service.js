@@ -89,7 +89,9 @@ const matchAccept = async ({ userId, serviceId, matchId }) => {
 
   await verify(match, serviceId)
 
+
   if (match.service.userId !== userId) throw new Error('INVALID_USER_MATCH')
+
 
   const result = await modify(MATCH_STATUS.ACCEPT, match.id)
   return result
