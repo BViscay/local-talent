@@ -1,5 +1,5 @@
 export const API_URL_BASE =
-    "https://local-talent-server-dev-rqbs.3.us-1.fl0.io/api";
+  "https://local-talent-server-dev-rqbs.3.us-1.fl0.io/api";
 
 export const API_URL_TOKENLOGIN = API_URL_BASE + "/auth";
 
@@ -24,7 +24,7 @@ export const API_URL_SEARCH = API_URL_SERVICES + "/search/";
 //--------------------------------------------------------------------------------
 
 export const API_URL_SILVERSUSCRIPTION =
-    API_URL_BASE + "/pay/subscriptionsilver";
+  API_URL_BASE + "/pay/subscriptionsilver";
 
 export const API_URL_GOLDSUSCRIPTION = API_URL_BASE + "/pay/subscriptiongold";
 
@@ -42,7 +42,6 @@ export const API_URL_MYMATCH = API_URL_MATCH + "/user";
 
 //---------------------------------------------------------------------------------
 
-
 export const API_URL_NOTIFICATIONS = API_URL_BASE + "/notification";
 
 export const API_URL_COUNT_NOTIFICATIONS = API_URL_NOTIFICATIONS + "/look";
@@ -50,3 +49,7 @@ export const API_URL_COUNT_NOTIFICATIONS = API_URL_NOTIFICATIONS + "/look";
 export const API_URL_NEWS_NOTIFICATIONS = API_URL_NOTIFICATIONS + "/news";
 
 export const API_URL_CREATE_NOTIFICATION = API_URL_NOTIFICATIONS + "/create";
+
+//----------------------------------------------------------------------------------
+
+export const API_URL_EDIT_PROFILE = API_URL_BASE + "/user";
