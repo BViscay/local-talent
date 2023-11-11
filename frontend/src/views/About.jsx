@@ -61,7 +61,7 @@ export default function About() {
     {
       name: "Diego",
       lastName: "",
-      img: "nada",
+      img: "https://web.whatsapp.com/51994620-4060-4593-b290-0d9bae22c182",
       github: "",
       gmail: "",
       linkedin: "",
