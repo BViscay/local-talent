@@ -21,7 +21,7 @@ const userImage = async (dataImg, dataId) => {
 
   const modifyUser = await User.update(
     {
-      image: resultImage
+      image: resultImage.secureUrl
     },
     { where: { id: dataId } }
   )
