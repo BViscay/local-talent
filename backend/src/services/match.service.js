@@ -88,7 +88,7 @@ const matchAccept = async ({ userId, serviceId, matchId }) => {
 
   await verify(match, serviceId)
 
-  if (match.service.userId !== userId) throw new Error('MATCH_NOT_FOUND 4')
+  if (match.service.userId !== userId) throw new Error('MATCH_NOT_FOUND_4')
 
   await modify(MATCH_STATUS.ACCEPT, match.id)
 }
