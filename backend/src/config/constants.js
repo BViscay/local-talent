@@ -5,7 +5,8 @@ const USER_STATUS = {
 
 const MATCH_STATUS = {
   ACCEPT: 'accept',
-  QUALIFY_USER: 'qualifyUser'
+  QUALIFY_USER: 'qualifyUser',
+  FINISHED:'finished'
 }
 
 const MATCH_TYPES = {

@@ -5,6 +5,35 @@ const Service = require('../models/service.model')
 const { findOneMatchService } = require('./match.service')
 const { MATCH_STATUS, MATCH_TYPES } = require('../config/constants')
 const User = require('../models/user.model')
+const uuid = require('uuid');
+
+const createUserRatingService = async (userId, values) => {
+  const { matchId, score, comment, serviceId } = values
+
+  const match = await findOneMatchService(matchId)
+  if (!match) throw new Error('MATCH_NOT_FOUND')
+  if (match.serviceId !== serviceId) throw new Error('MATCH_NOT_FOUND')
+  if (match.status !== MATCH_STATUS.QUALIFY_USER) throw new Error('MATCH_NOT_FOUND')
+  
+  const rating = await Rating.create({
+    userId, // Soy yo como usuario calificador
+    matchId,
+    type: MATCH_TYPES.USER,
+    refId: match.serviceId,
+    score,
+    comment
+  })
+
+  match.status = MATCH_STATUS.FINISHED
+  match.save()
+
+  // Actualizo el rating del servicio
+  // ! Esto se podría reemplazar por un trigger
+  const newRating = await avgRatingService(match.userId)
+  await User.update(newRating, { where: { id: match.userId } })
+
+  return rating
+}
 
 const createServiceRatingService = async (userId, values) => {
   const { matchId, score, comment } = values
@@ -61,5 +90,6 @@ const findRatinsService = async (refId) => await Rating.findAll({
 module.exports = {
   createServiceRatingService,
   avgRatingService,
-  findRatinsService
+  findRatinsService,
+  createUserRatingService
 }
