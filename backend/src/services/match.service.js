@@ -90,7 +90,8 @@ const matchAccept = async ({ userId, serviceId, matchId }) => {
 
   if (match.service.userId !== userId) throw new Error('MATCH_NOT_FOUND 4')
 
-  await modify(MATCH_STATUS.ACCEPT, match.id)
+  const result = await modify(MATCH_STATUS.ACCEPT, match.id)
+  return result
 }
 
 const matchCancelService = async ({ userId, serviceId, matchId }) => {
@@ -100,7 +101,8 @@ const matchCancelService = async ({ userId, serviceId, matchId }) => {
 
   if (match.service.userId !== userId) throw new Error('MATCH_NOT_FOUND 4')
 
-  await modify(MATCH_STATUS.CANCEL, match.id)
+  const result = await modify(MATCH_STATUS.CANCEL, match.id)
+  return result
 }
 
 const matchCancelUser = async ({ userId, serviceId, matchId }) => {
@@ -110,7 +112,8 @@ const matchCancelUser = async ({ userId, serviceId, matchId }) => {
 
   if (match.userId !== userId) throw new Error('MATCH_NOT_FOUND 4')
 
-  await modify(MATCH_STATUS.CANCEL, match.id)
+  const result = await modify(MATCH_STATUS.CANCEL, match.id)
+  return result
 }
 
 const verify = async (match, serviceId) => {
@@ -120,7 +123,8 @@ const verify = async (match, serviceId) => {
 }
 
 const modify = async (status, id) => {
-  await Match.update({ status }, { where: { id } })
+  const modify = await Match.update({ status }, { where: { id } })
+  return modify
 }
 
 const findAllMatch = async (where) => await Match.findAll({ where })
