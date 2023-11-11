@@ -14,7 +14,8 @@ import ContactButton from "./ContactButton";
 import StatusButtons from "./StatusButtons";
 
 const Match = ({
-  id,
+  matchId,
+  serviceId,
   titulo,
   categoria,
   codigo,
@@ -38,20 +39,20 @@ const Match = ({
       Plomeria: plumberIcon,
     };
 
-    return iconos[categoria];
+        return iconos[categoria];
   }
 
   return (
     <div
-      id={id}
-      key={id}
+      id={matchId}
+      key={matchId}
       className='flex w-full flex-col border-1 border-[#266DD3]/10 shadow-md rounded-xl my-2 p-4'
     >
       <div className='flex items-center justify-start mb-1'>
         <CategoyButton
           icon={obtenerIconoCategoria(categoria)}
           color='#FFBC99'
-          id={id}
+          matchId={matchId}
         />
         <div className='flex flex-col ml-2'>
           <h1 className='ml-2 text-left text-md text-black font-extrabold'>
@@ -68,7 +69,12 @@ const Match = ({
       <hr />
       <div className='flex justify-between items-center p-4'>
         <p className='m-0'>Estado</p>
-        <StatusButtons estado={estado} id={id} isMyMatches={isMyMatches} />
+        <StatusButtons
+          estado={estado}
+          matchId={matchId}
+          serviceId={serviceId}
+          isMyMatches={isMyMatches}
+        />
       </div>
       <div className='flex p-4 items-center justify-between'>
         <div className='flex items-center'>

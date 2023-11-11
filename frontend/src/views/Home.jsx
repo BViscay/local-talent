@@ -25,8 +25,8 @@ export default function Home() {
     const fetchData = async () => {
       await handleGeoLocation();
       await handleAllServices();
+      await handleCountNotifications();
     };
-    handleCountNotifications();
     handleTokenLogin();
     fetchData();
     //eslint-disable-next-line
