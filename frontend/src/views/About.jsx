@@ -117,7 +117,7 @@ export default function About() {
                 <i className="fab fa-google" />
               </Typography>
             </Tooltip>
-            <Tooltip content="Follow">
+            <Tooltip content="Linkedin">
               <Typography
                 as="a"
                 href={user.linkedin}
