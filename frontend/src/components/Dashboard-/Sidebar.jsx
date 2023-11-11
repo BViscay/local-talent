@@ -30,8 +30,8 @@ export default function Sidebar() {
           variant="flat"
           className={`${
             activeRoute === "dashboard-admin"
-              ? "bg-blue-200"
-              : "bg-primary-100 text-black"
+            ? "bg-blue-300" // Color más oscuro para la ruta activa
+            : "bg-blue-200" // Color para rutas no activas
           } flex items-center justify-start w-full`}
         >
           <Home size={30} strokeWidth={2.2} color="#266DD3" className="mr-2" />
@@ -54,8 +54,8 @@ export default function Sidebar() {
           variant="flat"
           className={`${
             activeRoute === "active-services"
-              ? "bg-blue-200"
-              : "bg-primary-100 text-black"
+            ? "bg-blue-300" // Color más oscuro para la ruta activa
+            : "bg-blue-200" // Color para rutas no activas
           } flex items-center justify-start w-full`}
         >
           <FolderOpen
@@ -83,8 +83,8 @@ export default function Sidebar() {
           variant="flat"
           className={`${
             activeRoute === "modifications"
-              ? "bg-blue-200"
-              : "bg-primary-100 text-black"
+            ? "bg-blue-300" // Color más oscuro para la ruta activa
+            : "bg-blue-200" // Color para rutas no activas
           } flex items-center justify-start w-full`}
         >
           <Wrench
@@ -112,8 +112,8 @@ export default function Sidebar() {
           variant="flat"
           className={`${
             activeRoute === "users"
-              ? "bg-blue-200"
-              : "bg-primary-100 text-black"
+            ? "bg-blue-300" // Color más oscuro para la ruta activa
+            : "bg-blue-200" // Color para rutas no activas
           } flex items-center justify-start w-full`}
         >
           <Users size={30} strokeWidth={2.2} color="#266DD3" className="mr-2" />
@@ -134,8 +134,8 @@ export default function Sidebar() {
           variant="flat"
           className={`${
             activeRoute === "billing"
-              ? "bg-blue-200"
-              : "bg-primary-100 text-black"
+            ? "bg-blue-300" // Color más oscuro para la ruta activa
+            : "bg-blue-200" // Color para rutas no activas
           } flex items-center justify-start w-full`}
         >
           <CreditCard
@@ -163,8 +163,8 @@ export default function Sidebar() {
           variant="flat"
           className={`${
             activeRoute === "consultations-claims"
-              ? "bg-blue-200"
-              : "bg-primary-100 text-black"
+            ? "bg-blue-300" // Color más oscuro para la ruta activa
+            : "bg-blue-200" // Color para rutas no activas
           } flex items-center justify-start w-full`}
         >
           <HelpCircle
