@@ -1,9 +1,30 @@
-const { check } = require('express-validator')
+const { body } = require('express-validator')
 const { validateResult } = require('../libs/validator.js')
 
 const ValidateCreateService = [
-  check('user_id').exists().notEmpty(),
-  check('category_id').exists().notEmpty(),
+  body('categoryId')
+    .exists().withMessage('categoryId must exist as a property')
+    .notEmpty().withMessage('categoryId must be complete')
+    .isInt().withMessage('categoryId must be integer'),
+  body('title')
+    .exists().withMessage('title must exist as a property')
+    .notEmpty().withMessage('title must be complete')
+    .isString().withMessage('title must be string ')
+    .isLength({ min: 10, max: 60 }).withMessage('title must be between 10 to 60 characters'),
+  body('description')
+    .exists().withMessage('description must exist as a property')
+    .notEmpty().withMessage('description must be complete')
+    .isString().withMessage('description must be string')
+    .isLength({ min: 10, max: 180 }).withMessage('description must be between 10 to 180 characters'),
+  body('price')
+    .exists().withMessage('price must exist as a property')
+    .notEmpty().withMessage('precio must be complete')
+    .isDecimal({ decimal_digits: '1,2' }).withMessage('the price must have a maximum of 2 decimal places'),
+  // image es un req.file: si no se carga una imagen por defecto no se crea
+  // body('image')
+  body('latitude').exists().notEmpty().isDecimal(),
+  body('longitude').exists().notEmpty().isDecimal(),
+
   (req, res, next) => validateResult(req, res, next)
 ]
 
@@ -21,4 +42,6 @@ const ValidateCreateService = [
 //   (req, res, next) => validateResult(req, res, next)
 // ]
 
-// module.exports = { ValidateCreateService, validateRegister, validateAccount }
+module.exports = {
+  ValidateCreateService
+}
