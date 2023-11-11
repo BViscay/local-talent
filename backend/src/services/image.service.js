@@ -3,6 +3,7 @@ const { uploadImage, deleteImage } = require('../middlewares/claudinary')
 const uploadImageCreate = async (data) => {
   const buffer = data.image.data
   const urlImage = await uploadImage(buffer)
+  console.log(urlImage)
   return urlImage
 }
 

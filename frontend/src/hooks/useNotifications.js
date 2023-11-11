@@ -6,7 +6,7 @@ import {
 } from "../config/api";
 import Swal from "sweetalert2";
 import {useSelector, useDispatch} from "react-redux";
-import {getToken, isLogged} from "../redux/sliceLogin";
+import {isLogged} from "../redux/sliceLogin";
 import {
   setNotifications,
   setCountNotifications,
@@ -15,7 +15,7 @@ import {
 } from "../redux/sliceLogin";
 
 const useNotifications = () => {
-  const token = useSelector(getToken);
+  const token = localStorage.getItem("token");
   const isLogin = useSelector(isLogged);
   const isFirstLoad = useSelector(getFirstLoad);
   const dispatch = useDispatch();
@@ -30,11 +30,6 @@ const useNotifications = () => {
         });
         dispatch(setCountNotifications(data));
         dispatch(setFirstLoad(false));
-        Swal.fire({
-          title: "Notificaciones",
-          text: `Tienes ${data.newNotifications} nuevas notificaciones🎉`,
-          icon: "success",
-        });
       } catch (error) {
         if (error.response) {
           if (isLogin) {
@@ -84,7 +79,6 @@ const useNotifications = () => {
         }
       );
       console.log(data);
-      handleNewsNotifications();
     } catch (error) {
       if (error.response) {
         Swal.fire({
