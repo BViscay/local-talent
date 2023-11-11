@@ -29,6 +29,8 @@ import Users from "./components/Dashboard-/Users";
 import Billing from "./components/Dashboard-/Billing";
 import InboxAdmin from "./components/Dashboard-/ImboxAdmin";
 import RatingMatch from "./components/RatingMatch/RatingMatch";
+import FormNewCat from "./components/Dashboard-/FormNewCat";
+import EditCategory from "./components/Dashboard-/EditCategory";
 
 
 function App() {
@@ -52,9 +54,11 @@ function App() {
             <Route path='/dashboard-admin' element={<DashboardAdmin />} />
             <Route path='/active-services' element={<ActiveServices />} />
             <Route path='/modifications' element={<Modifications />} />
+            <Route path='/editCategory' element={<EditCategory />} />
             <Route path='/users' element={<Users />} />
             <Route path='/billing' element={<Billing />} />
             <Route path='/consultations-claims' element={<InboxAdmin />} />
+            <Route path='/create-new-category' element={<FormNewCat />} />
             <Route path='/my-location' element={<MyMap />} />
             <Route path='/dashboard' element={<DashboardAdmin />} />
             <Route path='/categories' element={<CategoriesPage />} />
