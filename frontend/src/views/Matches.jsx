@@ -71,7 +71,8 @@ export default function Matches() {
         {matchesToRender.map((match) => (
           <Match
             key={match.id}
-            id={match.id}
+            matchId={match.id}
+            serviceId = {match.serviceId}
             titulo={match.service.title}
             categoria={match.service.category.name}
             codigo={match.id.slice(0, 8)}
