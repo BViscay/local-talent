@@ -83,40 +83,40 @@ const matchUser = async (userId) => {
   return matches
 }
 
-const matchAccept = async ({ serviceId, matchId, userId }) => {
+const matchAccept = async ({ userId, serviceId, matchId }) => {
   const match = await findOneMatchService(matchId)
 
   await verify(match, serviceId)
 
-  if (match.service.userId !== userId) throw new Error('MATCH_NOT_FOUND')
+  if (match.service.userId !== userId) throw new Error('MATCH_NOT_FOUND 4')
+
+  await modify(MATCH_STATUS.ACCEPT, match.id)
+}
+
+const matchCancelService = async ({ userId, serviceId, matchId }) => {
+  const match = await findOneMatchService(matchId)
+
+  await verify(match, serviceId)
+
+  if (match.service.userId !== userId) throw new Error('MATCH_NOT_FOUND 4')
 
   await modify(MATCH_STATUS.CANCEL, match.id)
 }
 
-const matchCancelService = async ({ serviceId, matchId, userId }) => {
+const matchCancelUser = async ({ userId, serviceId, matchId }) => {
   const match = await findOneMatchService(matchId)
 
   await verify(match, serviceId)
 
-  if (match.service.userId !== userId) throw new Error('MATCH_NOT_FOUND')
-
-  await modify(MATCH_STATUS.CANCEL, match.id)
-}
-
-const matchCancelUser = async ({ serviceId, matchId, userId }) => {
-  const match = await findOneMatchService(matchId)
-
-  await verify(match, serviceId)
-
-  if (match.userId !== userId) throw new Error('MATCH_NOT_FOUND')
+  if (match.userId !== userId) throw new Error('MATCH_NOT_FOUND 4')
 
   await modify(MATCH_STATUS.CANCEL, match.id)
 }
 
 const verify = async (match, serviceId) => {
-  if (!match) throw new Error('MATCH_NOT_FOUND')
-  if (match.serviceId !== serviceId) throw new Error('MATCH_NOT_FOUND')
-  if (match.status !== MATCH_STATUS.CREATE) throw new Error('MATCH_NOT_FOUND')
+  if (!match) throw new Error('MATCH_NOT_FOUND 1')
+  if (match.serviceId !== serviceId) throw new Error('MATCH_NOT_FOUND 2')
+  if (match.status !== MATCH_STATUS.CREATE) throw new Error('MATCH_NOT_FOUND 3')
 }
 
 const modify = async (status, id) => {

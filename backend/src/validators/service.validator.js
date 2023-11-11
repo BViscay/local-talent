@@ -22,8 +22,14 @@ const ValidateCreateService = [
     .isDecimal({ decimal_digits: '1,2' }).withMessage('the price must have a maximum of 2 decimal places'),
   // image es un req.file: si no se carga una imagen por defecto no se crea
   // body('image')
-  body('latitude').exists().notEmpty().isDecimal(),
-  body('longitude').exists().notEmpty().isDecimal(),
+  body('latitude')
+    .exists().withMessage('latitude must exist as a property')
+    .notEmpty().withMessage('latitude must be complete')
+    .isDecimal().withMessage('latitude must be complete'),
+  body('longitude')
+    .exists().withMessage('longitude must exist as a property')
+    .notEmpty().withMessage('longitude must be complete')
+    .isDecimal(),
 
   (req, res, next) => validateResult(req, res, next)
 ]
