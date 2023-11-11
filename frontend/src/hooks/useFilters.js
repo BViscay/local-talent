@@ -16,6 +16,7 @@ import {
   getRenderServices,
   getFilteredServices,
   setFilteredServices,
+  setMyServices,
 } from "../redux/sliceFilters";
 import Swal from "sweetalert2";
 
@@ -74,21 +75,23 @@ const useFilters = () => {
       });
     }
     try {
-      console.log("holas");
-      const {data} = await axios(API_URL_SERVICES, {
+
+
+      const { data } = await axios(API_URL_SERVICES, {
+
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
       if (data) {
-        console.log(data);
+
+        dispatch(setMyServices(data));
       }
     } catch (error) {
       console.log(error.response);
     }
   };
-
   const handleFilterByServiceId = async (servId) => {
     try {
       const response = await axios(`${API_URL_SEARCH}?serviceId=${servId}`, {
@@ -112,7 +115,7 @@ const useFilters = () => {
         dispatch(setAllServices(data));
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
 
