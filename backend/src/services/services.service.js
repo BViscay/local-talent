@@ -6,14 +6,14 @@ const Rating = require('../models/rating.model')
 const { uploadImageCreate } = require('../services/image.service')
 const { Op, Sequelize } = require('sequelize')
 const { MATCH_TYPES } = require('../config/constants')
+const { deleteImage } = require('../middlewares/claudinary')
 
 const createService = async (data, dataImg) => {
   const resultImage = await uploadImageCreate(dataImg)
 
   data.categoryId = parseInt(data.categoryId)
-  data.image = resultImage
-
-  console.log(data)
+  data.image = resultImage.secureUrl
+  data.imageId = resultImage.publicId
 
   const newService = await Service.create(data)
 
@@ -78,11 +78,18 @@ const findServiceWhere = async (where, method = 'findAll') => {
   })
 }
 
-const editService = async (data) => {
-  const { id } = data
-  await Service.update(data, {
-    where: { id, status: 0 }
-  })
+// const editService = async (data) => {
+//   const { id } = data
+//   await Service.update(data, {
+//     where: { id, status: 0 }
+//   })
+// }
+
+const editService = async (userId, id, data) => {
+  const service = await Service.findByPk(id)
+  if (!service) throw new Error('SERVICE_NOT_FOUND')
+  if (service.userId !== userId) throw new Error('SERVICE_NOT_FOUND')
+  await Service.update(data, { where: { id, status: 0 } })
 }
 
 const deleteService = async (id) => {
@@ -108,8 +115,16 @@ const updateScoreService = async (id) => {
   return true
 }
 
-module.exports = {
+const serviceImagenModify = async (userId, id, data) => {
+  const service = await Service.findByPk(id)
+  if (!service) throw new Error('SERVICE_NOT_FOUND')
+  if (service.userId !== userId) throw new Error('SERVICE_NOT_FOUND')
+  service.imageId && await deleteImage(service.imageId)
+  const resultImage = await uploadImageCreate(data)
+  await Service.update({ image: resultImage.secureUrl, imageId: resultImage.publicId }, { where: { id } })
+}
 
+module.exports = {
   createService,
   editService,
   deleteService,
@@ -117,5 +132,6 @@ module.exports = {
   searchService,
   allServices,
   findServiceWhere,
-  updateScoreService
+  updateScoreService,
+  serviceImagenModify
 }
