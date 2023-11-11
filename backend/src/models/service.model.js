@@ -67,7 +67,8 @@ Service.init({
 },
 {
   sequelize,
-  modelName: 'service'
+  modelName: 'service',
+  paranoid: true
 })
 
 module.exports = Service

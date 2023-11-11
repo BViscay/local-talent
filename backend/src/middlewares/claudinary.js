@@ -16,14 +16,14 @@ const uploadImage = (buffer) => {
       if (error) {
         reject(error.message)
       } else {
-        resolve(result.secure_url)
+        resolve({ secureUrl: result.secure_url, publicId: result.public_id })
       }
     }).end(buffer)
   })
 }
 
 const deleteImage = async (publicId) => {
-  return await cloudinary.uploader.destroy(publicId, { folder: 'localTalent' })
+  return await cloudinary.uploader.destroy(publicId)
 }
 
 module.exports = {

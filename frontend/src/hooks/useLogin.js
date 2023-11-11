@@ -31,7 +31,7 @@ const useLogin = () => {
   };
 
   const handleLogin = async (userData) => {
-    const {email, password, rememberUser} = userData;
+    const {email, password} = userData;
     const URL = API_URL_LOGIN;
 
     try {
@@ -41,7 +41,7 @@ const useLogin = () => {
       });
       const {token, session} = data;
 
-      if (token && rememberUser) {
+      if (token) {
         localStorage.setItem("token", token);
       }
 

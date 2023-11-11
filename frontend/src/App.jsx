@@ -1,9 +1,9 @@
 import "./App.css";
-import {Provider} from "react-redux";
-import {store} from "../src/redux/store";
-import {Route, Routes} from "react-router-dom";
-import {useLocation} from "react-router-dom";
-import {NextUIProvider} from "@nextui-org/react";
+import { Provider } from "react-redux";
+import { store } from "../src/redux/store";
+import { Route, Routes } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { NextUIProvider } from "@nextui-org/react";
 
 import LoginForm from "./views/LoginForm";
 import SignUp from "./views/SignUp";
@@ -31,7 +31,7 @@ import InboxAdmin from "./components/Dashboard-/ImboxAdmin";
 import RatingMatch from "./components/RatingMatch/RatingMatch";
 import FormNewCat from "./components/Dashboard-/FormNewCat";
 import EditCategory from "./components/Dashboard-/EditCategory";
-
+import About from "./views/About";
 
 function App() {
   const location = useLocation();
@@ -42,7 +42,7 @@ function App() {
   return (
     <Provider store={store}>
       <NextUIProvider>
-        <div className='w-full'>
+        <div className="w-full">
           {!isLoginPage && !isRegisterPage && !isValidatePage && <NavBar />}
 
           <Routes>
@@ -68,17 +68,18 @@ function App() {
             <Route path='/notifications' element={<Notifications />} />
             <Route path='/editProfile' element={<EditeProfile />} />
             <Route
-              path='/filtered-services'
+              path="/filtered-services"
               element={<FilteredServicesByCat />}
             />
-            <Route path='/searched-services' element={<SearchedServices />} />
-            <Route path='/suscriptions' element={<Suscriptions />} />
-            <Route path='/service/:id' element={<ServiceDetail />} />
+            <Route path="/searched-services" element={<SearchedServices />} />
+            <Route path="/suscriptions" element={<Suscriptions />} />
+            <Route path="/service/:id" element={<ServiceDetail />} />
             <Route
-              path='/filtered-by-location'
+              path="/filtered-by-location"
               element={<FilteredByLocation />}
             />
-            <Route path='/qualify' element={<RatingMatch />} />
+            <Route path="/qualify" element={<RatingMatch />} />
+            <Route path="/about" element={<About />} />
           </Routes>
         </div>
       </NextUIProvider>

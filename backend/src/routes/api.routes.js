@@ -19,7 +19,7 @@ router.use('/pay', require('./payment.routes'))
 
 router.use('/notification', validateToken, require('./notification.routes'))
 
-router.use('/user', validateToken, require('./user.routes'))
+router.use('/user', require('./user.routes'))
 
 router.use('/rating', validateToken, require('./rating.routes'))
 
