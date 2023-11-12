@@ -5,6 +5,8 @@ const Service = require('../models/service.model')
 const { findOneMatchService } = require('./match.service')
 const { MATCH_STATUS, MATCH_TYPES } = require('../config/constants')
 const User = require('../models/user.model')
+const uuid = require('uuid');
+
 
 const createServiceRatingService = async (userId, values) => {
   const { matchId, score, comment } = values

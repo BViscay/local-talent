@@ -17,4 +17,9 @@ const MATCH_TYPES = {
   USER: 'user'
 }
 
-module.exports = { USER_STATUS, MATCH_STATUS, MATCH_TYPES }
+const PRODUCTS_TYPES = {
+  SILVER:1,
+  GOLD:2
+}
+
+module.exports = { USER_STATUS, MATCH_STATUS, MATCH_TYPES, PRODUCTS_TYPES }
