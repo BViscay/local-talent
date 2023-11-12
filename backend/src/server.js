@@ -21,6 +21,9 @@ server.use(fileUpload())
 
 // Routes
 server.use('/api', require('./routes/api.routes'))
+// server.get('/dashboard', (req, res) => {
+//   res.send('estoy en el dashboard')
+// })
 server.get('/', (req, res) => res.send('API LOCAL-TALENT v1.0'))
 
 module.exports = server
