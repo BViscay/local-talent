@@ -38,10 +38,6 @@ Service.init({
     type: DataTypes.DOUBLE,
     defaultValue: 0
   },
-  /* location: {
-    type: DataTypes.GEOMETRY('POINT'),
-    allowNull: false
-  }, */
   score: {
     type: DataTypes.DOUBLE,
     defaultValue: 0
@@ -62,7 +58,7 @@ Service.init({
     }
   },
   userId: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     references: {
       model: User,
       key: 'id'
@@ -71,7 +67,8 @@ Service.init({
 },
 {
   sequelize,
-  modelName: 'service'
+  modelName: 'service',
+  paranoid: true
 })
 
 module.exports = Service

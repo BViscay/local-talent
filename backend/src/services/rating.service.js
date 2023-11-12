@@ -7,42 +7,15 @@ const { MATCH_STATUS, MATCH_TYPES } = require('../config/constants')
 const User = require('../models/user.model')
 const uuid = require('uuid');
 
-const createUserRatingService = async (userId, values) => {
-  const { matchId, score, comment, serviceId } = values
-
-  const match = await findOneMatchService(matchId)
-  if (!match) throw new Error('MATCH_NOT_FOUND')
-  if (match.serviceId !== serviceId) throw new Error('MATCH_NOT_FOUND')
-  if (match.status !== MATCH_STATUS.QUALIFY_USER) throw new Error('MATCH_NOT_FOUND')
-  
-  const rating = await Rating.create({
-    userId, // Soy yo como usuario calificador
-    matchId,
-    type: MATCH_TYPES.USER,
-    refId: match.serviceId,
-    score,
-    comment
-  })
-
-  match.status = MATCH_STATUS.FINISHED
-  match.save()
-
-  // Actualizo el rating del servicio
-  // ! Esto se podría reemplazar por un trigger
-  const newRating = await avgRatingService(match.userId)
-  await User.update(newRating, { where: { id: match.userId } })
-
-  return rating
-}
 
 const createServiceRatingService = async (userId, values) => {
   const { matchId, score, comment } = values
 
   const match = await findOneMatchService(matchId)
-  console.log(match)
+  console.log(match.toJSON())
   if (!match) throw new Error('MATCH_NOT_FOUND')
-  if (match.userId !== userId) throw new Error('MATCH_NOT_FOUND')
-  if (match.status !== MATCH_STATUS.ACCEPT) throw new Error('MATCH_NOT_FOUND')
+  if (match.userId !== userId) throw new Error('INVALID_USER_MATCH')
+  if (match.status !== MATCH_STATUS.ACCEPT) throw new Error('INVALIDA_STATUS_MATCH')
 
   const rating = await Rating.create({
     userId, // Soy yo como usuario calificador
@@ -56,15 +29,45 @@ const createServiceRatingService = async (userId, values) => {
   match.status = MATCH_STATUS.QUALIFY_USER
   match.save()
 
-  // Actualizo el rating del servicio
+  // Actualizo el rating del servicio de forma asyncrona
   // ! Esto se podría reemplazar por un trigger
-  const newRating = await avgRatingService(match.serviceId)
-  await Service.update(newRating, { where: { id: match.serviceId } })
+  avgRatingReference(match.serviceId).then(
+    newRating => Service.update(newRating, { where: { id: match.serviceId } })
+  )
 
   return rating
 }
 
-const avgRatingService = async (refId) => {
+const createUserRatingService = async (userId, values) => {
+  const { matchId, score, comment } = values
+
+  const match = await findOneMatchService(matchId)
+
+  if (!match) throw new Error('MATCH_NOT_FOUND')
+  if (match.service.userId !== userId) throw new Error('INVALID_USER_MATCH')
+  if (match.status !== MATCH_STATUS.QUALIFY_USER) throw new Error('INVALIDA_STATUS_MATCH')
+
+  const rating = await Rating.create({
+    userId, // Soy yo como Service calificador
+    matchId,
+    type: MATCH_TYPES.USER,
+    refId: match.userId,
+    score,
+    comment
+  })
+
+  match.status = MATCH_STATUS.FINISHED
+  match.save()
+
+  // Actualizo el rating del servicio
+  // ! Esto se podría reemplazar por un trigger
+  const newRating = await avgRatingReference(match.userId)
+  await User.update(newRating, { where: { id: match.userId } })
+
+  return rating
+}
+
+const avgRatingReference = async (refId) => {
   const res = await Rating.findOne({
     where: { refId },
     attributes: [
@@ -89,7 +92,8 @@ const findRatinsService = async (refId) => await Rating.findAll({
 
 module.exports = {
   createServiceRatingService,
-  avgRatingService,
+  avgRatingReference,
   findRatinsService,
   createUserRatingService
+
 }

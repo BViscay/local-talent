@@ -2,7 +2,12 @@ import {Button} from "@nextui-org/react";
 import useLogin from "../../hooks/useLogin";
 import SelectStatusModal from "./SelectStatusModal";
 
-export default function StatusButtons({estado, id, isMyMatches}) {
+export default function StatusButtons({
+  estado,
+  matchId,
+  serviceId,
+  isMyMatches,
+}) {
   const {isModalOpen, handleCloseModal, handleOpenModal} = useLogin();
 
   return (
@@ -34,7 +39,8 @@ export default function StatusButtons({estado, id, isMyMatches}) {
       {isModalOpen && (
         <SelectStatusModal
           onClose={handleCloseModal}
-          id={id}
+          matchId={matchId}
+          serviceId={serviceId}
           isMyMatches={isMyMatches}
         />
       )}

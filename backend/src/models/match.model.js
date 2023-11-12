@@ -14,7 +14,7 @@ Match.init({
     allowNull: false
   },
   userId: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     references: {
       model: User,
       key: 'id'
@@ -32,7 +32,7 @@ Match.init({
   },
   status: {
     type: DataTypes.ENUM,
-    values: ['create', 'cancel', 'accept', 'qualifyUser', 'qualifyServ', 'finished'],
+    values: ['create', 'cancel', 'accept', 'qualifyUser', 'finished'],
     defaultValue: 'create',
     allowNull: false
   }

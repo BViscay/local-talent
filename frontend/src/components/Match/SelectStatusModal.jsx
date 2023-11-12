@@ -1,12 +1,18 @@
 import {Button} from "@nextui-org/react";
 import useMatches from "../../hooks/useMatches";
+import {useNavigate} from "react-router-dom";
+export default function SelectStatusModal({
+  onClose,
+  matchId,
+  serviceId,
+  isMyMatches,
+}) {
+  const {handleAcceptStatusChange} = useMatches();
+  const navigate = useNavigate();
 
-export default function SelectStatusModal({onClose, id, isMyMatches}) {
-  const {handleStatusChange} = useMatches();
-
-  const handleClick = (status) => {
+  const handleClick = () => {
     onClose();
-    handleStatusChange(id, status);
+    handleAcceptStatusChange(serviceId, matchId);
   };
 
   return (
@@ -24,7 +30,7 @@ export default function SelectStatusModal({onClose, id, isMyMatches}) {
               {!isMyMatches && (
                 <div>
                   <Button
-                    onClick={() => handleClick("accept")}
+                    onClick={handleClick}
                     className='bg-green-500/30 text-green-500 font-semibold text-lg w-36'
                   >
                     Confirmar
@@ -38,7 +44,7 @@ export default function SelectStatusModal({onClose, id, isMyMatches}) {
                 Cancelar
               </Button>
               <Button
-                onClick={handleClick}
+                onClick={() => navigate("/qualify")}
                 className='bg-primary-900 text-primary-100 font-semibold text-lg w-36'
               >
                 Calificar

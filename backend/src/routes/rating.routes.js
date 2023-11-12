@@ -4,14 +4,9 @@ const router = express.Router()
 const {
   createUserRatingController,
   createServiceRatingController,
-  ratingServiceController,
-  ratingUserController,
   ratingController,
   avgRatingController
 } = require('../controllers/ratings.controller')
-
-router.get('/service', ratingServiceController)
-router.get('/user', ratingUserController)
 
 router.get('/:refId', avgRatingController)
 

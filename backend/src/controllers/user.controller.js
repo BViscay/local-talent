@@ -1,3 +1,4 @@
+const { findRatinsService } = require('../services/rating.service')
 const { userImage, userUpdateService, findAllUsersService, changePasswordService, findUserService } = require('../services/user.service')
 
 const findAllUsersController = async (req, res) => {
@@ -54,10 +55,21 @@ const findOneUserController = async (req, res) => {
   }
 }
 
+const userRatingController = async (req, res) => {
+  try {
+    const { id } = req.params
+    const result = await findRatinsService(id)
+    res.status(200).json(result)
+  } catch ({ message }) {
+    res.status(400).json({ message })
+  }
+}
+
 module.exports = {
   userImageController,
   userUpdateController,
   findAllUsersController,
   changePasswordController,
-  findOneUserController
+  findOneUserController,
+  userRatingController
 }

@@ -5,7 +5,7 @@ const { generateRandomNumber } = require('../libs/handleRandom')
 const { createToken } = require('../libs/handleToken')
 
 const { sendRegisterNotification, sendWelcomeMessage } = require('./email.service')
-const { findUserService, createUserService } = require('./user.service')
+const { findUserService, createUserService, countUsers } = require('./user.service')
 const { countNewUserNotificationsService } = require('./notification.service')
 
 // Funcion para valdiar session por token
@@ -27,7 +27,7 @@ const loginTokenService = async (userId) => {
     whatsapp: user.whatsapp,
     status: user.status,
     image: user.image,
-    rol: user.rol || 'user',
+    rol: user.rol,
     newNotifications
   }
 
@@ -45,7 +45,7 @@ const loginService = async ({ email, password }) => {
   const isCorrectPassword = await user.comparePassword(password)
   if (!isCorrectPassword) throw new Error('PASSWORD_INVALID')
 
-  const token = createToken({ userId: user.id, rol: user.rol || 'user' })
+  const token = createToken({ userId: user.id, rol: user.rol })
 
   // Busco si tiene nuevas notificaciones
   const newNotifications = await countNewUserNotificationsService(user.id)
@@ -58,7 +58,7 @@ const loginService = async ({ email, password }) => {
     whatsapp: user.whatsapp,
     status: user.status,
     image: user.image,
-    rol: user.rol || 'user',
+    rol: user.rol,
     newNotifications
   }
 
@@ -69,8 +69,11 @@ const loginService = async ({ email, password }) => {
 const registerService = async (data) => {
   const { email } = data
 
-  //const user = await findUserService({ email })
-  //if (user) throw new Error('USER_EXIST')
+  const rol = await countUsers() === 0 ? 'admin' : 'user'
+  data.rol = rol
+
+  const user = await findUserService({ email })
+  if (user) throw new Error('USER_EXIST')
 
   const validator = generateRandomNumber().toString()
 
@@ -83,8 +86,7 @@ const registerService = async (data) => {
     firstname: newUser.firstname,
     lastname: newUser.lastname,
     email: newUser.email,
-    //whatsapp: user.whatsapp,
-    //rol: user.rol || 'user'
+    rol
   }
 }
 
@@ -100,7 +102,7 @@ const validateUserService = async (data) => {
   user.status = USER_STATUS.VALIDATE
   await user.save()
 
-  const token = createToken({ userId: user.id, rol: user.rol || 'user' })
+  const token = createToken({ userId: user.id, rol: user.rol })
 
   await sendWelcomeMessage({ email })
 
@@ -110,7 +112,7 @@ const validateUserService = async (data) => {
     lastname: user.lastname,
     email,
     status: user.status,
-    rol: user.rol || 'user'
+    rol: user.rol
   }
 
   return { session, token }
