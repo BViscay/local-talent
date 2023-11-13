@@ -40,7 +40,6 @@ export default function Notifications() {
           </Select>
         </div>
       </div>
-      {console.log(newNotifications)}
       {isLoggedIn ? (
         newNotifications && newNotifications.length > 0 ? (
           <div className='flex flex-col rounded-lg w-full p-4 bg-white items-center justify-center'>

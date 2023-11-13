@@ -7,8 +7,6 @@ const validateToken = (req, res, next) => {
     const session = validToken(token)
     if (!session) throw new Error('INVALID_TOKEN')
 
-    console.log(session)
-
     req.headers.session = session
     next()
   } catch ({ message }) {

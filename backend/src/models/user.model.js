@@ -2,6 +2,7 @@ const { Model, DataTypes } = require('sequelize')
 const { sequelize } = require('../database')
 const bcrypt = require('bcrypt')
 const { hashPassword } = require('../libs/handleEncrynpt')
+const Product = require('./product.model')
 
 class User extends Model {}
 
@@ -51,6 +52,13 @@ User.init({
     type: DataTypes.ENUM,
     values: ['user', 'admin'],
     defaultValue: 'user'
+  },  
+  productId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Product,
+      key: 'id'
+    }
   }
 },
 {
