@@ -25,8 +25,7 @@ class PaymentService {
     })
     return subscription.data
   }
-
-  async createSubscriptionSilver (userId) {
+async createSubscriptionSilver (userId) {
     const url = 'https://api.mercadopago.com/preapproval'
     console.log(userId)
     const body = {
