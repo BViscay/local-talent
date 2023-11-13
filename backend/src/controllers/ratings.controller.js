@@ -1,19 +1,71 @@
-const { ratingCreate } = require('../services/ratings.service')
+const { serviceRating, userRating, createUserRatingService, createServiceRatingService, avgRatingService } = require('../services/rating.service')
 
-const ratingCreateController = async (req, res) => {
+const createUserRatingController = async (req, res) => {
   try {
     const { userId } = req.headers.session
-    const result = await ratingCreate({ userId, ...req.body })
+    const { body } = req
+    const result = await createUserRatingService(userId, body)
+    res.status(201).json(result)
+  } catch ({ message }) {
+    res.status(400).json({ message })
+  }
+}
+
+const createServiceRatingController = async (req, res) => {
+  try {
+    const { userId } = req.headers.session
+    const { body } = req
+    const result = await createServiceRatingService(userId, body)
+    res.status(201).json(result)
+  } catch ({ message }) {
+    res.status(400).json({ message })
+  }
+}
+
+const ratingServiceController = async (req, res) => {
+  try {
+    const result = await serviceRating({ ...req.query })
     res.status(200).json(result)
   } catch ({ message }) {
     res.status(400).json({ message })
   }
 }
 
-// const ratingScore = async (req, res) => {
+const ratingUserController = async (req, res) => {
+  try {
+    const result = await userRating({ ...req.query })
+    res.status(200).json(result)
+  } catch ({ message }) {
+    res.status(400).json({ message })
+  }
+}
 
-// }
+const ratingController = async (req, res) => {
+  try {
+    const { userId } = req.headers.session
+    const result = await serviceRating(userId)
+    res.status(200).json(result)
+  } catch ({ message }) {
+    res.status(400).json({ message })
+  }
+}
+
+const avgRatingController = async (req, res) => {
+  try {
+    const { refId } = req.params
+    const result = await avgRatingService(refId)
+    res.status(200).json(result)
+  } catch ({ message }) {
+    res.status(400).json({ message })
+  }
+}
 
 module.exports = {
-  ratingCreateController
+  createUserRatingController,
+  createServiceRatingController,
+  ratingServiceController,
+  ratingUserController,
+  ratingController,
+  avgRatingController
+
 }

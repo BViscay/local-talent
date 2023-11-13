@@ -8,21 +8,26 @@ const {
   ServiceEditController,
   ServiceSearchController,
   ServiceDeleteController,
-
-  ServiceFindALLController
+  ServiceFindALLController,
+  findServiceByIdController,
+  findServiceRatingController,
+  serviceImagenModifyController
 } = require('../controllers/service.controller.js')
+const { ValidateCreateService } = require('../validators/service.validator.js')
 
 const router = express.Router()
 
+// Rutas públicas
+router.get('/allservices', ServiceFindALLController)
 router.get('/search', ServiceSearchController)
+router.get('/:id', findServiceByIdController)
+router.get('/:id/rating', findServiceRatingController)
 
 // Rutas del ususario
 router.get('/', validateToken, findUserServicesController)
-router.post('/', validateToken, ServiceCreateController)
+router.post('/', validateToken, ValidateCreateService, ServiceCreateController)
 router.patch('/:id', validateToken, ServiceEditController)
+router.patch('/image/:id', validateToken, serviceImagenModifyController)
 router.delete('/:id', validateToken, ServiceDeleteController)
-
-// Rutas a pedido FRONT
-router.get('/allservices', ServiceFindALLController)
 
 module.exports = router

@@ -17,10 +17,6 @@ ProductModel.init(
     quantity: {
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false
-    },
-    reason: {
-      type: DataTypes.STRING,
-      allowNull: true
     }
   },
   {
