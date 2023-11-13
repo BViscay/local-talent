@@ -26,12 +26,12 @@ export default function CategoyButton({
     <div className='flex flex-col items-center justify-center w-14 h-[110px]'>
       <div
         onClick={handleClick}
-        className='w-20 h-20 flex items-center justify-center rounded-full'
+        className='w-20 h-20 flex items-center justify-center shadow-xl rounded-full'
         style={buttonStyle}
       >
         <img src={icon} alt='' />
       </div>
-      <div className='w-14'>{text}</div>
+      <div className='w-14 '>{text}</div>
     </div>
   );
 }

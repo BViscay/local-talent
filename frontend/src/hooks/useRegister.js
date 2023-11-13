@@ -1,8 +1,8 @@
-import React, { useState } from "react"; 
-import { useNavigate } from "react-router-dom";
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import { API_URL_REGISTER, API_URL_VALIDATE } from "../config/api";
-import { useDispatch, useSelector } from "react-redux";
+import {API_URL_REGISTER, API_URL_VALIDATE} from "../config/api";
+import {useDispatch, useSelector} from "react-redux";
 import Swal from "sweetalert2";
 
 import {
@@ -21,10 +21,10 @@ const useRegister = () => {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false); 
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleRegister = async (userData) => {
-    const { name, lastName, email, password, confirmPassword } = userData;
+    const {name, lastName, email, password, confirmPassword} = userData;
 
     if (!name) {
       Swal.fire("Error", "El nombre es necesario", "error");
@@ -36,6 +36,7 @@ const useRegister = () => {
       return;
     }
     // Validar que la contraseña tenga al menos 8 dígitos y un carácter
+    //eslint-disable-next-line
     const passwordRegex = /^(?=.*[A-Za-z0-9])(?=.*[.*+\/]).{8,}$/;
     if (!password.match(passwordRegex)) {
       Swal.fire(
@@ -58,8 +59,8 @@ const useRegister = () => {
         email: email,
         password: password,
       })
-      .then(({ data }) => {
-        const { id, email } = data;
+      .then(({data}) => {
+        const {id, email} = data;
 
         if (id && email) {
           dispatch(setMail(email));
@@ -85,8 +86,8 @@ const useRegister = () => {
         email: userMail,
         code: validateCode,
       })
-      .then(({ data }) => {
-        const { session, token } = data;
+      .then(({data}) => {
+        const {session, token} = data;
 
         if (session && token) {
           navigate("/home");

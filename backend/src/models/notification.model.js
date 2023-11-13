@@ -11,7 +11,7 @@ Service.init({
     defaultValue: DataTypes.UUIDV4
   },
   userId: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     references: {
       model: User,
       key: 'id'

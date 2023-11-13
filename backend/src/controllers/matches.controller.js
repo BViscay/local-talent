@@ -1,4 +1,4 @@
-const { createMatch, serviceMatch, matchUser, modifyMatch } = require('../services/match.service')
+const { createMatch, serviceMatch, matchUser, matchAccept, matchCancelService, matchCancelUser } = require('../services/match.service')
 
 const matchCreateController = async (req, res) => {
   try {
@@ -30,10 +30,30 @@ const matchUserController = async (req, res) => {
   }
 }
 
-const matchModifyController = async (req, res) => {
+const matchAcceptController = async (req, res) => {
   try {
-    console.log(req.query)
-    const result = await modifyMatch({ ...req.query })
+    const { userId } = req.headers.session
+    const result = await matchAccept({ userId, ...req.body })
+    res.status(200).json(result)
+  } catch ({ message }) {
+    res.status(400).json({ message })
+  }
+}
+
+const matchCancelServiceController = async (req, res) => {
+  try {
+    const { userId } = req.headers.session
+    const result = await matchCancelService({ userId, ...req.body })
+    res.status(200).json(result)
+  } catch ({ message }) {
+    res.status(400).json({ message })
+  }
+}
+
+const matchCancelUserController = async (req, res) => {
+  try {
+    const { userId } = req.headers.session
+    const result = await matchCancelUser({ userId, ...req.body })
     res.status(200).json(result)
   } catch ({ message }) {
     res.status(400).json({ message })
@@ -44,5 +64,8 @@ module.exports = {
   matchCreateController,
   matchServiceController,
   matchUserController,
-  matchModifyController
+  matchAcceptController,
+  matchCancelServiceController,
+  matchCancelUserController
+
 }

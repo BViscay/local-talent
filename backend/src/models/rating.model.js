@@ -1,5 +1,7 @@
 const { Model, DataTypes } = require('sequelize')
 const { sequelize } = require('../database')
+const User = require('./user.model')
+const Match = require('./match.model')
 
 class Rating extends Model {}
 
@@ -10,16 +12,32 @@ Rating.init({
     primaryKey: true,
     allowNull: false
   },
-  score: {
-    type: DataTypes.ENUM,
-    values: ['1', '2', '3', '4', '5']
+  matchId: {
+    type: DataTypes.UUID,
+    references: {
+      model: Match,
+      key: 'id'
+    }
   },
-  comment: {
-    type: DataTypes.TEXT
+  userId: {
+    type: DataTypes.UUID,
+    references: {
+      model: User,
+      key: 'id'
+    }
   },
   type: {
     type: DataTypes.ENUM,
     values: ['user', 'service']
+  },
+  refId: {
+    type: DataTypes.UUID
+  },
+  score: {
+    type: DataTypes.INTEGER
+  },
+  comment: {
+    type: DataTypes.TEXT
   }
 },
 {
