@@ -39,7 +39,6 @@ export default function SignUpForm() {
             className='h-max pb-5 space-y-1 w-4/5 ml-auto mr-auto'
             action='#'
             onSubmit={handleSubmit((data) => {
-              console.log("holis");
               handleRegister(data);
               handleGeoLocation();
             })}
