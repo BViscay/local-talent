@@ -15,11 +15,12 @@ import CreateService from "./views/CreateService";
 import Matches from "./views/Matches";
 import Notifications from "./views/Notifications";
 import EditeProfile from "./views/EditeProfile";
-import FilteredServicesByCat from "./views/FilteredServicesByCat";
+// import FilteredServicesByCat from "./views/FilteredServicesByCat";
 import Suscriptions from "./views/Suscriptions";
 import SearchedServices from "./views/SearchedServices";
 import ServiceDetail from "./views/ServiceDetail";
 import FilteredByLocation from "./views/FilteredByLocation";
+// import Layout from "./views/dashboard/layout.ejs"
 
 function App() {
   const location = useLocation();
@@ -46,7 +47,7 @@ function App() {
             <Route path="/editProfile" element={<EditeProfile />} />
             <Route
               path="/filtered-services"
-              element={<FilteredServicesByCat />}
+              // element={<FilteredServicesByCat />}
             />
             <Route path="/searched-services" element={<SearchedServices />} />
             <Route path="/suscriptions" element={<Suscriptions />} />
@@ -55,6 +56,7 @@ function App() {
               path="/filtered-by-location"
               element={<FilteredByLocation />}
             />
+            {/* <Route path="/layout" element={<Layout />} ></Route> */}
           </Routes>
         </div>
       </NextUIProvider>

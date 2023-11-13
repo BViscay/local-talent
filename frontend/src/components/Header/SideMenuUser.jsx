@@ -61,9 +61,9 @@ const SideMenuUser = ({ menuOpen, setMenuOpen }) => {
                 strokeWidth={2.2}
                 className="text-slate-800"
               />
-              <p className="text-[#266DD3] font-medium text-lg">
+              <div className="text-[#266DD3] font-medium text-lg">
                 Dashboard Admin
-              </p>
+              </div>
             </div>
           </div>
           <div className="w-full py-2">
