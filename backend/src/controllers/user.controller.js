@@ -13,8 +13,8 @@ const findAllUsersController = async (req, res) => {
 const userImageController = async (req, res) => {
   try {
     const { userId } = req.headers.session
-    const result = await userImage(req.files, userId)
-    res.status(200).json(result)
+    // const result = await userImage(req.files, userId)
+    return res.status(200).json(userId)
   } catch ({ message }) {
     res.status(400).json({ message })
   }
@@ -24,6 +24,7 @@ const userUpdateController = async (req, res) => {
   try {
     const { id } = req.params
     const { userId } = req.headers.session
+    console.log(userId)
 
     // Si tiene ID como parametro es proque uso ruta ADMIN
     const result = await userUpdateService(req.body, id || userId)

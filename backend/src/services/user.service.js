@@ -36,7 +36,10 @@ const changePasswordService = async (userId, password) => {
   return true
 }
 
-const userUpdateService = async (values, userId) => await User.update(values, { where: { id: userId } })
+const userUpdateService = async ({ values, userId }) => {
+  const modify = await User.update(values, { where: { id: userId } })
+  return modify
+}
 
 const findAllUsersService = async (where) => await User.findAll({
   where,

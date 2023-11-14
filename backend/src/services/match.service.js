@@ -95,10 +95,10 @@ const matchAccept = async ({ userId, serviceId, matchId }) => {
   return result
 }
 
-const matchCancelService = async ({ userId, serviceId, matchId }) => {
+const matchCancelService = async ({ userId, matchId }) => {
   const match = await findOneMatchService(matchId)
-
-  await verify(match, serviceId)
+  console.log(userId, matchId)
+  await verify(match)
 
   if (match.service.userId !== userId) throw new Error('INVALID_USER_MATCH')
 
@@ -106,10 +106,10 @@ const matchCancelService = async ({ userId, serviceId, matchId }) => {
   return result
 }
 
-const matchCancelUser = async ({ userId, serviceId, matchId }) => {
+const matchCancelUser = async ({ userId, matchId }) => {
   const match = await findOneMatchService(matchId)
-
-  await verify(match, serviceId)
+  console.log(userId, matchId)
+  await verify(match)
 
   if (match.userId !== userId) throw new Error('INVALID_USER_MATCH')
 
@@ -117,7 +117,7 @@ const matchCancelUser = async ({ userId, serviceId, matchId }) => {
   return result
 }
 
-const verify = async (match, userId) => {
+const verify = async (match) => {
   if (!match) throw new Error('MATCH_NOT_FOUND')
   if (match.status !== MATCH_STATUS.CREATE) throw new Error('INVALID_STATUS_MATCH')
 }

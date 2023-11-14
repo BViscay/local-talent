@@ -53,6 +53,7 @@ const matchCancelServiceController = async (req, res) => {
 const matchCancelUserController = async (req, res) => {
   try {
     const { userId } = req.headers.session
+    console.log(userId)
     const result = await matchCancelUser({ userId, ...req.body })
     res.status(200).json(result)
   } catch ({ message }) {
