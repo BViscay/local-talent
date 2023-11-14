@@ -12,14 +12,15 @@ router.use('/service', require('./service.routes'))
 
 router.use('/category', require('./category.routes'))
 
-router.use('/match', require('./match.routes'))
+router.use('/match', validateToken, require('./match.routes'))
 
+//! VER ESTO QUE NO ESTA BIEN
 router.use('/pay', require('./payment.routes'))
 
-router.use('/notification', require('./notification.routes'))
+router.use('/notification', validateToken, require('./notification.routes'))
 
-router.use('/user', validateToken, require('./user.routes'))
+router.use('/user', require('./user.routes'))
 
-router.use('/rating', require('./rating.routes'))
+router.use('/rating', validateToken, require('./rating.routes'))
 
 module.exports = router

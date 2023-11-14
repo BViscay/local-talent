@@ -4,8 +4,9 @@ class PaymentController {
   }
 
   async getSubscriptionLinkSilver (req, res) {
+    const { userId } = req.headers.session
     try {
-      const subscription = await this.subscriptionService.createSubscriptionSilver()
+      const subscription = await this.subscriptionService.createSubscriptionSilver(userId)
 
       return res.json(subscription)
     } catch (error) {
@@ -18,8 +19,9 @@ class PaymentController {
   }
 
   async getSubscriptionLinkGold (req, res) {
+    const { userId } = req.headers.session
     try {
-      const subscription = await this.subscriptionService.createSubscriptionGold()
+      const subscription = await this.subscriptionService.createSubscriptionGold(userId)
 
       return res.json(subscription)
     } catch (error) {
@@ -28,6 +30,22 @@ class PaymentController {
       return res
         .status(500)
         .json({ error: true, msg: 'Failed to created subscription' })
+    }
+  }
+
+  async cancelSubscription (req, res) {
+    try {
+      const subscription = await this.subscriptionService.createSubscriptionSilver()
+      const subscriptionId = subscription.id // Captura el ID de la suscripción
+      console.log(subscriptionId, 'codigo suscripcion')
+
+      const response = await this.subscriptionService.cancelSubscription(subscriptionId)
+
+      return res.json(response)
+    } catch (error) {
+      console.error(error)
+
+      return res.status(500).json({ error: true, msg: 'Failed to cancel or pause subscription' })
     }
   }
 }

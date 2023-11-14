@@ -5,6 +5,7 @@ const initialState = {
   filteredServices: [],
   allServices: [],
   nearServices: [],
+  myServices: [],
   serviceDetail: {},
 };
 
@@ -27,6 +28,9 @@ const filtersHandler = createSlice({
     setServiceDetail: (state, action) => {
       state.serviceDetail = action.payload;
     },
+    setMyServices: (state, action) => {
+      state.myServices = action.payload;
+    },
   },
 });
 
@@ -36,6 +40,7 @@ export const getRenderServices = (state) => state.filterServices.renderServices;
 export const getAllServices = (state) => state.filterServices.allServices;
 export const getNearServices = (state) => state.filterServices.nearServices;
 export const getDetailServices = (state) => state.filterServices.serviceDetail;
+export const getMyServices = (state) => state.filterServices.myServices;
 
 export const {
   setFilteredServices,
@@ -43,6 +48,7 @@ export const {
   setAllServices,
   setNearServices,
   setServiceDetail,
+  setMyServices,
 } = filtersHandler.actions;
 
 export default filtersHandler.reducer;

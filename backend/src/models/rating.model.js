@@ -20,7 +20,7 @@ Rating.init({
     }
   },
   userId: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     references: {
       model: User,
       key: 'id'
@@ -29,6 +29,9 @@ Rating.init({
   type: {
     type: DataTypes.ENUM,
     values: ['user', 'service']
+  },
+  refId: {
+    type: DataTypes.UUID
   },
   score: {
     type: DataTypes.INTEGER

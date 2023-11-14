@@ -2,14 +2,15 @@ const { Model, DataTypes } = require('sequelize')
 const { sequelize } = require('../database')
 const bcrypt = require('bcrypt')
 const { hashPassword } = require('../libs/handleEncrynpt')
+const Product = require('./product.model')
 
 class User extends Model {}
 
 User.init({
   id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
+    primaryKey: true
   },
   firstname: {
     type: DataTypes.STRING
@@ -51,6 +52,13 @@ User.init({
     type: DataTypes.ENUM,
     values: ['user', 'admin'],
     defaultValue: 'user'
+  },  
+  productId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Product,
+      key: 'id'
+    }
   }
 },
 {
