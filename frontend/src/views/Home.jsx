@@ -1,6 +1,6 @@
-import {useEffect} from "react";
-import {useSelector} from "react-redux";
-import {getLocation} from "../redux/sliceLogin";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { getLocation } from "../redux/sliceLogin";
 
 import useLogin from "../hooks/useLogin";
 import useGeoLocation from "../hooks/useGeoLocation";
@@ -15,10 +15,11 @@ import SearchBar from "../components/Header/SearchBar";
 import Greet from "../components/Header/Greet";
 
 export default function Home() {
-  const {handleCountNotifications} = useNotifications();
-  const {handleTokenLogin} = useLogin();
-  const {handleGeoLocation} = useGeoLocation();
-  const {handleFilterByLocation, handleAllServices} = useFilters();
+  const { handleCountNotifications } = useNotifications();
+  const { handleTokenLogin } = useLogin();
+  const { handleGeoLocation } = useGeoLocation();
+  const { handleFilterByLocation, handleAllServices, handleFilterOwnServices } =
+    useFilters();
   const location = useSelector(getLocation);
 
   useEffect(() => {
@@ -31,7 +32,9 @@ export default function Home() {
     fetchData();
     //eslint-disable-next-line
   }, []);
-
+  useEffect(() => {
+    handleFilterOwnServices();
+  });
   useEffect(() => {
     if (location) {
       handleFilterByLocation(location);
@@ -39,7 +42,7 @@ export default function Home() {
   }, [location, handleFilterByLocation]);
 
   return (
-    <div className='flex flex-col items-center w-full h-max pb-10 bg-primary-50'>
+    <div className="flex flex-col items-center w-full h-max pb-10 bg-primary-50">
       <Greet />
       <SearchBar />
       <Categories />

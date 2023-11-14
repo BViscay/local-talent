@@ -14,7 +14,10 @@ export default function GoldSuscription() {
           Actualmente cuentas con estos beneficios:{" "}
         </p>
         <List>
-          <ListItem className=" text-blue-600 "> 5 Servicios Premium</ListItem>
+          <ListItem className=" text-blue-600 ">
+            {" "}
+            Servicios Premium Ilimitados
+          </ListItem>
           <ListItem className=" text-blue-600  "> Matches Ilimitados</ListItem>
           <ListItem className=" text-blue-600  ">
             Mejor Posicionamiento
