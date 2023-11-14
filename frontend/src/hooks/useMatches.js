@@ -12,6 +12,7 @@ import {useNavigate} from "react-router-dom";
 import {getToken} from "../redux/sliceLogin";
 import {setOwnMatches, setMyMatches} from "../redux/sliceMatches";
 import {useState} from "react";
+import useLoader from './useLoader';
 
 const useMatches = () => {
   const token = useSelector(getToken);
@@ -19,16 +20,19 @@ const useMatches = () => {
   const dispatch = useDispatch();
   const [activeButton, setActiveButton] = useState("ofrecidos");
 
+  const { setLoader } = useLoader()
+
   const handleUserMatch = async (serviceId, message) => {
     const matchData = {serviceId, message};
 
     try {
+      setLoader(true)
       await axios.post(API_URL_MATCH, matchData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
+      setLoader(false)
       // Reemplaza alert con SweetAlert
       Swal.fire({
         title: "Éxito",
@@ -38,6 +42,7 @@ const useMatches = () => {
         navigate("/matchs");
       });
     } catch (error) {
+      setLoader(false)
       if (error.response) {
         Swal.fire({
           title: "Error",
