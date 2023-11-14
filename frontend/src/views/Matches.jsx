@@ -3,11 +3,8 @@ import Match from "../components/Match/Match.jsx";
 import {Button, ButtonGroup} from "@nextui-org/react";
 import useMatches from "../hooks/useMatches.js";
 import {useDispatch, useSelector} from "react-redux";
-import {
-  getMyMatches,
-  getOwnMatches,
-  setIsMyMatches,
-} from "../redux/sliceMatches.js";
+import {  getMyMatches,  getOwnMatches,  setIsMyMatches } from "../redux/sliceMatches.js";
+import useLoader from '../hooks/useLoader.js';
 
 export default function Matches() {
   const {handleMyMatches, handleOwnMatches, activeButton, setActiveButton} =
@@ -15,10 +12,15 @@ export default function Matches() {
   const ownMatches = useSelector(getOwnMatches);
   const myMatches = useSelector(getMyMatches);
   const dispatch = useDispatch();
+
+  const { setLoader } = useLoader()
+
   useEffect(() => {
     const fetchData = async () => {
+      setLoader(true)
       await handleMyMatches();
       await handleOwnMatches();
+      setLoader(false)
     };
     fetchData();
     //eslint-disable-next-line
