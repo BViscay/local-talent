@@ -24,7 +24,6 @@ const userUpdateController = async (req, res) => {
   try {
     const { id } = req.params
     const { userId } = req.headers.session
-    console.log('req.body', req.body)
     // Si tiene ID como parametro es proque uso ruta ADMIN
     let user = userId
     if (id) { user = id }
