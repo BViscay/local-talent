@@ -1,5 +1,4 @@
 import logo from "../../assets/images/Logo.png";
-import {useState} from "react";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {LiaHandshakeSolid} from "react-icons/lia";
@@ -23,10 +22,11 @@ import CustomMenuToggle from "./CustomMenuToggle";
 import SideMenuUser from "./SideMenuUser";
 import SideMenu from "./SideMenu";
 import RedPointNotification from "../Notification/RedPointNotification";
+import useKey from '../../hooks/useKey';
 
 const NavBar = () => {
   const navigate = useNavigate();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useKey('menuOpen');
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
   const menuItems = ["Profile", "Dashboard", "Activity", "Log Out"];
@@ -39,11 +39,11 @@ const NavBar = () => {
           <Home size={30} strokeWidth={2.2} color='#266DD3' />
         </NavbarItem>
 
-        <NavbarItem onClick={() => navigate("/matchs")}>
+        <NavbarItem onClick={() => navigate( isLoggedIn ? "/matchs" : "/login")}>
           <LiaHandshakeSolid className='text-[34px] text-[#266DD3]' />
         </NavbarItem>
 
-        <NavbarItem onClick={() => navigate("/notifications")} className='flex'>
+        <NavbarItem onClick={() => navigate(isLoggedIn ? "/notifications" : "/login")} className='flex'>
           <Bell size={30} strokeWidth={2.2} color='#266DD3' />
           <RedPointNotification />
         </NavbarItem>
