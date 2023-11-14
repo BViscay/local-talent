@@ -16,6 +16,7 @@ import {
   setName,
   setLastName,
   setImage,
+  setProductId,
   setRol,
 } from "../redux/sliceLogin";
 import Swal from "sweetalert2";
@@ -51,6 +52,7 @@ const useLogin = () => {
         dispatch(setLastName(session.lastname));
         dispatch(setMail(session.email));
         dispatch(setImage(session.image));
+        dispatch(setProductId(session.productId));
         dispatch(setRol(session.rol));
         dispatch(login());
         redirectLogin(navigate);
@@ -80,6 +82,7 @@ const useLogin = () => {
               Authorization: `Bearer ${token}`,
             },
           });
+
           const {session} = data;
 
           if (session) {
@@ -88,6 +91,7 @@ const useLogin = () => {
             dispatch(setLastName(session.lastname));
             dispatch(setMail(session.email));
             dispatch(setImage(session.image));
+            dispatch(setProductId(session.productId));
             dispatch(setRol(session.rol));
             dispatch(login());
             redirectLogin(navigate);

@@ -29,6 +29,8 @@ import Users from "./components/Dashboard-/Users";
 import Billing from "./components/Dashboard-/Billing";
 import InboxAdmin from "./components/Dashboard-/ImboxAdmin";
 import RatingMatch from "./components/RatingMatch/RatingMatch";
+import FormNewCat from "./components/Dashboard-/FormNewCat";
+import EditCategory from "./components/Dashboard-/EditCategory";
 import About from "./views/About";
 
 function App() {
@@ -44,25 +46,27 @@ function App() {
           {!isLoginPage && !isRegisterPage && !isValidatePage && <NavBar />}
 
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/login" element={<LoginForm />} />
-            <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/validate" element={<NumericValidation />} />
-            <Route path="/dashboard-admin" element={<DashboardAdmin />} />
-            <Route path="/active-services" element={<ActiveServices />} />
-            <Route path="/modifications" element={<Modifications />} />
-            <Route path="/users" element={<Users />} />
-            <Route path="/billing" element={<Billing />} />
-            <Route path="/consultations-claims" element={<InboxAdmin />} />
-            <Route path="/my-location" element={<MyMap />} />
-            <Route path="/dashboard" element={<DashboardAdmin />} />
-            <Route path="/categories" element={<CategoriesPage />} />
-            <Route path="/create-service" element={<CreateService />} />
-            <Route path="/my-services" element={<MyServices />} />
-            <Route path="/matchs" element={<Matches />} />
-            <Route path="/notifications" element={<Notifications />} />
-            <Route path="/editProfile" element={<EditeProfile />} />
+            <Route path='/' element={<Home />} />
+            <Route path='/home' element={<Home />} />
+            <Route path='/login' element={<LoginForm />} />
+            <Route path='/sign-up' element={<SignUp />} />
+            <Route path='/validate' element={<NumericValidation />} />
+            <Route path='/dashboard-admin' element={<DashboardAdmin />} />
+            <Route path='/active-services' element={<ActiveServices />} />
+            <Route path='/modifications' element={<Modifications />} />
+            <Route path='/editCategory' element={<EditCategory />} />
+            <Route path='/users' element={<Users />} />
+            <Route path='/billing' element={<Billing />} />
+            <Route path='/consultations-claims' element={<InboxAdmin />} />
+            <Route path='/create-new-category' element={<FormNewCat />} />
+            <Route path='/my-location' element={<MyMap />} />
+            <Route path='/dashboard' element={<DashboardAdmin />} />
+            <Route path='/categories' element={<CategoriesPage />} />
+            <Route path='/create-service' element={<CreateService />} />
+            <Route path='/my-services' element={<MyServices />} />
+            <Route path='/matchs' element={<Matches />} />
+            <Route path='/notifications' element={<Notifications />} />
+            <Route path='/editProfile' element={<EditeProfile />} />
             <Route
               path="/filtered-services"
               element={<FilteredServicesByCat />}

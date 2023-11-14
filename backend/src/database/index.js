@@ -41,7 +41,7 @@ const connectionDatabase = (force) => {
   Service.belongsTo(Category, { foreignKey: 'categoryId' }) // Cada Service pertenece a una Category
 
   SalesModel.belongsTo(User, { foreignKey: 'userId' }) // Cada Sale pertenece a un User
-  SalesModel.belongsTo(ProductModel, { foreignKey: 'producId' }) // Cada Sale pertenece a un ProductModel
+  SalesModel.belongsTo(ProductModel, { foreignKey: 'productId' }) // Cada Sale pertenece a un ProductModel
 
   sequelize
     .sync({ force })

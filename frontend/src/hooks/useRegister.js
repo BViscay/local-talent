@@ -25,7 +25,6 @@ const useRegister = () => {
 
   const handleRegister = async (userData) => {
     const {name, lastName, email, password, confirmPassword} = userData;
-    console.log("hola");
 
     if (!name) {
       Swal.fire("Error", "El nombre es necesario", "error");
