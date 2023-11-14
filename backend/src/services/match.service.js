@@ -84,10 +84,10 @@ const matchUser = async (userId) => {
   return matches
 }
 
-const matchAccept = async ({ userId, serviceId, matchId }) => {
+const matchAccept = async ({ userId, matchId }) => {
   const match = await findOneMatchService(matchId)
 
-  await verify(match, serviceId)
+  await verify(match)
 
 
   if (match.service.userId !== userId) throw new Error('INVALID_USER_MATCH')
