@@ -15,7 +15,7 @@ export default function About() {
       lastName: "Palazzetti",
       img: "nada",
       github: "https://github.com/Pablo2800",
-      gmail: "pablopalazzetti@gmail.com",
+      gmail: "mailto:pablopalazzetti@gmail.com",
       linkedin: "https://www.linkedin.com/in/pablo-palazzetti",
     },
     {
@@ -45,10 +45,10 @@ export default function About() {
     {
       name: "Gonzalo",
       lastName: "Arana",
-      img: "nada",
-      github: "",
-      gmail: "",
-      linkedin: "",
+      img: "https://res.cloudinary.com/djpfzdy2c/image/upload/v1699982405/gonzalo_sw3nid.png",
+      github: "https://github.com/aranagonzalo",
+      gmail: "mailto:gonzaloaranam@gmail.com",
+      linkedin: "https://www.linkedin.com/in/aranagonzalo",
     },
     {
       name: "Angel",
@@ -77,8 +77,8 @@ export default function About() {
   ];
   return (
     <div className="flex w-full items-center justify-center flex-col">
-      {nosotros.map((user) => (
-        <Card className="w-64 bg-slate-200 my-4">
+      {nosotros.map((user, i) => (
+        <Card className="w-64 bg-slate-200 my-4" key={i}>
           <CardHeader floated={false} className="h-56 rounded-full">
             <img
               className="w-full h-full object-cover"
