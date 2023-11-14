@@ -1,6 +1,27 @@
 import Sidebar from './Sidebar';
+import MenuOptionUser from './MenuOptionUser'
 
 export default function Users() {
+
+  const users = [
+  {
+    id: 1,
+    firstname: "Jon",
+    lastname: "Snow",
+    email: "jonsnow@gmail.com",
+    whatsapp: "(665)121-5454",
+    
+  },
+  {
+    id: 2,
+    firstname: "Cersei",
+    lastname: "Lannister",
+    email: "cerseilannister@gmail.com",
+    whatsapp: "(421)314-2288",
+    
+  }
+]
+
   return (
     <div className="flex h-screen">
       <Sidebar />
@@ -32,7 +53,7 @@ export default function Users() {
             </th>
           </tr>
         </thead>
-        {/* <tbody className="bg-white divide-y divide-gray-200">
+        <tbody className="bg-white divide-y divide-gray-200">
           {users.map((user, index) => (
             <tr key={index} className="border-b border-gray-200">
               <td className="px-3 py-4 border-r border-gray-200">{user.firstname}</td>
@@ -40,11 +61,11 @@ export default function Users() {
               <td className="px-3 py-4 border-r border-gray-200">{user.email}</td>
               <td className="px-9 py-4 border-r border-gray-200">{user.whatsapp}</td>
               <td className="px-12 py-4">
-                <MenuOption />
+                <MenuOptionUser />
               </td>
             </tr>
           ))}
-        </tbody> */}
+        </tbody>
       </table>
     </div>
   </div>

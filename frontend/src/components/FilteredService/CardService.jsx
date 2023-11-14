@@ -1,14 +1,12 @@
 import { AiFillStar } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function CardService({ renderServices, id }) {
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const isMyServices = location.pathname === "/my-services";
   return (
-    <div
-      onClick={() => navigate(`/service/${id}`)}
-      className="flex w-full h-[160px] gap-2 border-3 border-t-transparent border-x-transparent p-4 justify-center items-center"
-    >
+    <div className="flex w-full h-[160px] gap-2 border-3 border-t-transparent border-x-transparent p-4 justify-center items-center">
       <div className="w-1/3 ">
         <img
           className="w-full h-[130px] object-cover rounded-xl"
@@ -43,9 +41,18 @@ export default function CardService({ renderServices, id }) {
           <p className="bg-primary-965 text-sm p-1 rounded-md">
             ${renderServices.price}
           </p>
-          <button className="text-sm bg-primary-966 text-white rounded-md p-1">
-            Contactar
-          </button>
+          {!isMyServices ? (
+            <button
+              onClick={() => navigate(`/service/${id}`)}
+              className="text-sm bg-primary-966 text-white rounded-md p-1"
+            >
+              Contactar
+            </button>
+          ) : (
+            <button className="text-sm bg-primary-966 text-white rounded-md p-1">
+              Modificar
+            </button>
+          )}
         </div>
       </div>
     </div>

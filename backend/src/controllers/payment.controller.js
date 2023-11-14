@@ -4,8 +4,9 @@ class PaymentController {
   }
 
   async getSubscriptionLinkSilver (req, res) {
+    const { userId } = req.headers.session
     try {
-      const subscription = await this.subscriptionService.createSubscriptionSilver()
+      const subscription = await this.subscriptionService.createSubscriptionSilver(userId)
 
       return res.json(subscription)
     } catch (error) {
@@ -18,8 +19,9 @@ class PaymentController {
   }
 
   async getSubscriptionLinkGold (req, res) {
+    const { userId } = req.headers.session
     try {
-      const subscription = await this.subscriptionService.createSubscriptionGold()
+      const subscription = await this.subscriptionService.createSubscriptionGold(userId)
 
       return res.json(subscription)
     } catch (error) {

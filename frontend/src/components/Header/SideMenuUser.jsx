@@ -8,6 +8,7 @@ import {
   FileSpreadsheet,
   PencilLine,
   BarChartHorizontal,
+  HelpCircle,
 } from "lucide-react";
 import {Avatar} from "@nextui-org/react";
 import {useSelector} from "react-redux";
@@ -35,6 +36,11 @@ const SideMenuUser = ({menuOpen, setMenuOpen}) => {
   };
   const isAdmin = rol === "admin";
 
+  const handleClick = () => {
+    const url = `https://wa.me/+5492494343156`;
+    window.open(url, "_blank");
+  };
+
   return (
     <div className='fixed left-0 top-0 w-full h-screen bg-[#266DD3] text-white'>
       <div className='flex flex-col h-full'>
@@ -45,17 +51,19 @@ const SideMenuUser = ({menuOpen, setMenuOpen}) => {
             onClick={() => setMenuOpen(!menuOpen)}
           />
         </div>
-        <div className='flex flex-col px-12'>
+        <div className='flex flex-col px-12 w-full items-center justify-center'>
           <div className='w-full flex pb-10 gap-4'>
-            <Avatar
-              className='w-16 h-16'
-              src={
-                image
-                  ? image
-                  : "https://i.pravatar.cc/150?u=a042581f4e29026024d"
-              }
-            />
-            <div className='flex flex-col justify-center items-start'>
+            <div className='w-[25%]'>
+              <Avatar
+                className='w-full h-full object-cover'
+                src={
+                  image
+                    ? image
+                    : "https://i.pravatar.cc/150?u=a042581f4e29026024d"
+                }
+              />
+            </div>
+            <div className='flex flex-col justify-center items-start w-[75%]'>
               <p className='text-xl font-medium'>
                 {name} {lastName}
               </p>
@@ -70,13 +78,15 @@ const SideMenuUser = ({menuOpen, setMenuOpen}) => {
           </div>
 
           {isAdmin && (
-            <div className='w-full py-2'>
+            <div
+              className='w-full py-2'
+              onClick={() => {
+                navigate("/dashboard-admin");
+                setMenuOpen(!menuOpen);
+              }}
+            >
               <div className='w-full flex p-3 items-center gap-2 bg-primary-100 rounded-lg cursor-pointer'>
                 <BarChartHorizontal
-                  onClick={() => {
-                    navigate("/dashboard-admin");
-                    setMenuOpen(!menuOpen);
-                  }}
                   size={28}
                   strokeWidth={2.2}
                   className='text-primary-600'
@@ -89,12 +99,14 @@ const SideMenuUser = ({menuOpen, setMenuOpen}) => {
           )}
 
           <div className='w-full py-2'>
-            <div className='w-full flex p-3 items-center gap-2 bg-white rounded-lg cursor-pointer'>
+            <div
+              onClick={() => {
+                navigate("/create-service");
+                setMenuOpen(!menuOpen);
+              }}
+              className='w-full flex p-3 items-center gap-2 bg-white rounded-lg cursor-pointer'
+            >
               <PlusCircle
-                onClick={() => {
-                  navigate("/create-service");
-                  setMenuOpen(!menuOpen);
-                }}
                 size={28}
                 strokeWidth={2.2}
                 className='text-primary-600'
@@ -144,10 +156,23 @@ const SideMenuUser = ({menuOpen, setMenuOpen}) => {
             </div>
           </div>
 
-          <div className='w-full py-2'>
+          <div className='w-full py-2' onClick={handleClick}>
             <div className='w-full flex p-3 items-center gap-2 rounded-lg cursor-pointer'>
               <Phone size={28} strokeWidth={2.2} />
               <p className='text-white font-medium text-lg'>Soporte</p>
+            </div>
+          </div>
+
+          <div className='w-full py-2'>
+            <div
+              onClick={() => {
+                navigate("/about");
+                setMenuOpen(!menuOpen);
+              }}
+              className='w-full flex p-3 items-center gap-2 rounded-lg cursor-pointer'
+            >
+              <HelpCircle size={28} strokeWidth={2.2} />
+              <p className='text-white font-medium text-lg'>Quienes Somos?</p>
             </div>
           </div>
 

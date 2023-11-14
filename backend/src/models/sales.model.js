@@ -1,31 +1,24 @@
 const { Model, DataTypes } = require('sequelize')
 const { sequelize } = require('../database')
+const User = require('./user.model')
+const Product = require('./product.model')
 
 class SalesModel extends Model {}
 
 SalesModel.init({
   id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
-  user_id: {
     type: DataTypes.UUID,
-    allowNull: false
-  },
-  product_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false
+    primaryKey: true,
+    defaultValue: DataTypes.UUIDV4
   },
   period: {
     type: DataTypes.INTEGER,
-    allowNull: false
   },
   quanty: {
     type: DataTypes.DECIMAL,
     validate: { min: 0 }
   },
-  traker_id: {
+  trakerId: {
     type: DataTypes.CHAR,
     unique: 'traker'
   },
@@ -33,10 +26,20 @@ SalesModel.init({
     type: DataTypes.INTEGER,
     defaultValue: 1
   },
-  create_ad: {
-    type: DataTypes.DATE,
-    defaultValue: new Date()
-  }
+  userId: {
+    type: DataTypes.UUID,
+    references: {
+      model: User,
+      key: 'id'
+    }
+  },
+  productId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Product,
+      key: 'id'
+    }
+  },
 },
 {
   sequelize,
