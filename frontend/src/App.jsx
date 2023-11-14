@@ -1,6 +1,4 @@
 import "./App.css";
-import { Provider } from "react-redux";
-import { store } from "../src/redux/store";
 import { Route, Routes } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { NextUIProvider } from "@nextui-org/react";
@@ -32,17 +30,22 @@ import RatingMatch from "./components/RatingMatch/RatingMatch";
 import FormNewCat from "./components/Dashboard-/FormNewCat";
 import EditCategory from "./components/Dashboard-/EditCategory";
 import About from "./views/About";
+import Loader from './components/Loader/Loader';
+import useLoader from './hooks/useLoader';
 
 function App() {
   const location = useLocation();
+  const { loaderValue } = useLoader()
+
   const isLoginPage = location.pathname === "/login";
   const isRegisterPage = location.pathname === "/sign-up";
   const isValidatePage = location.pathname === "/validate";
 
+
   return (
-    <Provider store={store}>
       <NextUIProvider>
         <div className="w-full">
+          {loaderValue && <Loader/>}
           {!isLoginPage && !isRegisterPage && !isValidatePage && <NavBar />}
 
           <Routes>
@@ -83,7 +86,6 @@ function App() {
           </Routes>
         </div>
       </NextUIProvider>
-    </Provider>
   );
 }
 

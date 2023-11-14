@@ -4,3 +4,17 @@
   margin: 0 auto;
   text-align: center;
 }
+
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 8000;
+}
