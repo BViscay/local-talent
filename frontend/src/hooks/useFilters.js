@@ -20,6 +20,8 @@ import {
 } from "../redux/sliceFilters";
 import Swal from "sweetalert2";
 
+import useLoader from './useLoader';
+
 const useFilters = () => {
   const token = useSelector(getToken);
   const allServices = useSelector(getAllServices);
@@ -28,18 +30,21 @@ const useFilters = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleFilterByCategory = async (catId) => {
-    try {
-      const {data} = await axios.get(`${API_URL_SEARCH}?categoryId=${catId}`);
+  const { setLoader } = useLoader()
 
+  const handleFilterByCategory = async (catId) => {
+
+    try {
+      setLoader(true)
+      const {data} = await axios.get(`${API_URL_SEARCH}?categoryId=${catId}`);
+      setLoader(false)
       if (data) {
         navigate("/filtered-services");
         dispatch(setFilteredServices(data));
         dispatch(setRenderServices(data));
       }
     } catch (error) {
-      console.log(error);
-
+      setLoader(false)
       Swal.fire({
         title: "Error",
         text: "No existen servicios de esta categoría",
