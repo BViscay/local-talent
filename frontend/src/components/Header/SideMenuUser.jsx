@@ -23,6 +23,7 @@ import {
 import useLogin from "../../hooks/useLogin";
 import { useNavigate } from "react-router-dom";
 import { getMyServices } from "../../redux/sliceFilters";
+import Swal from "sweetalert2";
 
 const SideMenuUser = ({ menuOpen, setMenuOpen }) => {
   const navigate = useNavigate();
@@ -110,14 +111,22 @@ const SideMenuUser = ({ menuOpen, setMenuOpen }) => {
                     navigate("/create-service");
                     setMenuOpen(!menuOpen);
                   } else {
-                    console.log("Debes registrarte");
+                    Swal.fire({
+                      title: "Limite de servicios alcanzado",
+                      text: "Para crear mas servicios debes suscribirte a alguno de nuestros planes",
+                      icon: "warning",
+                    });
                   }
                 } else if (isPremiun === 1) {
                   if (myServices.length < 3) {
                     navigate("/create-service");
                     setMenuOpen(!menuOpen);
                   } else {
-                    console.log("Si quieres más servicios, cambia de plan");
+                    Swal.fire({
+                      title: "Limite de servicios alcanzado",
+                      text: "Para crear mas servicios debes actualizar tu plan",
+                      icon: "warning",
+                    });
                   }
                 } else if (isPremiun === 2) {
                   navigate("/create-service");
