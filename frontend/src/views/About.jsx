@@ -7,6 +7,7 @@ import {
   Tooltip,
 } from "@material-tailwind/react";
 import "@fortawesome/fontawesome-free/css/all.css";
+import { useState } from "react";
 
 export default function About() {
   const nosotros = [
@@ -59,11 +60,11 @@ export default function About() {
       linkedin: "",
     },
     {
-      name: "Diego",
+      name: "Diego Perez",
       lastName: "",
       img: "https://web.whatsapp.com/51994620-4060-4593-b290-0d9bae22c182",
-      github: "",
-      gmail: "",
+      github: "diaperezro",
+      gmail: "diaperezro@unal.edu.co",
       linkedin: "",
     },
     {
@@ -75,6 +76,17 @@ export default function About() {
       linkedin: "",
     },
   ];
+
+  const [copiedEmail, setCopiedEmail] = useState(null);
+
+  const copyToClipboard = (email) => {
+    navigator.clipboard.writeText(email);
+    setCopiedEmail(email);
+
+    setTimeout(() => {
+      setCopiedEmail(null);
+    }, 5000);
+  };
   return (
     <div className="flex w-full items-center justify-center flex-col">
       {nosotros.map((user) => (
@@ -106,10 +118,10 @@ export default function About() {
                 <i className="fab fa-github" />
               </Typography>
             </Tooltip>
-            <Tooltip content="Gmail">
+            <Tooltip content={user.gmail}>
               <Typography
                 as="a"
-                href={user.gmail}
+                onClick={() => copyToClipboard(user.gmail)}
                 variant="lead"
                 color="light-blue"
                 textGradient
@@ -129,6 +141,11 @@ export default function About() {
               </Typography>
             </Tooltip>
           </CardFooter>
+          {copiedEmail === user.gmail && (
+            <Typography color="black" className="text-xs text-center mb-2">
+              Copiado al portapapeles
+            </Typography>
+          )}
         </Card>
       ))}
     </div>
