@@ -13,6 +13,7 @@ import RecomendedServices from "../components/Home-/RecomendedServices";
 import ServCerc from "../components/Home-/ServCerc";
 import SearchBar from "../components/Header/SearchBar";
 import Greet from "../components/Header/Greet";
+import useLoader from '../hooks/useLoader';
 
 export default function Home() {
   const { handleCountNotifications } = useNotifications();
@@ -22,6 +23,8 @@ export default function Home() {
     useFilters();
   const location = useSelector(getLocation);
 
+  const { setLoader }  =  useLoader()
+
   useEffect(() => {
     const fetchData = async () => {
       await handleGeoLocation();
@@ -30,6 +33,7 @@ export default function Home() {
     };
     handleTokenLogin();
     fetchData();
+    setLoader(false)
     //eslint-disable-next-line
   }, []);
   useEffect(() => {

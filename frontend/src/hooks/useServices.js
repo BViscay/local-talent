@@ -4,11 +4,14 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { API_URL_SERVICES } from "../config/api";
+import useLoader from './useLoader';
 
 const useServices = () => {
     const token = useSelector(getToken);
     const geolocation = useSelector(getLocation);
     const navigate = useNavigate();
+
+    const { setLoader } = useLoader()
 
     const handleCreateService = async (newService) => {
         const { image, title, categoryId, description, price, city } =
@@ -23,15 +26,15 @@ const useServices = () => {
         formData.append("city", city);
         formData.append("latitude", geolocation.latitude);
         formData.append("longitude", geolocation.longitude);
-
         try {
+            setLoader(true)
             await axios.post(API_URL_SERVICES, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     Authorization: `Bearer ${token}`,
                 },
             });
-
+            setLoader(false)
             // Reemplaza alert con SweetAlert
             Swal.fire({
                 title: "Éxito",
@@ -41,6 +44,7 @@ const useServices = () => {
                 navigate("/home");
             });
         } catch (error) {
+            setLoader(false)
             if (error.response) {
                 Swal.fire({
                     title: "Error",

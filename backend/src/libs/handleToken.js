@@ -7,7 +7,7 @@ const createToken = (payload, expiresIn = expire) => {
   return jwt.sign(payload, secret, { expiresIn })
 }
 
-const validToken = (token) => {
+const validToken = async (token) => {
   try {
     const result = jwt.verify(token, secret)
     return result

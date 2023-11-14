@@ -1,6 +1,9 @@
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+
+import useLoader from './useLoader';
+
 import {
   API_URL_LOGIN,
   API_URL_RECOVER,
@@ -20,6 +23,7 @@ import {
   setRol,
 } from "../redux/sliceLogin";
 import Swal from "sweetalert2";
+import useKey from './useKey';
 
 const useLogin = () => {
   const navigate = useNavigate();
@@ -31,10 +35,14 @@ const useLogin = () => {
     navigate("/home");
   };
 
+  const [menuOpen, setMenuOpen] = useKey('menuOpen')
+  
+  const { setLoader } = useLoader()
+
   const handleLogin = async (userData) => {
     const {email, password} = userData;
     const URL = API_URL_LOGIN;
-
+    setLoader(true)
     try {
       const {data} = await axios.post(URL, {
         email: email,
@@ -70,6 +78,7 @@ const useLogin = () => {
         }
       }
     }
+    setLoader(false)
   };
 
   const handleTokenLogin = async () => {
@@ -133,6 +142,9 @@ const useLogin = () => {
     localStorage.removeItem("token");
     dispatch(logout());
     Swal.fire("Éxito", "Te has deslogueado correctamente");
+    setMenuOpen && setMenuOpen(false) // Cierro menú
+    menuOpen && setMenuOpen(false)
+    navigate('/')
   };
 
   const handleOpenModal = () => {

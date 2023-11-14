@@ -14,23 +14,30 @@ import {
   getFirstLoad,
 } from "../redux/sliceLogin";
 
+import useLoader from './useLoader';
+
 const useNotifications = () => {
   const token = localStorage.getItem("token");
   const isLogin = useSelector(isLogged);
   const isFirstLoad = useSelector(getFirstLoad);
   const dispatch = useDispatch();
 
+  const { setLoader } = useLoader()
+
   const handleCountNotifications = async () => {
     if (isFirstLoad) {
       try {
+        setLoader(true)
         const {data} = await axios.get(API_URL_COUNT_NOTIFICATIONS, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
+        setLoader(false)
         dispatch(setCountNotifications(data));
         dispatch(setFirstLoad(false));
       } catch (error) {
+        setLoader(false)
         if (error.response) {
           if (isLogin) {
             Swal.fire({
