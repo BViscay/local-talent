@@ -68,11 +68,11 @@ export default function About() {
     },
     {
       name: "Walter",
-      lastName: "",
+      lastName: "Britos",
       img: "nada",
-      github: "",
-      gmail: "",
-      linkedin: "",
+      github: "https://github.com/Walter-Britos1",
+      gmail: "walterbritos418@gmail.com",
+      linkedin: "https://www.linkedin.com/in/walter-britos-2ba430222",
     },
   ];
   return (

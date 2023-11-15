@@ -53,3 +53,8 @@ export const API_URL_CREATE_NOTIFICATION = API_URL_NOTIFICATIONS + "/create";
 //----------------------------------------------------------------------------------
 
 export const API_URL_EDIT_PROFILE = API_URL_BASE + "/user";
+
+//----------------------------Admin--------------------------------------------------
+
+export const API_URL_GET_USERS = API_URL_BASE + "/admin/user"
+

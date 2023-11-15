@@ -5,13 +5,13 @@ export default function MenuOptionUser() {
         <div className="border rounded overflow-hidden flex mt-2">
           <button
             className="p-2 transition-colors hover:bg-blue-200"
-            onClick={() => alert("¿Desea eliminar usuario?")}
+            onClick={() => window.confirm("¿Desea banear usuario?")}
           >
             Banear
           </button>
           <button
             className="p-2 transition-colors hover:bg-blue-200"
-            onClick={() => alert("¿Desea pausar usuario?")}
+            onClick={() => window.confirm("¿Desea pausar usuario?")}
           >
             Pausar
           </button>
