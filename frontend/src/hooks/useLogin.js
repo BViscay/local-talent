@@ -123,8 +123,6 @@ const useLogin = () => {
       image:picture
     })
 
-    console.log(res)
-
     const {session, token } = res
 
     if (session) {
