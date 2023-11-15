@@ -13,6 +13,7 @@ import {
   setMail,
   getMail,
 } from "../redux/sliceLogin";
+import useLoader from './useLoader';
 
 const useRegister = () => {
   const dispatch = useDispatch();
@@ -20,12 +21,13 @@ const useRegister = () => {
 
   const navigate = useNavigate();
 
+  const { setLoader } = useLoader()
+
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleRegister = async (userData) => {
     const {name, lastName, email, password, confirmPassword} = userData;
-    console.log("hola");
 
     if (!name) {
       Swal.fire("Error", "El nombre es necesario", "error");
@@ -53,6 +55,7 @@ const useRegister = () => {
       return;
     }
 
+    setLoader(true)
     await axios
       .post(API_URL_REGISTER, {
         firstname: name,
@@ -62,7 +65,7 @@ const useRegister = () => {
       })
       .then(({data}) => {
         const {id, email} = data;
-
+        setLoader(false)
         if (id && email) {
           dispatch(setMail(email));
           dispatch(setName(name));
@@ -71,6 +74,7 @@ const useRegister = () => {
         }
       })
       .catch((error) => {
+        setLoader(false)
         if (error.response) {
           console.log("Response Data:", error.response.data);
           Swal.fire("Error", "Ocurrió un error durante el registro", "error"); // SweetAlert en caso de error en el registro
@@ -81,13 +85,14 @@ const useRegister = () => {
   const handleValidate = async (code) => {
     const values = Object.values(code);
     const validateCode = values.join("");
-
+    setLoader(true)
     await axios
       .post(API_URL_VALIDATE, {
         email: userMail,
         code: validateCode,
       })
       .then(({data}) => {
+        setLoader(false)
         const {session, token} = data;
 
         if (session && token) {
@@ -97,6 +102,7 @@ const useRegister = () => {
         }
       })
       .catch((error) => {
+        setLoader(false)
         if (error.response) {
           console.log("Response Data:", error.response.data);
           Swal.fire("Error", "Código de validación incorrecto", "error"); // SweetAlert en caso de código de validación incorrecto

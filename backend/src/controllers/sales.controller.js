@@ -3,7 +3,7 @@ const { createSale, cancelSale, allSales } = require('../services/sale.service')
 const saleCreateController = async (req, res) => {
   try {
     const { product, userId } = req.params
-    await createSale(userId, product)
+    const newSale = await createSale(userId, product)
     res.redirect('https://pg-henry-local-talent.vercel.app/')
   } catch ({ message }) {
     res.status(400).json({ message })
@@ -30,6 +30,8 @@ const findALLsalesController = async (req, res) => {
     res.status(400).json({ message })
   }
 }
+
+
 
 module.exports = {
     saleCreateController,

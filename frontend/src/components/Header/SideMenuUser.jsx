@@ -18,9 +18,12 @@ import {
   getMail,
   getImage,
   getRol,
+  getProductId,
 } from "../../redux/sliceLogin";
 import useLogin from "../../hooks/useLogin";
 import { useNavigate } from "react-router-dom";
+import { getMyServices } from "../../redux/sliceFilters";
+import Swal from "sweetalert2";
 
 const SideMenuUser = ({ menuOpen, setMenuOpen }) => {
   const navigate = useNavigate();
@@ -29,12 +32,19 @@ const SideMenuUser = ({ menuOpen, setMenuOpen }) => {
   const mail = useSelector(getMail);
   const image = useSelector(getImage);
   const rol = useSelector(getRol);
+  const isPremiun = useSelector(getProductId);
+  const myServices = useSelector(getMyServices);
   const { handleLogout } = useLogin();
   const editProfile = () => {
     navigate("/editProfile");
     setMenuOpen(!menuOpen);
   };
   const isAdmin = rol === "admin";
+
+  const handleClick = () => {
+    const url = `https://wa.me/+5492494343156`;
+    window.open(url, "_blank");
+  };
 
   return (
     <div className="fixed left-0 top-0 w-full h-screen bg-[#266DD3] text-white">
@@ -50,11 +60,13 @@ const SideMenuUser = ({ menuOpen, setMenuOpen }) => {
           <div className="w-full flex pb-10 gap-4">
             <div className="w-[25%]">
               <Avatar
-                className="w-full h-full object-cover"
+                className='w-full h-full object-cover'
+                showFallback
+                isBordered
                 src={
                   image
                     ? image
-                    : "https://i.pravatar.cc/150?u=a042581f4e29026024d"
+                    : "fallback"
                 }
               />
             </div>
@@ -96,8 +108,32 @@ const SideMenuUser = ({ menuOpen, setMenuOpen }) => {
           <div className="w-full py-2">
             <div
               onClick={() => {
-                navigate("/create-service");
-                setMenuOpen(!menuOpen);
+                if (isPremiun === null) {
+                  if (myServices.length <= 1) {
+                    navigate("/create-service");
+                    setMenuOpen(!menuOpen);
+                  } else {
+                    Swal.fire({
+                      title: "Limite de servicios alcanzado",
+                      text: "Para crear mas servicios debes suscribirte a alguno de nuestros planes",
+                      icon: "warning",
+                    });
+                  }
+                } else if (isPremiun === 1) {
+                  if (myServices.length < 3) {
+                    navigate("/create-service");
+                    setMenuOpen(!menuOpen);
+                  } else {
+                    Swal.fire({
+                      title: "Limite de servicios alcanzado",
+                      text: "Para crear mas servicios debes actualizar tu plan",
+                      icon: "warning",
+                    });
+                  }
+                } else if (isPremiun === 2) {
+                  navigate("/create-service");
+                  setMenuOpen(!menuOpen);
+                }
               }}
               className="w-full flex p-3 items-center gap-2 bg-white rounded-lg cursor-pointer"
             >
@@ -112,26 +148,26 @@ const SideMenuUser = ({ menuOpen, setMenuOpen }) => {
             </div>
           </div>
 
-          <div className="w-full py-2">
-            <div
-              onClick={() => {
+          <div className='w-full py-2 hover:bg-slate-700 rounded-lg cursor-pointer' onClick={() => {
                 navigate("/my-services");
                 setMenuOpen(!menuOpen);
-              }}
-              className="w-full flex p-3 items-center gap-2 rounded-lg cursor-pointer"
+              }}>
+            <div
+              
+              className='w-full flex p-3 items-center gap-2 rounded-lg'
             >
               <FileSpreadsheet size={28} strokeWidth={2.2} />
               <p className="text-white font-medium text-lg">Mis Servicios</p>
             </div>
           </div>
 
-          <div className="w-full py-2">
-            <div
-              onClick={() => {
+          <div className='w-full py-2 hover:bg-slate-700 rounded-lg cursor-pointer' onClick={() => {
                 navigate("/suscriptions");
                 setMenuOpen(!menuOpen);
-              }}
-              className="w-full flex p-3 items-center gap-2 rounded-lg cursor-pointer"
+              }}>
+            <div
+              
+              className='w-full flex p-3 items-center gap-2 rounded-lg cursor-pointer'
             >
               <Wallet size={28} strokeWidth={2.2} />
               <p className="text-white font-medium text-lg">Suscripciones</p>
@@ -143,7 +179,7 @@ const SideMenuUser = ({ menuOpen, setMenuOpen }) => {
               navigate("/my-location");
               setMenuOpen(!menuOpen);
             }}
-            className="w-full py-2"
+            className='w-full py-2 hover:bg-slate-700 rounded-lg cursor-pointer'
           >
             <div className="w-full flex p-3 items-center gap-2 rounded-lg cursor-pointer">
               <MapPin size={28} strokeWidth={2.2} />
@@ -151,28 +187,28 @@ const SideMenuUser = ({ menuOpen, setMenuOpen }) => {
             </div>
           </div>
 
-          <div className="w-full py-2">
-            <div className="w-full flex p-3 items-center gap-2 rounded-lg cursor-pointer">
+          <div className='w-full py-2 hover:bg-slate-700 rounded-lg cursor-pointer' onClick={handleClick}>
+            <div className='w-full flex p-3 items-center gap-2 rounded-lg cursor-pointer'>
               <Phone size={28} strokeWidth={2.2} />
               <p className="text-white font-medium text-lg">Soporte</p>
             </div>
           </div>
 
-          <div className="w-full py-2">
-            <div
-              onClick={() => {
+          <div className='w-full py-2 hover:bg-slate-700 rounded-lg cursor-pointer' onClick={() => {
                 navigate("/about");
                 setMenuOpen(!menuOpen);
-              }}
-              className="w-full flex p-3 items-center gap-2 rounded-lg cursor-pointer"
+              }}>
+            <div
+              
+              className='w-full flex p-3 items-center gap-2 rounded-lg cursor-pointer'
             >
               <HelpCircle size={28} strokeWidth={2.2} />
               <p className="text-white font-medium text-lg">Quienes Somos?</p>
             </div>
           </div>
 
-          <div className="w-full py-2">
-            <div className="w-full flex p-3 items-center gap-2 rounded-lg cursor-pointer">
+          <div className='w-full py-2 hover:bg-red-400 rounded-lg cursor-pointer'>
+            <div className='w-full flex p-3 items-center gap-2 rounded-lg cursor-pointer'>
               <LogOut size={28} strokeWidth={2.2} />
               <p
                 className="text-white font-medium text-lg"

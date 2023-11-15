@@ -1,12 +1,12 @@
 import axios from "axios";
-import {useSelector, useDispatch} from "react-redux";
-import {useNavigate} from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   API_URL_SERVICES,
   API_URL_ALLSERVICES,
   API_URL_SEARCH,
 } from "../config/api";
-import {getToken} from "../redux/sliceLogin";
+import { getToken } from "../redux/sliceLogin";
 import {
   setRenderServices,
   setAllServices,
@@ -20,6 +20,8 @@ import {
 } from "../redux/sliceFilters";
 import Swal from "sweetalert2";
 
+import useLoader from './useLoader';
+
 const useFilters = () => {
   const token = useSelector(getToken);
   const allServices = useSelector(getAllServices);
@@ -28,18 +30,21 @@ const useFilters = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleFilterByCategory = async (catId) => {
-    try {
-      const {data} = await axios.get(`${API_URL_SEARCH}?categoryId=${catId}`);
+  const { setLoader } = useLoader()
 
+  const handleFilterByCategory = async (catId) => {
+
+    try {
+      setLoader(true)
+      const {data} = await axios.get(`${API_URL_SEARCH}?categoryId=${catId}`);
+      setLoader(false)
       if (data) {
         navigate("/filtered-services");
         dispatch(setFilteredServices(data));
         dispatch(setRenderServices(data));
       }
     } catch (error) {
-      console.log(error);
-
+      setLoader(false)
       Swal.fire({
         title: "Error",
         text: "No existen servicios de esta categoría",
@@ -50,7 +55,7 @@ const useFilters = () => {
 
   const handleFilterByName = async (serviceName) => {
     try {
-      const {data} = await axios.get(`${API_URL_SEARCH}?text=${serviceName}`);
+      const { data } = await axios.get(`${API_URL_SEARCH}?text=${serviceName}`);
       if (data) {
         dispatch(setRenderServices(data));
         dispatch(setFilteredServices(data));
@@ -75,17 +80,13 @@ const useFilters = () => {
       });
     }
     try {
-
-
       const { data } = await axios(API_URL_SERVICES, {
-
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
       if (data) {
-
         dispatch(setMyServices(data));
       }
     } catch (error) {
@@ -110,7 +111,7 @@ const useFilters = () => {
 
   const handleAllServices = async () => {
     try {
-      const {data} = await axios(API_URL_ALLSERVICES);
+      const { data } = await axios(API_URL_ALLSERVICES);
       if (data) {
         dispatch(setAllServices(data));
       }

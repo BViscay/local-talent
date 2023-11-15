@@ -6,7 +6,8 @@ const {
   changePasswordController,
   userRatingController
 } = require('../controllers/user.controller.js')
-const { validToken } = require('../libs/handleToken.js')
+// const { validToken } = require('../libs/handleToken.js')
+const { validateToken } = require('../middlewares/auth.middleware.js')
 
 const router = express.Router()
 
@@ -14,8 +15,8 @@ const router = express.Router()
 router.get('/:id/rating', userRatingController)
 
 // rutas privadas
-router.put('/image', validToken, userImageController)
-router.put('/', validToken, userUpdateController)
-router.patch('/password', validToken, changePasswordController)
+router.put('/image', validateToken, userImageController)
+router.put('/', validateToken, userUpdateController)
+router.patch('/password', validateToken, changePasswordController)
 
 module.exports = router

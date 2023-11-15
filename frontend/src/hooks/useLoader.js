@@ -2,14 +2,14 @@ import useKey from './useKey'
 
 export default function useLoader () {
   const [loaderValue, setKey] = useKey('loader')
-  const loaderOnOff = (value = !loaderValue) => setKey(value)
+  const setLoader = (value = !loaderValue) => setKey(value)
 
   const handleLoader = async (service, param) => {
-    loaderOnOff(true)
+    setLoader(true)
     const res = await service(param)
-    loaderOnOff(false)
+    setLoader(false)
     return res
   }
 
-  return { loaderValue, loaderOnOff, handleLoader }
+  return { loaderValue, setLoader, handleLoader }
 }

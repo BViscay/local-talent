@@ -4,6 +4,7 @@ const Product = require('../models/product.model.js')
 const { PRODUCTS_TYPES } = require('../config/constants')
 
 const createSale = async (userId, product) => {
+  console.log('estoy en el controller')
   const user = await User.findByPk(userId)
   newSale = await Sale.create({
     userId,

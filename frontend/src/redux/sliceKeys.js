@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { INICIAL_KEYS } from '../config/constants'
 
-const initialState = {INICIAL_KEYS}
+const initialState = INICIAL_KEYS
 
 const keysHandler = createSlice({
   name: 'keys',

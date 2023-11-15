@@ -7,7 +7,11 @@ export default function SelectStatusModal({
   serviceId,
   isMyMatches,
 }) {
-  const {handleAcceptStatusChange} = useMatches();
+  const {
+    handleAcceptStatusChange,
+    handleCancelOwnStatusChange,
+    handleCancelStatusChange,
+  } = useMatches();
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -37,12 +41,24 @@ export default function SelectStatusModal({
                   </Button>
                 </div>
               )}
-              <Button
-                onClick={handleClick}
-                className='bg-red-500/30 text-red-500 font-semibold text-lg w-36'
-              >
-                Cancelar
-              </Button>
+
+              {isMyMatches && (
+                <Button
+                  onClick={() => handleCancelStatusChange(matchId)}
+                  className='bg-red-500/30 text-red-500 font-semibold text-lg w-36'
+                >
+                  Cancelar
+                </Button>
+              )}
+
+              {!isMyMatches && (
+                <Button
+                  onClick={() => handleCancelOwnStatusChange(matchId)}
+                  className='bg-red-500/30 text-red-500 font-semibold text-lg w-36'
+                >
+                  Cancelar
+                </Button>
+              )}
               <Button
                 onClick={() => navigate("/qualify")}
                 className='bg-primary-900 text-primary-100 font-semibold text-lg w-36'

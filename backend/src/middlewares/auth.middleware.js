@@ -1,10 +1,10 @@
 const { validToken } = require('../libs/handleToken')
 
-const validateToken = (req, res, next) => {
+const validateToken = async (req, res, next) => {
   try {
     const token = extractBearToken(req)
 
-    const session = validToken(token)
+    const session = await validToken(token)
     if (!session) throw new Error('INVALID_TOKEN')
 
     req.headers.session = session
@@ -14,11 +14,11 @@ const validateToken = (req, res, next) => {
   }
 }
 
-const validateAdminRol = (req, res, next) => {
+const validateAdminRol = async (req, res, next) => {
   try {
     const token = extractBearToken(req)
 
-    const session = validToken(token)
+    const session = await validToken(token)
     if (!session) throw new Error('INVALID_TOKEN')
 
     const { rol } = session

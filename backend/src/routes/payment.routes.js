@@ -1,11 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const PaymentController = require('../controllers/payment.controller.js')
-const { saleCreateController, updateSaleStatusController } = require('../controllers/sales.controller.js')
+const { saleCreateController} = require('../controllers/sales.controller.js')
 
 const PaymentService = require('../services/payment.service.js')
 const PaymentInstance = new PaymentController(new PaymentService())
-
 const { validateToken } = require('../middlewares/auth.middleware.js')
 
 
@@ -29,5 +28,6 @@ router.get('/subscriptionsilver', validateToken, function (req, res, next) {
 })
 
 router.get('/success/:product/:userId', saleCreateController)
+
 
 module.exports = router
