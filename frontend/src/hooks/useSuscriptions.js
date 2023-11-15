@@ -1,6 +1,8 @@
 import axios from "axios";
-import { getToken } from "../redux/sliceLogin";
-import { useSelector } from "react-redux";
+import {getToken} from "../redux/sliceLogin";
+import {useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import Swal from "sweetalert2";
 import {
   API_URL_CANCEL_SUSCRIPTION,
   API_URL_GOLDSUSCRIPTION,
@@ -9,10 +11,11 @@ import {
 
 const useSuscriptions = () => {
   const token = useSelector(getToken);
+  const navigate = useNavigate();
 
   const handleSilverSuscription = async () => {
     try {
-      const { data } = await axios(API_URL_SILVERSUSCRIPTION, {
+      const {data} = await axios(API_URL_SILVERSUSCRIPTION, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -28,7 +31,7 @@ const useSuscriptions = () => {
 
   const handleGoldSuscription = async () => {
     try {
-      const { data } = await axios(API_URL_GOLDSUSCRIPTION, {
+      const {data} = await axios(API_URL_GOLDSUSCRIPTION, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -43,15 +46,23 @@ const useSuscriptions = () => {
   };
 
   const handleCancelSuscription = async () => {
+    console.log("hola");
     try {
-      const { data } = await axios(API_URL_CANCEL_SUSCRIPTION, {
+      const {data} = await axios.patch(API_URL_CANCEL_SUSCRIPTION, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
       if (data) {
-        window.location.href = data.init_point;
+        Swal.fire({
+          title: "Éxito",
+          text: "Has cancelado tu suscripción 🎉",
+          icon: "success",
+        }).then(() => {
+          navigate("/home");
+          window.location.reload();
+        });
       }
     } catch (error) {
       console.error("Error during cancel subscription:", error);

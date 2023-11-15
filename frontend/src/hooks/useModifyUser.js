@@ -20,7 +20,6 @@ const useModifyUser = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response);
 
       if (response) {
         Swal.fire({
