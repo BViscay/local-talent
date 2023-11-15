@@ -23,4 +23,6 @@ router.use('/user', require('./user.routes'))
 
 router.use('/rating', validateToken, require('./rating.routes'))
 
+router.use('/sales', validateToken, require('./sale.routes'))
+
 module.exports = router

@@ -19,7 +19,8 @@ const MATCH_TYPES = {
 
 const PRODUCTS_TYPES = {
   SILVER:1,
-  GOLD:2
+  GOLD:2,
+  NO_SUBSCRIPTION: null
 }
 
 module.exports = { USER_STATUS, MATCH_STATUS, MATCH_TYPES, PRODUCTS_TYPES }
