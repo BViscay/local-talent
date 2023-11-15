@@ -1,9 +1,9 @@
 import {useSelector} from "react-redux";
-import {getCountNotifications} from "../../redux/sliceLogin";
+import {getNotifications} from "../../redux/sliceLogin";
 
 export default function RedPointNotification() {
-  const notifications = useSelector(getCountNotifications);
-  const activeNotifications = notifications?.newNotifications >= 1;
+  const notifications = useSelector(getNotifications);
+  const activeNotifications = notifications?.length >= 1;
 
   return (
     activeNotifications && (

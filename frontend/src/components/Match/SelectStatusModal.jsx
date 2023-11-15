@@ -44,7 +44,7 @@ export default function SelectStatusModal({
 
               {isMyMatches && (
                 <Button
-                  onClick={() => handleCancelOwnStatusChange(matchId)}
+                  onClick={() => handleCancelStatusChange(matchId)}
                   className='bg-red-500/30 text-red-500 font-semibold text-lg w-36'
                 >
                   Cancelar
@@ -53,7 +53,7 @@ export default function SelectStatusModal({
 
               {!isMyMatches && (
                 <Button
-                  onClick={() => handleCancelStatusChange(matchId)}
+                  onClick={() => handleCancelOwnStatusChange(matchId)}
                   className='bg-red-500/30 text-red-500 font-semibold text-lg w-36'
                 >
                   Cancelar
