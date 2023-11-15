@@ -1,9 +1,8 @@
 import { List, ListItem, Card } from "@material-tailwind/react";
-import { useDispatch } from "react-redux";
-import { setProductId } from "../../redux/sliceLogin";
+import useSuscriptions from "../../hooks/useSuscriptions";
 
 export default function GoldSuscription() {
-  const dispatch = useDispatch();
+  const { handleCancelSuscription } = useSuscriptions();
   return (
     <div className="mt-3 flex flex-col items-center justify-center">
       <Card className="w-[90%] bg-blue-200">
@@ -27,7 +26,7 @@ export default function GoldSuscription() {
           </ListItem>
         </List>
         <button
-          onClick={() => dispatch(setProductId(null))}
+          onClick={handleCancelSuscription}
           className="p-2 mb-4 rounded-xl my-2 bg-[#266DD3] text-white w-60 self-center"
         >
           Cancelar Suscripcion
