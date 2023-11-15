@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {useSelector} from "react-redux";
 import {useForm} from "react-hook-form";
 import Input from "../Shared/Input";
@@ -12,9 +12,11 @@ import ChangeImageModal from "./ChangeImageModal";
 export default function Edit() {
   const {
     handleSubmit,
+    setValue,
     register,
     formState: {errors},
   } = useForm();
+
   
   const [showText, setShowText] = useState(false);
   const {handleChangeUserData, handleUserImage} = useModifyUser();
@@ -27,6 +29,17 @@ export default function Edit() {
   const mail = useSelector(getMail);
   const image = useSelector(getImage);
 
+  useEffect(() => {
+    const initialValues = {
+      name: name,
+      lastName: lastName,
+      email: mail,
+    };
+    Object.keys(initialValues).forEach((key) => {
+      setValue(key, initialValues[key]);
+    });
+  }, [setValue, lastName, mail, name]);
+
   return (
     <div className='flex flex-col w-full mt-5'>
       <div className='flex flex-col px-102'>
@@ -38,10 +51,12 @@ export default function Edit() {
           >
             <Avatar
               className='w-16 h-16'
+              showFallback
+              isBordered
               src={
                 image
                   ? image
-                  : "https://i.pravatar.cc/150?u=a042581f4e29026024d"
+                  : "fallback"
               }
             />
             {showText && (

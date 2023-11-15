@@ -7,6 +7,7 @@ import {
   Tooltip,
 } from "@material-tailwind/react";
 import "@fortawesome/fontawesome-free/css/all.css";
+import { useState } from "react";
 
 export default function About() {
   const nosotros = [
@@ -15,7 +16,7 @@ export default function About() {
       lastName: "Palazzetti",
       img: "nada",
       github: "https://github.com/Pablo2800",
-      gmail: "pablopalazzetti@gmail.com",
+      gmail: "mailto:pablopalazzetti@gmail.com",
       linkedin: "https://www.linkedin.com/in/pablo-palazzetti",
     },
     {
@@ -45,10 +46,10 @@ export default function About() {
     {
       name: "Gonzalo",
       lastName: "Arana",
-      img: "nada",
-      github: "",
-      gmail: "",
-      linkedin: "",
+      img: "https://res.cloudinary.com/djpfzdy2c/image/upload/v1699982405/gonzalo_sw3nid.png",
+      github: "https://github.com/aranagonzalo",
+      gmail: "mailto:gonzaloaranam@gmail.com",
+      linkedin: "https://www.linkedin.com/in/aranagonzalo",
     },
     {
       name: "Angel",
@@ -59,11 +60,11 @@ export default function About() {
       linkedin: "",
     },
     {
-      name: "Diego",
+      name: "Diego Perez",
       lastName: "",
       img: "https://web.whatsapp.com/51994620-4060-4593-b290-0d9bae22c182",
-      github: "",
-      gmail: "",
+      github: "diaperezro",
+      gmail: "diaperezro@unal.edu.co",
       linkedin: "",
     },
     {
@@ -75,10 +76,21 @@ export default function About() {
       linkedin: "",
     },
   ];
+
+  const [copiedEmail, setCopiedEmail] = useState(null);
+
+  const copyToClipboard = (email) => {
+    navigator.clipboard.writeText(email);
+    setCopiedEmail(email);
+
+    setTimeout(() => {
+      setCopiedEmail(null);
+    }, 5000);
+  };
   return (
     <div className="flex w-full items-center justify-center flex-col">
-      {nosotros.map((user) => (
-        <Card className="w-64 bg-slate-200 my-4">
+      {nosotros.map((user, i) => (
+        <Card className="w-64 bg-slate-200 my-4" key={i}>
           <CardHeader floated={false} className="h-56 rounded-full">
             <img
               className="w-full h-full object-cover"
@@ -106,10 +118,10 @@ export default function About() {
                 <i className="fab fa-github" />
               </Typography>
             </Tooltip>
-            <Tooltip content="Gmail">
+            <Tooltip content={user.gmail}>
               <Typography
                 as="a"
-                href={user.gmail}
+                onClick={() => copyToClipboard(user.gmail)}
                 variant="lead"
                 color="light-blue"
                 textGradient
@@ -129,6 +141,11 @@ export default function About() {
               </Typography>
             </Tooltip>
           </CardFooter>
+          {copiedEmail === user.gmail && (
+            <Typography color="black" className="text-xs text-center mb-2">
+              Copiado al portapapeles
+            </Typography>
+          )}
         </Card>
       ))}
     </div>
