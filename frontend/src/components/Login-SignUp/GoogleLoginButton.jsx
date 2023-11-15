@@ -21,7 +21,6 @@ export default function GoogleLoginButton() {
       onFailure={onFailure}
       cookiePolicy={"single_host_origin"}
       isSignedIn={true}
-      auto_select={true}
     />
   );
 }

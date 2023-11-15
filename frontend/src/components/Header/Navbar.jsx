@@ -26,7 +26,9 @@ import useKey from '../../hooks/useKey';
 
 const NavBar = () => {
   const navigate = useNavigate();
+
   const [menuOpen, setMenuOpen] = useKey('menuOpen');
+
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
   const menuItems = ["Profile", "Dashboard", "Activity", "Log Out"];
