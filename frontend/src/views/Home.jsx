@@ -19,7 +19,7 @@ export default function Home() {
   const { handleCountNotifications } = useNotifications();
   const { handleTokenLogin } = useLogin();
   const { handleGeoLocation } = useGeoLocation();
-  const { handleFilterByLocation, handleAllServices, handleFilterOwnServices } =
+  const { handleFilterByLocation, handleAllServices } =
     useFilters();
   const location = useSelector(getLocation);
 
@@ -36,9 +36,7 @@ export default function Home() {
     setLoader(false)
     //eslint-disable-next-line
   }, []);
-  useEffect(() => {
-    handleFilterOwnServices();
-  });
+ 
   useEffect(() => {
     if (location) {
       handleFilterByLocation(location);

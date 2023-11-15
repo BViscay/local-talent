@@ -5,6 +5,7 @@ import {
   API_URL_MYMATCH,
   API_URL_ACCEPTMATCH,
   API_URL_CANCELMATCH,
+  API_URL_CANCELOWNMATCH,
 } from "../config/api";
 import Swal from "sweetalert2";
 import {useSelector, useDispatch} from "react-redux";
@@ -33,8 +34,7 @@ const useMatches = () => {
         },
       });
       setLoader(false)
-      // Reemplaza alert con SweetAlert
-      Swal.fire({
+            Swal.fire({
         title: "Éxito",
         text: "Contacto realizado correctamente 🎉",
         icon: "success",
@@ -132,10 +132,10 @@ const useMatches = () => {
       }
     }
   };
-  const handleCancelOwnStatusChange = async (serviceId, matchId) => {
-    const cencelMatch = {serviceId, matchId};
+
+  const handleCancelStatusChange = async (matchId) => {
     try {
-      const {data} = await axios.patch(API_URL_CANCELMATCH, cencelMatch, {
+      const {data} = await axios.patch(API_URL_CANCELMATCH, matchId, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -144,7 +144,44 @@ const useMatches = () => {
       if (data[0] === 1) {
         Swal.fire({
           title: "Éxito",
-          text: "Estado cambiado correctamente 🎉",
+          text: "Match cancelado correctamente 🎉",
+          icon: "success",
+        }).then(() => {
+          navigate("/home");
+          window.location.reload();
+        });
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: "Hubo un error cambiar el estado 😣",
+          icon: "error",
+        });
+      }
+    } catch (error) {
+      if (error.response) {
+        Swal.fire({
+          title: "Error",
+          text: "Hubo un error cambiar el estado 😣",
+          icon: "error",
+        });
+
+        console.log("Response Data:", error);
+      }
+    }
+  };
+
+  const handleCancelOwnStatusChange = async (matchId) => {
+    try {
+      const {data} = await axios.patch(API_URL_CANCELOWNMATCH, matchId, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(data);
+      if (data[0] === 1) {
+        Swal.fire({
+          title: "Éxito",
+          text: "Match cancelado correctamente 🎉",
           icon: "success",
         }).then(() => {
           navigate("/home");
@@ -177,6 +214,7 @@ const useMatches = () => {
     handleOwnMatches,
     handleMyMatches,
     handleAcceptStatusChange,
+    handleCancelStatusChange,
     handleCancelOwnStatusChange,
   };
 };
