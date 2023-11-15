@@ -1,8 +1,10 @@
-import { List, ListItem, Card } from "@material-tailwind/react";
+import { Card } from "@material-tailwind/react";
 import { useDispatch } from "react-redux";
 import { setProductId } from "../../redux/sliceLogin";
+import useSuscriptions from "../../hooks/useSuscriptions";
 
 export default function SilverSuscription() {
+  const { handleCancelSuscription } = useSuscriptions();
   const dispatch = useDispatch();
   return (
     <div className="mt-3 flex flex-col items-center justify-center">
@@ -37,12 +39,17 @@ export default function SilverSuscription() {
             </p>
           </li>
         </ul>
-
+        <button
+          onClick={handleCancelSuscription}
+          className="p-2 mb-4 rounded-xl my-2 bg-[#266DD3] text-white w-60 self-center"
+        >
+          Cancelar Suscripcion
+        </button>
         <button
           onClick={() => dispatch(setProductId(null))}
           className="p-2 mb-4 rounded-xl my-2 bg-[#266DD3] text-white w-60 self-center"
         >
-          Cancelar Suscripcion
+          Cambiar de Plan
         </button>
       </Card>
     </div>

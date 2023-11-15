@@ -54,7 +54,7 @@ const useSuscriptions = () => {
         window.location.href = data.init_point;
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error during cancel subscription:", error);
     }
   };
   return {

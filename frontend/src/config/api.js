@@ -28,7 +28,7 @@ export const API_URL_SILVERSUSCRIPTION =
 
 export const API_URL_GOLDSUSCRIPTION = API_URL_BASE + "/pay/subscriptiongold";
 
-export const API_URL_CANCEL_SUSCRIPTION = API_URL_BASE + "/pay/cancel";
+export const API_URL_CANCEL_SUSCRIPTION = API_URL_BASE + "/sales/cancel";
 
 //--------------------------------------------------------------------------------
 
