@@ -3,7 +3,7 @@ import {getNotifications} from "../../redux/sliceLogin";
 
 export default function RedPointNotification() {
   const getMyNotifications = useSelector(getNotifications);
-  const notifications = getMyNotifications.length;
+  const notifications = getMyNotifications?.length;
   const activeNotifications = notifications >= 1;
 
   return (
