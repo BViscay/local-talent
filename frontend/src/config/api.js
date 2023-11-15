@@ -1,5 +1,4 @@
-export const API_URL_BASE =
-  "https://local-talent-server-dev-rqbs.3.us-1.fl0.io/api";
+export const API_URL_BASE = import.meta.env.VITE_API_URL_BASE || "http://localhost:3000/api";
 
 //--------------------------------------------------------------------------------
 
@@ -12,6 +11,8 @@ export const API_URL_REGISTER = API_URL_TOKENLOGIN + "/register";
 export const API_URL_RECOVER = API_URL_TOKENLOGIN + "/resend";
 
 export const API_URL_VALIDATE = API_URL_TOKENLOGIN + "/validate";
+
+export const API_URL_GOOGLE = API_URL_TOKENLOGIN + "/google";
 
 //--------------------------------------------------------------------------------
 
@@ -29,8 +30,7 @@ export const API_URL_SEARCH = API_URL_SERVICES + "/search/";
 
 //--------------------------------------------------------------------------------
 
-export const API_URL_SILVERSUSCRIPTION =
-  API_URL_BASE + "/pay/subscriptionsilver";
+export const API_URL_SILVERSUSCRIPTION = API_URL_BASE + "/pay/subscriptionsilver";
 
 export const API_URL_GOLDSUSCRIPTION = API_URL_BASE + "/pay/subscriptiongold";
 

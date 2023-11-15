@@ -24,6 +24,7 @@ import {
 } from "../redux/sliceLogin";
 import Swal from "sweetalert2";
 import useKey from './useKey';
+import { loginFromGoogleService } from '../services/Google';
 
 const useLogin = () => {
   const navigate = useNavigate();
@@ -31,13 +32,11 @@ const useLogin = () => {
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
   const isLogin = useSelector(isLogged);
   const dispatch = useDispatch();
-  const redirectLogin = (navigate) => {
-    navigate("/home");
-  };
+  const redirectLogin = (navigate) =>  navigate("/home")
 
   const [menuOpen, setMenuOpen] = useKey('menuOpen')
   
-  const { setLoader } = useLoader()
+  const { setLoader, handleLoader } = useLoader()
 
   const handleLogin = async (userData) => {
     const {email, password} = userData;
@@ -113,10 +112,29 @@ const useLogin = () => {
     }
   };
 
-  const handleGoogleLogin = (response) => {
-    if (response.credential) {
-      dispatch(setAuthToken(response.credential));
+  const handleGoogleLogin = async (data) => {
 
+    const { email, family_name, given_name, picture } = data
+
+    const res = await handleLoader(loginFromGoogleService, {
+      email,
+      firstname: given_name,
+      lastname: family_name,
+      image:picture
+    })
+
+    console.log(res)
+
+    const {session, token } = res
+
+    if (session) {
+      dispatch(setAuthToken(token));
+      dispatch(setName(session.firstname));
+      dispatch(setLastName(session.lastname));
+      dispatch(setMail(session.email));
+      dispatch(setImage(session.image));
+      dispatch(setProductId(session.productId));
+      dispatch(setRol(session.rol));
       dispatch(login());
       redirectLogin(navigate);
     }

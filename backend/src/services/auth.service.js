@@ -7,6 +7,7 @@ const { createToken } = require('../libs/handleToken')
 const { sendRegisterNotification, sendWelcomeMessage } = require('./email.service')
 const { findUserService, createUserService, countUsers } = require('./user.service')
 const { countNewUserNotificationsService } = require('./notification.service')
+const User = require('../models/user.model')
 
 // Funcion para valdiar session por token
 const loginTokenService = async (userId) => {
@@ -137,8 +138,23 @@ const reSendCodeValidationService = async (email) => {
   return true
 }
 
-const oAuthService = () => {
+const oAuthService = async ({ email, firstname, lastname, image }) => {
+  let user
+  user = await User.findOne({ where: { email } })
+  if (!user) user = User.create({ email, firstname, lastname, password: email, image })
 
+  const token = createToken({ userId: user.id, rol: user.rol })
+
+  const session = {
+    id: user.id,
+    firstname: user.firstname,
+    lastname: user.lastname,
+    email,
+    status: user.status,
+    rol: user.rol
+  }
+
+  return { session, token }
 }
 
 module.exports = {

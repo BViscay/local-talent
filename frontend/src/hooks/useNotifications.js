@@ -25,7 +25,7 @@ const useNotifications = () => {
   const { setLoader } = useLoader()
 
   const handleCountNotifications = async () => {
-    if (isFirstLoad) {
+    if (isFirstLoad && isLogin) {
       try {
         setLoader(true)
         const {data} = await axios.get(API_URL_COUNT_NOTIFICATIONS, {
