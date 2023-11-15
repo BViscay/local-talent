@@ -13,7 +13,7 @@ import {useNavigate} from "react-router-dom";
 import {getToken} from "../redux/sliceLogin";
 import {setOwnMatches, setMyMatches} from "../redux/sliceMatches";
 import {useState} from "react";
-import useLoader from './useLoader';
+import useLoader from "./useLoader";
 
 const useMatches = () => {
   const token = useSelector(getToken);
@@ -21,20 +21,20 @@ const useMatches = () => {
   const dispatch = useDispatch();
   const [activeButton, setActiveButton] = useState("ofrecidos");
 
-  const { setLoader } = useLoader()
+  const {setLoader} = useLoader();
 
   const handleUserMatch = async (serviceId, message) => {
     const matchData = {serviceId, message};
 
     try {
-      setLoader(true)
+      setLoader(true);
       await axios.post(API_URL_MATCH, matchData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setLoader(false)
-            Swal.fire({
+      setLoader(false);
+      Swal.fire({
         title: "Éxito",
         text: "Contacto realizado correctamente 🎉",
         icon: "success",
@@ -42,7 +42,7 @@ const useMatches = () => {
         navigate("/matchs");
       });
     } catch (error) {
-      setLoader(false)
+      setLoader(false);
       if (error.response) {
         Swal.fire({
           title: "Error",
@@ -103,7 +103,7 @@ const useMatches = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-     
+
       if (data[0] === 1) {
         Swal.fire({
           title: "Éxito",
@@ -134,8 +134,9 @@ const useMatches = () => {
   };
 
   const handleCancelStatusChange = async (matchId) => {
+    const matchToChange = {matchId};
     try {
-      const {data} = await axios.patch(API_URL_CANCELMATCH, matchId, {
+      const {data} = await axios.patch(API_URL_CANCELMATCH, matchToChange, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -171,8 +172,9 @@ const useMatches = () => {
   };
 
   const handleCancelOwnStatusChange = async (matchId) => {
+    const matchToChange = {matchId};
     try {
-      const {data} = await axios.patch(API_URL_CANCELOWNMATCH, matchId, {
+      const {data} = await axios.patch(API_URL_CANCELOWNMATCH, matchToChange, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

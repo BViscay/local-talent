@@ -40,9 +40,9 @@ export const API_URL_OWNMATCH = API_URL_MATCH + "/service";
 
 export const API_URL_ACCEPTMATCH = API_URL_MATCH + "/accept";
 
-export const API_URL_CANCELMATCH = API_URL_MATCH + "/cencel/user";
+export const API_URL_CANCELMATCH = API_URL_MATCH + "/cancel/user";
 
-export const API_URL_CANCELOWNMATCH = API_URL_MATCH + "/cencel/service";
+export const API_URL_CANCELOWNMATCH = API_URL_MATCH + "/cancel/service";
 
 //---------------------------------------------------------------------------------
 
