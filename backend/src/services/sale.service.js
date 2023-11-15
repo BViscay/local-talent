@@ -3,6 +3,7 @@ const User = require('../models/user.model')
 const { PRODUCTS_TYPES } = require('../config/constants')
 
 const createSale = async (userId, product) => {
+  console.log('estoy en el controller')
   const user = await User.findByPk(userId)
   newSale = await Sale.create({
     userId,
@@ -15,5 +16,5 @@ const createSale = async (userId, product) => {
 }
 
 module.exports = {
-    createSale
+  createSale
 }
