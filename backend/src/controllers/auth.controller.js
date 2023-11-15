@@ -48,7 +48,8 @@ const resendCodeController = async (req, res) => {
 }
 
 const oAuthController = (req, res) => {
-
+  console.log(req)
+  res.json(req)
 }
 
 module.exports = {

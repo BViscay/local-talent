@@ -49,6 +49,7 @@ const NavBar = () => {
   const isAdmin = rol === "admin";
   
   const [menuOpen, setMenuOpen] = useKey('menuOpen');
+
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
   const menuItems = ["Profile", "Dashboard", "Activity", "Log Out"];
