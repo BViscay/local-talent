@@ -62,8 +62,20 @@ export const API_URL_CREATE_NOTIFICATION = API_URL_NOTIFICATIONS + "/create";
 
 //----------------------------------------------------------------------------------
 
+
+export const API_URL_EDIT_PROFILE = API_URL_BASE + "/user";
+
+//----------------------------Admin--------------------------------------------------
+
+export const API_URL_GET_USERS = API_URL_BASE + "/admin/user";
+
+export const API_URL_GET_SERVICES = API_URL_BASE + "/admin/service";
+
+export const API_URL_GET_SUB = API_URL_BASE + "/admin/sales";
+
 export const API_URL_RATING = API_URL_BASE + "/rating";
 
 export const API_URL_USER_RATING = API_URL_RATING + "/user";
 
 export const API_URL_SERVICE_RATING = API_URL_RATING + "/service";
+
