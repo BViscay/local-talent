@@ -1,32 +1,44 @@
-// sales.controller.js
 
-const { createSale } = require('../services/sale.service')
-const { updateSaleStatus } = require('../services/updateSaleStatus.service.js')
+const { createSale, cancelSale, allSales } = require('../services/sale.service')
+
 
 const saleCreateController = async (req, res) => {
   try {
     const { product, userId } = req.params
     const newSale = await createSale(userId, product)
     res.redirect('https://pg-henry-local-talent.vercel.app/')
-  } catch (error) {
-    res.status(400).json(error)
+  } catch ({ message }) {
+    res.status(400).json({ message })
   }
 }
 
-const updateSaleStatusController = async (req, res) => {
+
+const cancelSaleController = async (req, res) => {
   try {
-    console.log('estoy en el controller')
     const { userId } = req.headers.session
-    const updatedSale = await updateSaleStatus(userId)
-    
-    res.status(200).json(updatedSale)
-  } catch (error) {
-    console.error('Error al cancelar la suscripcion:', error)
-    res.status(500).json({ error: true, msg: 'Failed to update sale status' })
+    const result = await cancelSale(userId)
+    res.status(200).json(result)
+
+  } catch ({ message }) {
+    res.status(400).json({ message })
   }
 }
+
+const findALLsalesController = async (req, res) => {
+  try {
+    const result = await allSales()
+    res.status(200).json(result)
+
+  } catch ({ message }) {
+    res.status(400).json({ message })
+  }
+}
+
+
 
 module.exports = {
-  saleCreateController,
-  updateSaleStatusController
+    saleCreateController,
+    cancelSaleController,
+    findALLsalesController
+
 }

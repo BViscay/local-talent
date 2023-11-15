@@ -5,6 +5,7 @@ import {
   API_URL_MYMATCH,
   API_URL_ACCEPTMATCH,
   API_URL_CANCELMATCH,
+  API_URL_CANCELOWNMATCH,
 } from "../config/api";
 import Swal from "sweetalert2";
 import {useSelector, useDispatch} from "react-redux";
@@ -12,7 +13,7 @@ import {useNavigate} from "react-router-dom";
 import {getToken} from "../redux/sliceLogin";
 import {setOwnMatches, setMyMatches} from "../redux/sliceMatches";
 import {useState} from "react";
-import useLoader from './useLoader';
+import useLoader from "./useLoader";
 
 const useMatches = () => {
   const token = useSelector(getToken);
@@ -20,20 +21,19 @@ const useMatches = () => {
   const dispatch = useDispatch();
   const [activeButton, setActiveButton] = useState("ofrecidos");
 
-  const { setLoader } = useLoader()
+  const {setLoader} = useLoader();
 
   const handleUserMatch = async (serviceId, message) => {
     const matchData = {serviceId, message};
 
     try {
-      setLoader(true)
+      setLoader(true);
       await axios.post(API_URL_MATCH, matchData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setLoader(false)
-      // Reemplaza alert con SweetAlert
+      setLoader(false);
       Swal.fire({
         title: "Éxito",
         text: "Contacto realizado correctamente 🎉",
@@ -42,7 +42,7 @@ const useMatches = () => {
         navigate("/matchs");
       });
     } catch (error) {
-      setLoader(false)
+      setLoader(false);
       if (error.response) {
         Swal.fire({
           title: "Error",
@@ -103,7 +103,7 @@ const useMatches = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-     
+
       if (data[0] === 1) {
         Swal.fire({
           title: "Éxito",
@@ -132,10 +132,11 @@ const useMatches = () => {
       }
     }
   };
-  const handleCancelOwnStatusChange = async (serviceId, matchId) => {
-    const cencelMatch = {serviceId, matchId};
+
+  const handleCancelStatusChange = async (matchId) => {
+    const matchToChange = {matchId};
     try {
-      const {data} = await axios.patch(API_URL_CANCELMATCH, cencelMatch, {
+      const {data} = await axios.patch(API_URL_CANCELMATCH, matchToChange, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -144,7 +145,45 @@ const useMatches = () => {
       if (data[0] === 1) {
         Swal.fire({
           title: "Éxito",
-          text: "Estado cambiado correctamente 🎉",
+          text: "Match cancelado correctamente 🎉",
+          icon: "success",
+        }).then(() => {
+          navigate("/home");
+          window.location.reload();
+        });
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: "Hubo un error cambiar el estado 😣",
+          icon: "error",
+        });
+      }
+    } catch (error) {
+      if (error.response) {
+        Swal.fire({
+          title: "Error",
+          text: "Hubo un error cambiar el estado 😣",
+          icon: "error",
+        });
+
+        console.log("Response Data:", error);
+      }
+    }
+  };
+
+  const handleCancelOwnStatusChange = async (matchId) => {
+    const matchToChange = {matchId};
+    try {
+      const {data} = await axios.patch(API_URL_CANCELOWNMATCH, matchToChange, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(data);
+      if (data[0] === 1) {
+        Swal.fire({
+          title: "Éxito",
+          text: "Match cancelado correctamente 🎉",
           icon: "success",
         }).then(() => {
           navigate("/home");
@@ -177,6 +216,7 @@ const useMatches = () => {
     handleOwnMatches,
     handleMyMatches,
     handleAcceptStatusChange,
+    handleCancelStatusChange,
     handleCancelOwnStatusChange,
   };
 };

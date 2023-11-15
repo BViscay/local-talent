@@ -6,6 +6,7 @@ import {
   getMyMatches,
   getOwnMatches,
 } from "../../redux/sliceMatches";
+import useQualifications from "../../hooks/useQualifications";
 import {Box, Rating} from "@mui/material";
 //import {Rating} from "@mui/material";
 import {Textarea} from "@nextui-org/react";
@@ -13,12 +14,16 @@ import {Textarea} from "@nextui-org/react";
 export default function RatingMatch() {
   const [value, setValue] = useState(0);
   const [text, setText] = useState("");
+  const {handleUserRating, handleServiceRating} = useQualifications();
   const isMyMatches = useSelector(getIsMyMatches);
   const ownMatches = useSelector(getOwnMatches);
   const myMatches = useSelector(getMyMatches);
+  const matchId = isMyMatches ? ownMatches[0].id : myMatches[0].id;
+
   const handleSubmit = () => {
-    console.log("Comentario:", text);
-    console.log("Rating:", value);
+    isMyMatches
+      ? handleUserRating(matchId, value, text)
+      : handleServiceRating(matchId, value, text);
   };
 
   return (

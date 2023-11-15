@@ -10,6 +10,7 @@ import RegisterLink from "../components/Login-SignUp/RegisterLink";
 import ForgotPassLink from "../components/Login-SignUp/ForgotPassLink";
 import GoogleLoginButton from "../components/Login-SignUp/GoogleLoginButton";
 import { Eye, EyeOff } from "lucide-react";
+import useKey from '../hooks/useKey';
 
 export default function LoginForm() {
   const {
@@ -27,7 +28,16 @@ export default function LoginForm() {
     toggleShowPassword,
   } = useLogin();
 
+  const onSubmit = data => {
+    console.log(data)
+    setMenuOpen(!menuOpen);
+    handleLogin(data);
+    handleGeoLocation();
+  }
+  
   const { handleGeoLocation } = useGeoLocation();
+
+  const [menuOpen, setMenuOpen] = useKey('menuOpen');
 
   return (
     <div className="flex w-full -mt-10">
@@ -51,10 +61,7 @@ export default function LoginForm() {
               <form
                 className="space-y-4 md:space-y-6"
                 action="#"
-                onSubmit={handleSubmit((data) => {
-                  handleLogin(data);
-                  handleGeoLocation();
-                })}
+                onSubmit={handleSubmit(onSubmit)}
               >
                 <div>
                   <Input

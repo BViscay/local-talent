@@ -13,7 +13,9 @@ const findAllUsersController = async (req, res) => {
 const userImageController = async (req, res) => {
   try {
     const { userId } = req.headers.session
+
     const result = await userImage(req.files, userId)
+
     return res.status(200).json(result)
   } catch ({ message }) {
     res.status(400).json({ message })
