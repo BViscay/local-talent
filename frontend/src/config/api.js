@@ -36,13 +36,15 @@ export const API_URL_GOLDSUSCRIPTION = API_URL_BASE + "/pay/subscriptiongold";
 
 export const API_URL_MATCH = API_URL_BASE + "/match";
 
-export const API_URL_ACCEPTMATCH = API_URL_MATCH + "/accept";
-
-export const API_URL_CANCELMATCH = API_URL_MATCH + "/cencel";
+export const API_URL_MYMATCH = API_URL_MATCH + "/user";
 
 export const API_URL_OWNMATCH = API_URL_MATCH + "/service";
 
-export const API_URL_MYMATCH = API_URL_MATCH + "/user";
+export const API_URL_ACCEPTMATCH = API_URL_MATCH + "/accept";
+
+export const API_URL_CANCELMATCH = API_URL_MATCH + "/cencel/user";
+
+export const API_URL_CANCELOWNMATCH = API_URL_MATCH + "/cencel/service";
 
 //---------------------------------------------------------------------------------
 
