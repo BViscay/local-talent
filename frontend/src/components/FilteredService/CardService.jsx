@@ -22,7 +22,7 @@ export default function CardService({ renderServices, id }) {
               <AiFillStar className="text-yellow-400 mr-1" />
               {renderServices.rating}
             </p>
-            <p className="text-primary-963">(30)</p>
+            <p className="text-primary-963">({renderServices.score})</p>
           </div>
           <p className="text-primary-963">{renderServices.categoryId.name}</p>
         </div>
