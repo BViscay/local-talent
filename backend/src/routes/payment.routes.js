@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const PaymentController = require('../controllers/payment.controller.js')
-const { saleCreateController } = require('../controllers/sales.controller.js')
+const { saleCreateController, updateSaleStatusController } = require('../controllers/sales.controller.js')
 
 const PaymentService = require('../services/payment.service.js')
 const PaymentInstance = new PaymentController(new PaymentService())
