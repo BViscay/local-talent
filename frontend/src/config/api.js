@@ -17,6 +17,8 @@ export const API_URL_SERVICES = API_URL_BASE + "/service";
 
 export const API_URL_USERIMAGE = API_URL_BASE + "/user/image";
 
+export const API_URL_USERIMAGE456 = API_URL_BASE + "/user/image";
+
 //--------------------------------------------------------------------------------
 
 export const API_URL_ALLSERVICES = API_URL_SERVICES + "/allservices";
