@@ -1,4 +1,6 @@
+
 const { createSale, cancelSale, allSales } = require('../services/sale.service')
+
 
 const saleCreateController = async (req, res) => {
   try {
@@ -9,6 +11,7 @@ const saleCreateController = async (req, res) => {
     res.status(400).json({ message })
   }
 }
+
 
 const cancelSaleController = async (req, res) => {
   try {
@@ -37,4 +40,5 @@ module.exports = {
     saleCreateController,
     cancelSaleController,
     findALLsalesController
+
 }

@@ -48,7 +48,9 @@ const allSales = async () => {
 }
 
 module.exports = {
+
     createSale,
     cancelSale,
     allSales
+
 }

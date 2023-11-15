@@ -1,26 +1,20 @@
 import Sidebar from './Sidebar';
-import MenuOptionUser from './MenuOptionUser'
+import MenuOptionUser from './MenuOptionUser';
+import useUser from '../../hooks/admin/useUser';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
 
 export default function Users() {
-
-  const users = [
-  {
-    id: 1,
-    firstname: "Jon",
-    lastname: "Snow",
-    email: "jonsnow@gmail.com",
-    whatsapp: "(665)121-5454",
-    
-  },
-  {
-    id: 2,
-    firstname: "Cersei",
-    lastname: "Lannister",
-    email: "cerseilannister@gmail.com",
-    whatsapp: "(421)314-2288",
-    
-  }
-]
+  const { handlerAllUsers } = useUser();
+  const users = useSelector(state => state.users.users); 
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      await handlerAllUsers();
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className="flex h-screen">
