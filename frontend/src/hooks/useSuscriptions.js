@@ -48,7 +48,7 @@ const useSuscriptions = () => {
   const handleCancelSuscription = async () => {
     console.log("hola");
     try {
-      const {data} = await axios.patch(API_URL_CANCEL_SUSCRIPTION, {
+      const {data} = await axios.patch(API_URL_CANCEL_SUSCRIPTION, null, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

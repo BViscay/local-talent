@@ -23,7 +23,7 @@ export default function RatingMatch() {
   const handleSubmit = () => {
     isMyMatches
       ? handleUserRating(matchId, text, value)
-      : handleServiceRating(text, value);
+      : handleServiceRating(matchId, text, value);
   };
 
   return (
