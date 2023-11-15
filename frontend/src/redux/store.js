@@ -3,7 +3,8 @@ import userHandler from "./sliceLogin";
 import filtersHandler from "./sliceFilters";
 import keysHandler from "./sliceKeys";
 import matchesHandler from "./sliceMatches";
-import usersHandler from "../redux/admin/sliceUsers"
+import usersHandler from "../redux/admin/sliceUsers";
+import servicesHandler from "../redux/admin/sliceServices";
 
 export const store = configureStore({
     reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
         keys: keysHandler,
         matches: matchesHandler,
         users: usersHandler,
+        services: servicesHandler
     },
 });

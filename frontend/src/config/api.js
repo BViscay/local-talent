@@ -56,5 +56,8 @@ export const API_URL_EDIT_PROFILE = API_URL_BASE + "/user";
 
 //----------------------------Admin--------------------------------------------------
 
-export const API_URL_GET_USERS = API_URL_BASE + "/admin/user"
+export const API_URL_GET_USERS = API_URL_BASE + "/admin/user";
 
+export const API_URL_GET_SERVICES = API_URL_BASE + "/admin/service";
+
+export const API_URL_GET_SUB = API_URL_BASE + "/admin/sales";
