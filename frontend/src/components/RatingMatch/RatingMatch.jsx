@@ -16,6 +16,7 @@ export default function RatingMatch() {
   const isMyMatches = useSelector(getIsMyMatches);
   const ownMatches = useSelector(getOwnMatches);
   const myMatches = useSelector(getMyMatches);
+  
   const handleSubmit = () => {
     console.log("Comentario:", text);
     console.log("Rating:", value);
