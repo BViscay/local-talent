@@ -1,13 +1,11 @@
 import axios from "axios";
 import Swal from "sweetalert2";
-import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {getToken} from "../redux/sliceLogin";
 import {API_URL_USERIMAGE, API_URL_EDIT_PROFILE} from "../config/api";
 import useLoader from './useLoader';
 
 const useModifyUser = () => {
-  const token = useSelector(getToken);
+ const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
   const { setLoader } = useLoader()

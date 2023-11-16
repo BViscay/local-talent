@@ -1,5 +1,5 @@
 import logo from "../assets/images/Logo.png";
-import { useForm } from "react-hook-form";
+import {useForm} from "react-hook-form";
 import useLogin from "../hooks/useLogin";
 import useGeoLocation from "../hooks/useGeoLocation";
 import Input from "../components/Shared/Input";
@@ -9,14 +9,13 @@ import LoginButton from "../components/Login-SignUp/LoginButton";
 import RegisterLink from "../components/Login-SignUp/RegisterLink";
 import ForgotPassLink from "../components/Login-SignUp/ForgotPassLink";
 import GoogleLoginButton from "../components/Login-SignUp/GoogleLoginButton";
-import { Eye, EyeOff } from "lucide-react";
-import useKey from '../hooks/useKey';
+import {Eye, EyeOff} from "lucide-react";
 
 export default function LoginForm() {
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: {errors},
   } = useForm();
 
   const {
@@ -28,74 +27,71 @@ export default function LoginForm() {
     toggleShowPassword,
   } = useLogin();
 
-  const onSubmit = data => {
-    setMenuOpen(!menuOpen);
+  const onSubmit = (data) => {
     handleLogin(data);
     handleGeoLocation();
-  }
-  
-  const { handleGeoLocation } = useGeoLocation();
+  };
 
-  const [menuOpen, setMenuOpen] = useKey('menuOpen');
+  const {handleGeoLocation} = useGeoLocation();
 
   return (
-    <div className="flex w-full -mt-10">
-      <section className="flex w-full h-screen items-center justify-center">
-        <div className="flex flex-col items-center justify-center ml-0 py-8 w-full md:h-screen lg:py-0">
+    <div className='flex w-full -mt-10'>
+      <section className='flex w-full h-screen items-center justify-center'>
+        <div className='flex flex-col items-center justify-center ml-0 py-8 w-full md:h-screen lg:py-0'>
           <a
-            href="#"
-            className="flex items-center text-2xl font-semibold text-gray-900 dark:text-white"
+            href='#'
+            className='flex items-center text-2xl font-semibold text-gray-900 dark:text-white'
           >
-            <img className="w-[300px] h-[113px] mb-2" src={logo} alt="logo" />
+            <img className='w-[300px] h-[113px] mb-2' src={logo} alt='logo' />
           </a>
           <h1 className="font-family:'Lato-SemiBold',Helvetica font-semibold text-[#003049] text-[40px] text-center tracking-[0] leading-[normal] whitespace-nowrap mb-4">
             Bienvenido!
           </h1>
 
-          <div className="w-full rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-            <div className="p-6 space-y-4 md:space-y-6 sm:p-8 h-full w-full">
+          <div className='w-full rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700'>
+            <div className='p-6 space-y-4 md:space-y-6 sm:p-8 h-full w-full'>
               <h1 className="font-family:'Lato-Regular',Helvetica font-normal text-[#003049] text-[24px] text-center tracking-[0] leading-[normal]">
                 Ingresa a tu Cuenta
               </h1>
               <form
-                className="space-y-4 md:space-y-6"
-                action="#"
+                className='space-y-4 md:space-y-6'
+                action='#'
                 onSubmit={handleSubmit(onSubmit)}
               >
                 <div>
                   <Input
-                    labelText="Email"
-                    type="text"
-                    placeholder="Escriba su email"
-                    name="email"
+                    labelText='Email'
+                    type='text'
+                    placeholder='Escriba su email'
+                    name='email'
                     register={register}
                     error={errors.email?.message}
                     className="font-family:'Lato-SemiBold',Helvetica font-semibold text-[#003049] text-[14px] tracking-[0] leading-[norma]"
                   />
                 </div>
-                <div className="w-full flex flex-col">
+                <div className='w-full flex flex-col'>
                   <Input
-                    labelText="Password"
+                    labelText='Password'
                     type={showPassword ? "text" : "password"}
-                    placeholder="Escriba su contraseña"
-                    name="password"
+                    placeholder='Escriba su contraseña'
+                    name='password'
                     register={register}
                     error={errors.password?.message}
                   />
                   <button
-                    className="self-end relative bottom-14 right-3"
-                    type="button"
+                    className='self-end relative bottom-14 right-3'
+                    type='button'
                     onClick={toggleShowPassword}
                   >
                     {showPassword ? <Eye /> : <EyeOff />}
                   </button>
                 </div>
-                <div className="flex items-center justify-between">
+                <div className='flex items-center justify-between'>
                   <RememberUser register={register} />
                   <ForgotPassLink handleOpenModal={handleOpenModal} />
                 </div>
-                <div className="flex w-full items-center justify-between mb-12">
-                  <LoginButton text="Ingresar" />
+                <div className='flex w-full items-center justify-between mb-12'>
+                  <LoginButton text='Ingresar' />
                   <GoogleLoginButton />
                 </div>
                 <RegisterLink />

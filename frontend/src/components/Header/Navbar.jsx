@@ -22,17 +22,17 @@ import CustomMenuToggle from "./CustomMenuToggle";
 import SideMenuUser from "./SideMenuUser";
 import SideMenu from "./SideMenu";
 import RedPointNotification from "../Notification/RedPointNotification";
-import useKey from '../../hooks/useKey';
+import useKey from "../../hooks/useKey";
+import useLogin from "../../hooks/useLogin";
 
 import {
+  isLogged,
   getName,
   getLastName,
   getMail,
   getImage,
   getRol,
 } from "../../redux/sliceLogin";
-import useLogin from "../../hooks/useLogin";
-
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -42,15 +42,14 @@ const NavBar = () => {
   const image = useSelector(getImage);
   const rol = useSelector(getRol);
   const {handleLogout} = useLogin();
+  const isLoggedIn = useSelector(isLogged);
   const editProfile = () => {
     navigate("/editProfile");
     setMenuOpen(!menuOpen);
   };
   const isAdmin = rol === "admin";
-  
-  const [menuOpen, setMenuOpen] = useKey('menuOpen');
 
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const [menuOpen, setMenuOpen] = useKey("menuOpen");
 
   const menuItems = ["Profile", "Dashboard", "Activity", "Log Out"];
 
@@ -63,15 +62,24 @@ const NavBar = () => {
     <Navbar height='5rem' className='bg-primary-100' maxWidth='xl'>
       {/*Navbar Mobile*/}
       <NavbarContent className='md:hidden justify-evenly w-full' justify='none'>
-        <NavbarItem className="cursor-pointer" onClick={() => navigate("/home")}>
+        <NavbarItem
+          className='cursor-pointer'
+          onClick={() => navigate("/home")}
+        >
           <Home size={30} strokeWidth={2.2} color='#266DD3' />
         </NavbarItem>
 
-        <NavbarItem className="cursor-pointer" onClick={() => navigate( isLoggedIn ? "/matchs" : "/login")}>
+        <NavbarItem
+          className='cursor-pointer'
+          onClick={() => navigate(isLoggedIn ? "/matchs" : "/login")}
+        >
           <LiaHandshakeSolid className='text-[34px] text-[#266DD3]' />
         </NavbarItem>
 
-        <NavbarItem onClick={() => navigate(isLoggedIn ? "/notifications" : "/login")} className='flex cursor-pointer'>
+        <NavbarItem
+          onClick={() => navigate(isLoggedIn ? "/notifications" : "/login")}
+          className='flex cursor-pointer'
+        >
           <Bell size={30} strokeWidth={2.2} color='#266DD3' />
           <RedPointNotification />
         </NavbarItem>
@@ -87,29 +95,31 @@ const NavBar = () => {
 
       {/*Navbar Desktop*/}
       <NavbarContent className='hidden md:flex justify-evenly w-full gap-10 lg:gap-20'>
-        <NavbarBrand className="cursor-pointer" onClick={() => navigate("/home")}>
+        <NavbarBrand
+          className='cursor-pointer'
+          onClick={() => navigate("/home")}
+        >
           <img src={logo} className='w-36'></img>
         </NavbarBrand>
-        {isLoggedIn && 
+        {isLoggedIn && (
           <>
             <NavbarItem onClick={() => navigate("/create-service")}>
-              <p className='text-[#172B4D] font-medium text-lg'>
+              <p className='text-[#172B4D] font-medium cursor-pointer text-lg'>
                 Crear Servicio
               </p>
             </NavbarItem>
             <NavbarItem onClick={() => navigate("/matchs")}>
-              <p className='text-[#172B4D] font-medium text-lg'>
+              <p className='text-[#172B4D] cursor-pointer font-medium text-lg'>
                 Mis Matchs
               </p>
             </NavbarItem>
             <NavbarItem onClick={() => navigate("/notifications")}>
-              <p
-                className='text-[#172B4D] font-medium text-lg'>
+              <p className='text-[#172B4D] cursor-pointer font-medium text-lg'>
                 Notificaciones
               </p>
             </NavbarItem>
           </>
-        }
+        )}
         <Dropdown placement='bottom-end'>
           <DropdownTrigger>
             <Avatar
@@ -119,11 +129,7 @@ const NavBar = () => {
               className='transition-transform'
               color='primary'
               size='sm'
-              src={
-                  image
-                    ? image
-                    : "fallback"
-                }
+              src={image ? image : "fallback"}
             />
           </DropdownTrigger>
           {isLoggedIn ? (
@@ -132,21 +138,31 @@ const NavBar = () => {
               variant='flat'
               disabledKeys={["profile"]}
             >
-              <DropdownItem key='profile' className='h-14 gap-2' textValue="profile">
-                <p className='font-semibold'>{name} {lastName}</p>
+              <DropdownItem
+                key='profile'
+                className='h-14 gap-2'
+                textValue='profile'
+              >
+                <p className='font-semibold'>
+                  {name} {lastName}
+                </p>
                 <p className='font-medium text-xs'>{mail}</p>
               </DropdownItem>
-              <DropdownItem key='edit' onClick={editProfile} textValue="edit">
-                <div className="flex items-center text-xs font-normal">
+              <DropdownItem key='edit' onClick={editProfile} textValue='edit'>
+                <div className='flex items-center text-xs font-normal'>
                   <p>Editar</p>
                   <PencilLine size={16} />
-                </div>                 
+                </div>
               </DropdownItem>
               {isAdmin && (
-                <DropdownItem key='admin' textValue="profile" onClick={() => {
+                <DropdownItem
+                  key='admin'
+                  textValue='profile'
+                  onClick={() => {
                     navigate("/dashboard-admin");
                     setMenuOpen(!menuOpen);
-                  }}>
+                  }}
+                >
                   <div className='w-full flex p-3 items-center gap-2 bg-primary-100 rounded-lg cursor-pointer'>
                     <BarChartHorizontal
                       size={28}
@@ -159,14 +175,77 @@ const NavBar = () => {
                   </div>
                 </DropdownItem>
               )}
-              <DropdownItem key='service' onClick={() => {navigate("/create-service");setMenuOpen(!menuOpen)}}>Crear Servicio</DropdownItem>
-              <DropdownItem key='my-services' onClick={() => {navigate("/my-services");setMenuOpen(!menuOpen)}}>Mis Servicios</DropdownItem>
-              <DropdownItem key='suscriptions' onClick={() => {navigate("/suscriptions");setMenuOpen(!menuOpen)}}>Suscripciones</DropdownItem>
-              <DropdownItem key='address' onClick={() => {navigate("/my-location");setMenuOpen(!menuOpen);}}>Dirección</DropdownItem>
-              <DropdownItem key='notifications' onClick={() => {navigate("/notifications");setMenuOpen(!menuOpen)}}>Notificaciones</DropdownItem>
-              <DropdownItem key='support' onClick={() => {handleClick;setMenuOpen(!menuOpen)}}>Soporte</DropdownItem>
-              <DropdownItem key='about-us' onClick={() => {navigate("/about");setMenuOpen(!menuOpen)}}>Quienes Somos?</DropdownItem>
-              <DropdownItem key='logout' color='danger' onClick={() => {handleLogout;setMenuOpen(!menuOpen)}}>
+              <DropdownItem
+                key='service'
+                onClick={() => {
+                  navigate("/create-service");
+                  setMenuOpen(!menuOpen);
+                }}
+              >
+                Crear Servicio
+              </DropdownItem>
+              <DropdownItem
+                key='my-services'
+                onClick={() => {
+                  navigate("/my-services");
+                  setMenuOpen(!menuOpen);
+                }}
+              >
+                Mis Servicios
+              </DropdownItem>
+              <DropdownItem
+                key='suscriptions'
+                onClick={() => {
+                  navigate("/suscriptions");
+                  setMenuOpen(!menuOpen);
+                }}
+              >
+                Suscripciones
+              </DropdownItem>
+              <DropdownItem
+                key='address'
+                onClick={() => {
+                  navigate("/my-location");
+                  setMenuOpen(!menuOpen);
+                }}
+              >
+                Dirección
+              </DropdownItem>
+              <DropdownItem
+                key='notifications'
+                onClick={() => {
+                  navigate("/notifications");
+                  setMenuOpen(!menuOpen);
+                }}
+              >
+                Notificaciones
+              </DropdownItem>
+              <DropdownItem
+                key='support'
+                onClick={() => {
+                  handleClick;
+                  setMenuOpen(!menuOpen);
+                }}
+              >
+                Soporte
+              </DropdownItem>
+              <DropdownItem
+                key='about-us'
+                onClick={() => {
+                  navigate("/about");
+                  setMenuOpen(!menuOpen);
+                }}
+              >
+                Quienes Somos?
+              </DropdownItem>
+              <DropdownItem
+                key='logout'
+                color='danger'
+                onClick={() => {
+                  handleLogout;
+                  setMenuOpen(!menuOpen);
+                }}
+              >
                 Cerrar Sesión
               </DropdownItem>
             </DropdownMenu>

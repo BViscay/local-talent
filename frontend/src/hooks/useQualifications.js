@@ -1,19 +1,17 @@
 import axios from "axios";
-import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {getToken} from "../redux/sliceLogin";
 import {API_URL_SERVICE_RATING, API_URL_USER_RATING} from "../config/api";
 import Swal from "sweetalert2";
 import useLoader from "./useLoader";
 
 const useQualifications = () => {
   const {setLoader} = useLoader();
-  const token = useSelector(getToken);
+  const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
   const handleUserRating = async (matchId, score, comment) => {
     const ratingInfo = {matchId, score, comment};
-    console.log(ratingInfo)
+    console.log(ratingInfo);
     try {
       setLoader(true);
       await axios.post(API_URL_USER_RATING, ratingInfo, {
@@ -44,7 +42,7 @@ const useQualifications = () => {
 
   const handleServiceRating = async (matchId, score, comment) => {
     const ratingInfo = {matchId, score, comment};
-    console.log(ratingInfo)
+    console.log(ratingInfo);
     try {
       setLoader(true);
       await axios.post(API_URL_SERVICE_RATING, ratingInfo, {
