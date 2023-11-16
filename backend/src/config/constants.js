@@ -1,6 +1,7 @@
 const USER_STATUS = {
   PENDING: 0,
-  VALIDATE: 1
+  VALIDATE: 1,
+  DISABLE: 2
 }
 
 const MATCH_STATUS = {
@@ -18,8 +19,8 @@ const MATCH_TYPES = {
 }
 
 const PRODUCTS_TYPES = {
-  SILVER:1,
-  GOLD:2,
+  SILVER: 1,
+  GOLD: 2,
   NO_SUBSCRIPTION: null
 }
 
