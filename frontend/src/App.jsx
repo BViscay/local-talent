@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes  } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { NextUIProvider } from "@nextui-org/react";
 
@@ -30,27 +30,33 @@ import RatingMatch from "./components/RatingMatch/RatingMatch";
 import FormNewCat from "./components/Dashboard-/FormNewCat";
 import EditCategory from "./components/Dashboard-/EditCategory";
 import About from "./views/About";
+import Error404 from "./views/Error404";
+
 import Loader from './components/Loader/Loader';
 import useLoader from './hooks/useLoader';
 
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
+import useKey from './hooks/useKey';
+
 
 function App() {
   const location = useLocation();
   const { loaderValue } = useLoader()
 
+  const [ error404 ] = useKey('error404')
+  
   const isLoginPage = location.pathname === "/login";
   const isRegisterPage = location.pathname === "/sign-up";
   const isValidatePage = location.pathname === "/validate";
-
 
   return (
       <NextUIProvider>
         <div className="w-full">
           {loaderValue && <Loader/>}
-          {!isLoginPage && !isRegisterPage && !isValidatePage && <NavBar />}
+          {!isLoginPage && !isRegisterPage && !isValidatePage && !error404 && <NavBar />}
 
           <Routes>
+
             <Route path='/' element={<Home />} />
             <Route path='/home' element={<Home />} />
             <Route path='/login' element={<LoginForm />} />
@@ -81,8 +87,11 @@ function App() {
             <Route path='/notifications' element={<ProtectedRoute><Notifications/></ProtectedRoute>} />
             <Route path='/editProfile' element={<ProtectedRoute><EditeProfile/></ProtectedRoute>} />
             <Route path="/qualify" element={<ProtectedRoute><RatingMatch/></ProtectedRoute>} />
-            
+           
+            <Route path="*" element={<Error404/>}/>
+
           </Routes>
+
         </div>
       </NextUIProvider>
   );
