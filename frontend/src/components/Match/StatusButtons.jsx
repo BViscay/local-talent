@@ -8,13 +8,14 @@ export default function StatusButtons({
   serviceId,
   isMyMatches,
 }) {
-  console.log(estado, isMyMatches)
+  console.log(estado, isMyMatches);
   const {isModalOpen, handleCloseModal, handleOpenModal} = useLogin();
   return (
     <div>
       {estado === "accept" ? (
         <Button
-          onClick={(estado !== 'accept' && isMyMatches) || (estado === 'qualifyUser' && !isMyMatches)  && handleOpenModal}
+          onClick={
+            handleOpenModal}
           className='bg-green-500/30 text-green-500 self-end'
         >
           Confirmado
