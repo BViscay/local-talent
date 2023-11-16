@@ -27,6 +27,6 @@ router.post('/register', validateRegister, registerController)
 router.post('/login', validateLogin, loginController)
 router.post('/validate', validateAccount, validateController)
 router.post('/resend/:email', validateCode, resendCodeController)
-router.get('/google', oAuthController)
+router.post('/google', oAuthController)
 
 module.exports = router

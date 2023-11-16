@@ -29,7 +29,6 @@ export default function LoginForm() {
   } = useLogin();
 
   const onSubmit = data => {
-    console.log(data)
     setMenuOpen(!menuOpen);
     handleLogin(data);
     handleGeoLocation();

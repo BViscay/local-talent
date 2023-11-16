@@ -52,7 +52,7 @@ User.init({
     type: DataTypes.ENUM,
     values: ['user', 'admin'],
     defaultValue: 'user'
-  },  
+  },
   productId: {
     type: DataTypes.INTEGER,
     references: {

@@ -4,23 +4,27 @@ import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {getToken} from "../redux/sliceLogin";
 import {API_URL_USERIMAGE, API_URL_EDIT_PROFILE} from "../config/api";
+import useLoader from './useLoader';
 
 const useModifyUser = () => {
   const token = useSelector(getToken);
   const navigate = useNavigate();
+
+  const { setLoader } = useLoader()
 
   const handleUserImage = async ({image}) => {
     const imgChange = new FormData();
     imgChange.append("image", image[0]);
 
     try {
-      const response = await axios.put(API_URL_USERIMAGE, imgChange, {
+      setLoader(true)
+      const response = await axios.patch(API_URL_USERIMAGE, imgChange, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       });
-
+      setLoader(false)
       if (response) {
         Swal.fire({
           title: "Éxito",
@@ -32,6 +36,7 @@ const useModifyUser = () => {
         });
       }
     } catch (error) {
+      setLoader(false)
       if (error.response) {
         Swal.fire({
           title: "Error",
@@ -43,14 +48,16 @@ const useModifyUser = () => {
     }
   };
   const handleChangeUserData = async (userData) => {
-    console.log("hola");
+
     try {
-      const {data} = await axios.put(API_URL_EDIT_PROFILE, userData, {
+      setLoader(true)
+      const {data} = await axios.patch(API_URL_EDIT_PROFILE, userData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       });
+      setLoader(false)
       if (data) {
         Swal.fire({
           title: "Éxito",
@@ -62,6 +69,7 @@ const useModifyUser = () => {
         });
       }
     } catch (error) {
+      setLoader(false)
       if (error.response) {
         Swal.fire({
           title: "Error",

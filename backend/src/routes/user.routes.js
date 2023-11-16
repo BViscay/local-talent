@@ -15,8 +15,8 @@ const router = express.Router()
 router.get('/:id/rating', userRatingController)
 
 // rutas privadas
-router.put('/image', validateToken, userImageController)
-router.put('/', validateToken, userUpdateController)
+router.patch('/image', validateToken, userImageController)
+router.patch('/', validateToken, userUpdateController)
 router.patch('/password', validateToken, changePasswordController)
 
 module.exports = router

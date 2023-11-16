@@ -7,6 +7,7 @@ const { createToken } = require('../libs/handleToken')
 const { sendRegisterNotification, sendWelcomeMessage } = require('./email.service')
 const { findUserService, createUserService, countUsers } = require('./user.service')
 const { countNewUserNotificationsService } = require('./notification.service')
+const User = require('../models/user.model')
 
 // Funcion para valdiar session por token
 const loginTokenService = async (userId) => {
@@ -42,6 +43,8 @@ const loginService = async ({ email, password }) => {
   // Validacion de usuario
   if (!user) throw new Error('USER_NOT_FOUND')
   if (user.status === 0) throw new Error('USER_REQUIRE_VALIDATE')
+
+  console.log(user)
 
   const isCorrectPassword = await user.comparePassword(password)
   if (!isCorrectPassword) throw new Error('PASSWORD_INVALID')
@@ -113,6 +116,7 @@ const validateUserService = async (data) => {
     firstname: user.firstname,
     lastname: user.lastname,
     email,
+    image: user.image,
     status: user.status,
     rol: user.rol
   }
@@ -137,8 +141,25 @@ const reSendCodeValidationService = async (email) => {
   return true
 }
 
-const oAuthService = () => {
+const oAuthService = async ({ email, firstname, lastname, image }) => {
+  let user
+  user = await User.findOne({ where: { email } })
+  if (!user) user = User.create({ email, firstname, lastname, password: email, image, status: 1 })
 
+  const token = createToken({ userId: user.id, rol: user.rol })
+
+  const session = {
+    id: user.id,
+    firstname: user.firstname,
+    lastname: user.lastname,
+    email,
+    whatsapp: user.whatsapp,
+    image: user.image,
+    status: user.status,
+    rol: user.rol
+  }
+
+  return { session, token }
 }
 
 module.exports = {

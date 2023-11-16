@@ -47,6 +47,9 @@ export const userHandler = createSlice({
     setImage: (state, action) => {
       state.image = action.payload;
     },
+    setWhatsapp: (state, action) => {
+      state.whatsapp = action.payload;
+    },
     setProductId: (state, action) => {
       state.productId = action.payload;
     },
@@ -74,6 +77,7 @@ export const getFirstLoad = (state) => state?.user?.firstLoad;
 export const getMail = (state) => state?.user?.email;
 export const getName = (state) => state?.user?.name;
 export const getImage = (state) => state?.user?.image;
+export const getWhatsapp = (state) => state?.user?.whatsapp;
 export const getProductId = (state) => state?.user?.productId;
 export const getNotifications = (state) => state?.user?.notifications;
 export const getCountNotifications = (state) => state?.user?.countNotifications;
@@ -91,6 +95,7 @@ export const {
   setName,
   setLastName,
   setImage,
+  setWhatsapp,
   setProductId,
   setRol,
   setNotifications,
