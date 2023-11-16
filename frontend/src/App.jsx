@@ -31,12 +31,11 @@ import FormNewCat from "./components/Dashboard-/FormNewCat";
 import EditCategory from "./components/Dashboard-/EditCategory";
 import About from "./views/About";
 import Error404 from "./views/Error404";
-
 import Loader from './components/Loader/Loader';
 import useLoader from './hooks/useLoader';
-
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 import useKey from './hooks/useKey';
+import RecomendedServicesView from "./views/RecomendedServicesView";
 
 
 function App() {
@@ -68,13 +67,13 @@ function App() {
             <Route path="/filtered-services" element={<FilteredServicesByCat />}/>
             <Route path="/searched-services" element={<SearchedServices />} />
             <Route path="/filtered-by-location" element={<FilteredByLocation />}/>
+            <Route path='/my-services' element={<ProtectedRoute><MyServices/></ProtectedRoute>} />
+            <Route path='/recomended-services' element={<ProtectedRoute><RecomendedServicesView/></ProtectedRoute>} />
             <Route path="/about" element={<About />} />
-            
             <Route path="/suscriptions" element={<Suscriptions/>}/>
             <Route path='/users' element={<Users/>} />
             <Route path='/billing' element={<Billing />} />
             <Route path='/modifications' element={<Modifications/>}/>
-            
             <Route path='/dashboard-admin' element={ <ProtectedRoute><DashboardAdmin/></ProtectedRoute> } />
             <Route path='/active-services' element={ <ProtectedRoute><ActiveServices /></ProtectedRoute> } />
             <Route path='/editCategory' element={<ProtectedRoute><EditCategory/></ProtectedRoute>} />
@@ -82,7 +81,6 @@ function App() {
             <Route path='/consultations-claims' element={<ProtectedRoute><InboxAdmin/></ProtectedRoute>} />
             <Route path='/dashboard' element={<ProtectedRoute><DashboardAdmin/></ProtectedRoute>} />
             <Route path='/create-service' element={<ProtectedRoute><CreateService/></ProtectedRoute>} />
-            <Route path='/my-services' element={<ProtectedRoute><MyServices/></ProtectedRoute>} />
             <Route path='/matchs' element={<ProtectedRoute><Matches/></ProtectedRoute>} />
             <Route path='/notifications' element={<ProtectedRoute><Notifications/></ProtectedRoute>} />
             <Route path='/editProfile' element={<ProtectedRoute><EditeProfile/></ProtectedRoute>} />

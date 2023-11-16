@@ -1,38 +1,43 @@
 import {useEffect} from "react";
 import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {getRenderServices} from "../redux/sliceFilters";
+import {getAllServices} from "../redux/sliceFilters";
 import CardService from "../components/FilteredService/CardService";
-import SearchBar from "../components/Header/SearchBar";
 import RenderFilters from "../components/FilteredService/RenderFilters";
 import Swal from "sweetalert2";
 
-export default function SearchedServices() {
-  const renderServices = useSelector(getRenderServices);
+export default function RecomendedServicesView() {
+  const renderServices = useSelector(getAllServices);
   const navigate = useNavigate();
+  const filteredServices = renderServices.filter(
+    (service) => service.user.productId !== null
+  );
 
   useEffect(() => {
     const showSwal = async () => {
       await Swal.showLoading();
       await Swal.fire({
         title: "Error",
-        text: "No se encontró ningún servicio con ese nombre",
+        text: "No se encontró ningún servicio recomendado para tu zona",
         icon: "error",
       });
       navigate("/home");
     };
 
-    if (renderServices.length === 0) {
+    if (filteredServices.length === 0) {
       showSwal();
     }
-  }, [renderServices, navigate]);
+  }, [filteredServices, navigate]);
 
   return (
     <div>
-      <SearchBar />
+      <div className='flex items-center pl-3 mt-2'>
+        <div className='w-1.5 rounded-lg h-6 bg-primary-600'></div>
+        <h1 className='font-[900] text-2xl mx-2'>Recomendados</h1>
+      </div>
       <RenderFilters />
       <div>
-        {renderServices.length > 0 && (
+        {filteredServices.length > 0 && (
           <div>
             <h2 className='border-3 border-t-transparent border-x-transparent p-1'>
               Servicios Encontrados ({renderServices.length})
