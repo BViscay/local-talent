@@ -1,12 +1,12 @@
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import {useSelector, useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
 import {
   API_URL_SERVICES,
   API_URL_ALLSERVICES,
   API_URL_SEARCH,
 } from "../config/api";
-import { getToken } from "../redux/sliceLogin";
+
 import {
   setRenderServices,
   setAllServices,
@@ -20,31 +20,30 @@ import {
 } from "../redux/sliceFilters";
 import Swal from "sweetalert2";
 
-import useLoader from './useLoader';
+import useLoader from "./useLoader";
 
 const useFilters = () => {
-  const token = useSelector(getToken);
+  const token = localStorage.getItem("token");
   const allServices = useSelector(getAllServices);
   const renderServices = useSelector(getRenderServices);
   const filteredServices = useSelector(getFilteredServices);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { setLoader } = useLoader()
+  const {setLoader} = useLoader();
 
   const handleFilterByCategory = async (catId) => {
-
     try {
-      setLoader(true)
+      setLoader(true);
       const {data} = await axios.get(`${API_URL_SEARCH}?categoryId=${catId}`);
-      setLoader(false)
+      setLoader(false);
       if (data) {
         navigate("/filtered-services");
         dispatch(setFilteredServices(data));
         dispatch(setRenderServices(data));
       }
     } catch (error) {
-      setLoader(false)
+      setLoader(false);
       Swal.fire({
         title: "Error",
         text: "No existen servicios de esta categoría",
@@ -55,12 +54,15 @@ const useFilters = () => {
 
   const handleFilterByName = async (serviceName) => {
     try {
-      const { data } = await axios.get(`${API_URL_SEARCH}?text=${serviceName}`);
+      setLoader(true);
+      const {data} = await axios.get(`${API_URL_SEARCH}?text=${serviceName}`);
+      setLoader(false);
       if (data) {
         dispatch(setRenderServices(data));
         dispatch(setFilteredServices(data));
       }
     } catch (error) {
+      setLoader(false);
       console.log(error);
 
       Swal.fire({
@@ -80,38 +82,42 @@ const useFilters = () => {
       });
     }
     try {
-      const { data } = await axios(API_URL_SERVICES, {
+      setLoader(true);
+      const {data} = await axios(API_URL_SERVICES, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
+      setLoader(false);
       if (data) {
         dispatch(setMyServices(data));
       }
     } catch (error) {
+      setLoader(false);
       console.log(error.response);
     }
   };
   const handleFilterByServiceId = async (servId) => {
     try {
+      setLoader(true);
       const response = await axios(`${API_URL_SEARCH}?serviceId=${servId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
+      setLoader(false);
       if (response.data) {
         dispatch(setServiceDetail(response.data));
       }
     } catch (error) {
+      setLoader(false);
       console.log(error);
     }
   };
 
   const handleAllServices = async () => {
     try {
-      const { data } = await axios(API_URL_ALLSERVICES);
+      const {data} = await axios(API_URL_ALLSERVICES);
       if (data) {
         dispatch(setAllServices(data));
       }

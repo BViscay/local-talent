@@ -19,7 +19,7 @@ const ServCerc = () => {
   return (
     <div className='flex flex-col w-full bg-white items p-2 my-1'>
       <div className='flex items-center justify-between mx-2 mt-1'>
-         <div className='w-1.5 rounded-lg h-6 bg-primary-600'>
+        <div className='w-1.5 rounded-lg h-6 bg-primary-600'>
           <div className='w-52'>
             <p className='font-Inter font-bold font text-xl items-start ml-2'>
               Servicios Cercanos
@@ -52,10 +52,12 @@ const ServCerc = () => {
       ) : (
         <div className='flex justify-center items-center h-32'>
           {isLoggedIn ? (
-            <div className='animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900'></div>
+            <p className='font-Inter font text-xl text-gray-400'>
+              No hay servicios en tu zona
+            </p>
           ) : (
             <p className='font-Inter font text-xl text-gray-400'>
-              Debes loguearte para ver tus servicios cercanos
+              Estamos buscando servicios en tu zona
             </p>
           )}
         </div>

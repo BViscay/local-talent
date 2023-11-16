@@ -39,7 +39,7 @@ const Match = ({
       Plomeria: plumberIcon,
     };
 
-        return iconos[categoria];
+    return iconos[categoria];
   }
 
   return (
@@ -83,9 +83,9 @@ const Match = ({
             {nombre} {apellido}
           </p>
         </div>
-        { !!whatsapp && estado !== 'create' &&
-        <ContactButton phoneNumber={whatsapp} service={titulo} />
-        }
+        {!!whatsapp && estado !== "create" && estado !== "cancel" && (
+          <ContactButton phoneNumber={whatsapp} service={titulo} />
+        )}
       </div>
     </div>
   );

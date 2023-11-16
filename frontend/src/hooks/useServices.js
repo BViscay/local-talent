@@ -1,4 +1,4 @@
-import { getToken, getLocation } from "../redux/sliceLogin";
+import { getLocation } from "../redux/sliceLogin";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -7,7 +7,7 @@ import { API_URL_SERVICES } from "../config/api";
 import useLoader from './useLoader';
 
 const useServices = () => {
-    const token = useSelector(getToken);
+   const token = localStorage.getItem("token");
     const geolocation = useSelector(getLocation);
     const navigate = useNavigate();
 
