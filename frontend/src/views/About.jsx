@@ -30,10 +30,10 @@ export default function About() {
     {
       name: "Andres",
       lastName: "Frei",
-      img: "nada",
-      github: "",
-      gmail: "",
-      linkedin: "",
+      img: "https://lh3.googleusercontent.com/a/ACg8ocL6aQVt1SNRFa9qMGfPe_Z_YV_sG4GxL9vr4UjdAGqnpro0=s288-c-no",
+      github: "https://github.com/andresfrei",
+      gmail: "andresfrei@gmail.com",
+      linkedin: "https://linkedin.com/in/andresfrei",
     },
     {
       name: "Angel",

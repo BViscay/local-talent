@@ -1,4 +1,5 @@
 export const INICIAL_KEYS = {
   loader: true,
-  menuOpen :false
+  menuOpen :false,
+  error404:false
 }
