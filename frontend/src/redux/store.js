@@ -5,6 +5,7 @@ import keysHandler from "./sliceKeys";
 import matchesHandler from "./sliceMatches";
 import usersHandler from "../redux/admin/sliceUsers";
 import servicesHandler from "../redux/admin/sliceServices";
+import userSubHandler from "../redux/admin/sliceUserSub";
 
 export const store = configureStore({
     reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
         keys: keysHandler,
         matches: matchesHandler,
         users: usersHandler,
-        services: servicesHandler
+        services: servicesHandler,
+        userSub: userSubHandler,
     },
 });

@@ -18,4 +18,4 @@ export const getAllUsers = (state) => state.users;
 
 export const { setAllUsers } = usersHandler.actions;
 
-export default usersHandler.reducer
+export default usersHandler.reducer;
