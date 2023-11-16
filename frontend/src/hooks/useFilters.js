@@ -74,29 +74,25 @@ const useFilters = () => {
   };
 
   const handleFilterOwnServices = async () => {
-    if (!token) {
-      Swal.fire({
-        title: "Aviso",
-        text: "Por favor inicia sesión o regístrate para buscar tus servicios",
-        icon: "warning",
-      });
-    }
-    try {
-      setLoader(true);
-      const {data} = await axios(API_URL_SERVICES, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setLoader(false);
-      if (data) {
-        dispatch(setMyServices(data));
+    if (token) {
+      try {
+        setLoader(true);
+        const {data} = await axios(API_URL_SERVICES, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setLoader(false);
+        if (data) {
+          dispatch(setMyServices(data));
+        }
+      } catch (error) {
+        setLoader(false);
+        console.log(error.response);
       }
-    } catch (error) {
-      setLoader(false);
-      console.log(error.response);
     }
   };
+
   const handleFilterByServiceId = async (servId) => {
     try {
       setLoader(true);
