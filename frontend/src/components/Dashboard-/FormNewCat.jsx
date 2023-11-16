@@ -1,10 +1,20 @@
 import { Link } from "react-router-dom";
 import Input from "../Shared/Input";
 import { X } from "lucide-react";
+import useNewCategory from "../../hooks/admin/useNewCategory";
+import { useForm } from "react-hook-form";
 
-const FormNewCat = () => {
+export default function FormNewCat() {
+  const { handleCreateCategory } = useNewCategory();
+
+  const {
+    handleSubmit,
+    register,
+    // formState: { errors },
+  } = useForm({ mode: "onChange" });
+
   return (
-    <div className='flex flex-col items-center w-full'>
+    <div className="flex flex-col items-center w-full">
       <div className="max-w-md p-4 bg-white shadow-md rounded-md flex flex-col items-center">
         <div className="self-end mb-4">
           <Link title="cancel" to="/modifications">
@@ -12,26 +22,44 @@ const FormNewCat = () => {
           </Link>
         </div>
         <h1 className="text-2xl font-bold mb-4">Create new category service</h1>
-        <form className="space-y-1 w-full h-max pb-5 mb-4l">
+        <form
+          className="space-y-1 w-full h-max pb-5 mb-4l"
+          onSubmit={handleSubmit((newEvent) => {
+            console.log("Datos del formulario:", newEvent);
+            handleCreateCategory(newEvent);
+          })}
+        >
           <div className="flex flex-col w-full">
-            <label htmlFor="name" className="text-gray-700 font-semibold mb-1">
-              Name
-            </label>
             <Input
+              labelText="Name"
               type="text"
-              id="name"
+              name="name"
+              register={register}
               className="border border-gray-300 rounded-md p-2 focus:outline-none"
               autoComplete="off"
+              // error={errors.title?.message}
             />
           </div>
           <div className="flex flex-col w-full">
-            <label htmlFor="icon" className="text-gray-700 font-semibold mb-1">
-              Icon image
-            </label>
             <Input
-              type="file"
-              id="icon"
+              labelText="Description"
+              type="text"
+              name="description"
+              register={register}
               className="border border-gray-300 rounded-md p-2 focus:outline-none"
+              autoComplete="off"
+              // error={errors.title?.message}
+            />
+          </div>
+          <div className="flex flex-col w-full">
+            <Input
+              labelText="Icon"
+              className="border border-gray-300 rounded-md p-2 focus:outline-none"
+              type="file"
+              name="icon"
+              accept="image/jpeg,image/png,image/gif"
+              register={register}
+              // error={errors.image?.message}
             />
           </div>
           <button
@@ -45,6 +73,4 @@ const FormNewCat = () => {
       </div>
     </div>
   );
-};
-
-export default FormNewCat;
+}

@@ -63,7 +63,7 @@ export const API_URL_CREATE_NOTIFICATION = API_URL_NOTIFICATIONS + "/create";
 
 export const API_URL_EDIT_PROFILE = API_URL_BASE + "/user";
 
-//----------------------------Admin--------------------------------------------------
+//-----------------------------------Admin-------------------------------------------
 
 export const API_URL_GET_USERS = API_URL_BASE + "/admin/user";
 
@@ -76,4 +76,8 @@ export const API_URL_RATING = API_URL_BASE + "/rating";
 export const API_URL_USER_RATING = API_URL_RATING + "/user";
 
 export const API_URL_SERVICE_RATING = API_URL_RATING + "/service";
+
+export const API_URL_CREATE_CATEGORY = API_URL_BASE + "/admin/category";
+
+export const API_URL_GET_CATEGORIES = API_URL_BASE + "/admin/category";
 
