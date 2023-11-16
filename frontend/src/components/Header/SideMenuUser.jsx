@@ -38,7 +38,7 @@ const SideMenuUser = ({menuOpen, setMenuOpen}) => {
   const isAdmin = rol === "admin";
 
   const handleClick = () => {
-    const url = `https://wa.me/+5492494343156`;
+    const url = `https://api.whatsapp.com/send/?phone=+5492494343156`;
     window.open(url, "_blank");
   };
 

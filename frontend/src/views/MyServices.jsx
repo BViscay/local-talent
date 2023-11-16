@@ -7,7 +7,10 @@ export default function MyServices() {
 
   return (
     <div>
-      <div className='mt-3 text-xl font-bold'>Mis Servicios</div>
+      <div className='flex items-center pl-5 mt-1'>
+        <div className='w-1.5 rounded-lg h-6 bg-primary-600'></div>
+        <h1 className='font-[900] text-2xl mx-2'>Mis Servicios</h1>
+      </div>
       <div>
         {myServices.map((service) => (
           <CardService key={service.id} renderServices={service} />
