@@ -1,26 +1,27 @@
-import { GoogleLogin } from "@react-oauth/google";
 import { CLIENT_ID } from "../../services/Google";
 import useLogin from "../../hooks/useLogin";
 
-export default function GoogleLoginButton() {
+import { LoginSocialGoogle } from 'reactjs-social-login';
+
+
+import {  GoogleLoginButton} from 'react-social-login-buttons'
+
+export default function GoogleLogin() {
   const { handleGoogleLogin } = useLogin();
 
-  const onSuccess = (response) => {
-    handleGoogleLogin(response);
-  };
+  const onSuccess = res => handleGoogleLogin(res.data)
 
   const onFailure = (response) => {
     console.log(response);
-  };
+  }
 
   return (
-    <GoogleLogin
-      clientId={CLIENT_ID}
-      buttonText='Login with Google'
-      onSuccess={onSuccess}
-      onFailure={onFailure}
-      cookiePolicy={"single_host_origin"}
-      isSignedIn={true}
-    />
-  );
+    <LoginSocialGoogle
+      client_id={CLIENT_ID}
+      scope="openid profile email"
+      onResolve={onSuccess}
+      onReject={onFailure}
+    >
+      <GoogleLoginButton />
+    </LoginSocialGoogle>)
 }

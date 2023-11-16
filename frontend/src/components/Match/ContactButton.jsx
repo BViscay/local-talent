@@ -2,9 +2,10 @@ import {BsWhatsapp} from "react-icons/bs";
 //eslint-disable-next-line
 const ContactButton = ({phoneNumber, service}) => {
   const handleClick = () => {
-    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+    /* const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
       `Hola me estoy comunicando por el servicio: ${service}`
-    )}`;
+    )}`; */
+    const url = `https://api.whatsapp.com/send/?phone=${phoneNumber}&text=Hola me estoy comunicando por el servicio: ${service}`
     window.open(url, "_blank");
   };
 

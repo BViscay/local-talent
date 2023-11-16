@@ -21,9 +21,11 @@ import {
   setImage,
   setProductId,
   setRol,
+  setWhatsapp,
 } from "../redux/sliceLogin";
 import Swal from "sweetalert2";
 import useKey from './useKey';
+import { loginFromGoogleService } from '../services/Google';
 
 const useLogin = () => {
   const navigate = useNavigate();
@@ -31,20 +33,18 @@ const useLogin = () => {
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
   const isLogin = useSelector(isLogged);
   const dispatch = useDispatch();
-  const redirectLogin = (navigate) => {
-    navigate("/home");
-  };
+  const redirectLogin = (navigate) =>  navigate("/home")
 
   const [menuOpen, setMenuOpen] = useKey('menuOpen')
   
-  const { setLoader } = useLoader()
+  const { setLoader, handleLoader } = useLoader()
 
   const handleLogin = async (userData) => {
     const {email, password} = userData;
     const URL = API_URL_LOGIN;
-    setLoader(true)
     try {
-      const {data} = await axios.post(URL, {
+      setLoader(true)
+      const { data } = await axios.post(URL, {
         email: email,
         password: password,
       });
@@ -59,13 +59,16 @@ const useLogin = () => {
         dispatch(setName(session.firstname));
         dispatch(setLastName(session.lastname));
         dispatch(setMail(session.email));
+        dispatch(setWhatsapp(session?.whatsapp ||''));
         dispatch(setImage(session.image));
         dispatch(setProductId(session.productId));
         dispatch(setRol(session.rol));
         dispatch(login());
         redirectLogin(navigate);
       }
+      setLoader(false)
     } catch (error) {
+      setLoader(false)
       dispatch(logout());
       if (error.response) {
         if (error.response.data.message === "USER_NOT_FOUND") {
@@ -78,7 +81,6 @@ const useLogin = () => {
         }
       }
     }
-    setLoader(false)
   };
 
   const handleTokenLogin = async () => {
@@ -100,6 +102,7 @@ const useLogin = () => {
             dispatch(setLastName(session.lastname));
             dispatch(setMail(session.email));
             dispatch(setImage(session.image));
+            dispatch(setWhatsapp(session?.whatsapp ||''));
             dispatch(setProductId(session.productId));
             dispatch(setRol(session.rol));
             dispatch(login());
@@ -113,10 +116,30 @@ const useLogin = () => {
     }
   };
 
-  const handleGoogleLogin = (response) => {
-    if (response.credential) {
-      dispatch(setAuthToken(response.credential));
+  const handleGoogleLogin = async (data) => {
 
+    const { email, family_name, given_name, picture } = data
+
+    const res = await handleLoader(loginFromGoogleService, {
+      email,
+      firstname: given_name,
+      lastname: family_name,
+      image:picture
+    })
+
+    const {session, token } = res
+
+    token && window.localStorage.setItem('token',token)
+
+    if (session) {
+      dispatch(setAuthToken(token));
+      dispatch(setName(session.firstname));
+      dispatch(setLastName(session.lastname));
+      dispatch(setMail(session.email));
+      dispatch(setImage(session.image));
+      dispatch(setWhatsapp(session?.whatsapp ||''));
+      dispatch(setProductId(session.productId));
+      dispatch(setRol(session.rol));
       dispatch(login());
       redirectLogin(navigate);
     }

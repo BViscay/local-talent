@@ -72,7 +72,7 @@ const findServiceWhere = async (where, method = 'findAll') => {
       {
         model: User,
         as: 'user',
-        attributes: ['firstname', 'lastname', 'email']
+        attributes: ['firstname', 'lastname', 'email', 'productId']
       }
     ]
   })

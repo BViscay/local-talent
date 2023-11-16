@@ -28,6 +28,12 @@ export default function LoginForm() {
     toggleShowPassword,
   } = useLogin();
 
+  const onSubmit = data => {
+    setMenuOpen(!menuOpen);
+    handleLogin(data);
+    handleGeoLocation();
+  }
+  
   const { handleGeoLocation } = useGeoLocation();
 
   const [menuOpen, setMenuOpen] = useKey('menuOpen');
@@ -54,11 +60,7 @@ export default function LoginForm() {
               <form
                 className="space-y-4 md:space-y-6"
                 action="#"
-                onSubmit={handleSubmit((data) => {
-                  setMenuOpen(!menuOpen);
-                  handleLogin(data);
-                  handleGeoLocation();
-                })}
+                onSubmit={handleSubmit(onSubmit)}
               >
                 <div>
                   <Input

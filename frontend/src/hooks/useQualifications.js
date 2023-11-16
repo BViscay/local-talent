@@ -13,7 +13,7 @@ const useQualifications = () => {
 
   const handleUserRating = async (matchId, score, comment) => {
     const ratingInfo = {matchId, score, comment};
-
+    console.log(ratingInfo)
     try {
       setLoader(true);
       await axios.post(API_URL_USER_RATING, ratingInfo, {
@@ -44,7 +44,7 @@ const useQualifications = () => {
 
   const handleServiceRating = async (matchId, score, comment) => {
     const ratingInfo = {matchId, score, comment};
-
+    console.log(ratingInfo)
     try {
       setLoader(true);
       await axios.post(API_URL_SERVICE_RATING, ratingInfo, {

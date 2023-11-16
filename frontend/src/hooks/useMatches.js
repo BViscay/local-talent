@@ -98,12 +98,13 @@ const useMatches = () => {
     const acceptMatch = {serviceId, matchId};
 
     try {
+      setLoader(true)
       const {data} = await axios.patch(API_URL_ACCEPTMATCH, acceptMatch, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
+      setLoader(false)
       if (data[0] === 1) {
         Swal.fire({
           title: "Éxito",
@@ -121,6 +122,7 @@ const useMatches = () => {
         });
       }
     } catch (error) {
+      setLoader(false)
       if (error.response) {
         Swal.fire({
           title: "Error",
@@ -136,12 +138,13 @@ const useMatches = () => {
   const handleCancelStatusChange = async (matchId) => {
     const matchToChange = {matchId};
     try {
+      setLoader(true)
       const {data} = await axios.patch(API_URL_CANCELMATCH, matchToChange, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(data);
+      setLoader(false)
       if (data[0] === 1) {
         Swal.fire({
           title: "Éxito",
@@ -159,6 +162,7 @@ const useMatches = () => {
         });
       }
     } catch (error) {
+      setLoader(false)
       if (error.response) {
         Swal.fire({
           title: "Error",
@@ -174,12 +178,13 @@ const useMatches = () => {
   const handleCancelOwnStatusChange = async (matchId) => {
     const matchToChange = {matchId};
     try {
+      setLoader(true)
       const {data} = await axios.patch(API_URL_CANCELOWNMATCH, matchToChange, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(data);
+      setLoader(false)
       if (data[0] === 1) {
         Swal.fire({
           title: "Éxito",
@@ -197,6 +202,7 @@ const useMatches = () => {
         });
       }
     } catch (error) {
+      setLoader(false)
       if (error.response) {
         Swal.fire({
           title: "Error",

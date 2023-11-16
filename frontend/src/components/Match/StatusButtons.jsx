@@ -8,13 +8,13 @@ export default function StatusButtons({
   serviceId,
   isMyMatches,
 }) {
+  console.log(estado, isMyMatches)
   const {isModalOpen, handleCloseModal, handleOpenModal} = useLogin();
-
   return (
     <div>
       {estado === "accept" ? (
         <Button
-          onClick={handleOpenModal}
+          onClick={(estado !== 'accept' && isMyMatches) || (estado === 'qualifyUser' && !isMyMatches)  && handleOpenModal}
           className='bg-green-500/30 text-green-500 self-end'
         >
           Confirmado
@@ -23,7 +23,7 @@ export default function StatusButtons({
         <Button className='bg-red-500/30 text-red-500'>Cancelado</Button>
       ) : estado === "qualifyUser" || estado === "qualifyServ" ? (
         <Button
-          onClick={() => handleOpenModal}
+          onClick={handleOpenModal}
           className='bg-primary-900/30 text-primary-100'
         >
           A Calificar
@@ -42,6 +42,7 @@ export default function StatusButtons({
           matchId={matchId}
           serviceId={serviceId}
           isMyMatches={isMyMatches}
+          estado={estado}
         />
       )}
     </div>

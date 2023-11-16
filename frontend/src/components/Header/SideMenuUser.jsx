@@ -108,32 +108,8 @@ const SideMenuUser = ({ menuOpen, setMenuOpen }) => {
           <div className="w-full py-2">
             <div
               onClick={() => {
-                if (isPremiun === null) {
-                  if (myServices.length <= 1) {
                     navigate("/create-service");
                     setMenuOpen(!menuOpen);
-                  } else {
-                    Swal.fire({
-                      title: "Limite de servicios alcanzado",
-                      text: "Para crear mas servicios debes suscribirte a alguno de nuestros planes",
-                      icon: "warning",
-                    });
-                  }
-                } else if (isPremiun === 1) {
-                  if (myServices.length < 3) {
-                    navigate("/create-service");
-                    setMenuOpen(!menuOpen);
-                  } else {
-                    Swal.fire({
-                      title: "Limite de servicios alcanzado",
-                      text: "Para crear mas servicios debes actualizar tu plan",
-                      icon: "warning",
-                    });
-                  }
-                } else if (isPremiun === 2) {
-                  navigate("/create-service");
-                  setMenuOpen(!menuOpen);
-                }
               }}
               className="w-full flex p-3 items-center gap-2 bg-white rounded-lg cursor-pointer"
             >

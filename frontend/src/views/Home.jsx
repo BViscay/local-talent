@@ -5,7 +5,7 @@ import { getLocation } from "../redux/sliceLogin";
 import useLogin from "../hooks/useLogin";
 import useGeoLocation from "../hooks/useGeoLocation";
 import useFilters from "../hooks/useFilters";
-import useNotifications from "../hooks/useNotifications";
+// import useNotifications from "../hooks/useNotifications";
 
 import Descuentos from "../components/Home-/CarrDesc";
 import Categories from "../components/Home-/Categories";
@@ -16,7 +16,7 @@ import Greet from "../components/Header/Greet";
 import useLoader from '../hooks/useLoader';
 
 export default function Home() {
-  const { handleCountNotifications } = useNotifications();
+  // const { handleCountNotifications } = useNotifications();
   const { handleTokenLogin } = useLogin();
   const { handleGeoLocation } = useGeoLocation();
   const { handleFilterByLocation, handleAllServices } =
@@ -29,7 +29,7 @@ export default function Home() {
     const fetchData = async () => {
       await handleGeoLocation();
       await handleAllServices();
-      await handleCountNotifications();
+      // await handleCountNotifications();
     };
     handleTokenLogin();
     fetchData();
