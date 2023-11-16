@@ -37,8 +37,8 @@ class PaymentService {
         transaction_amount: 100,
         currency_id: 'ARS'
       },
-      back_url: `https://d4c7-190-133-115-151.ngrok-free.app/api/pay/success/SILVER/${userId}`,
-      // back_url: `https://local-talent-server-dev-rqbs.3.us-1.fl0.io/api/pay/success/SILVER/${userId}`,
+      // back_url: `https://d4c7-190-133-115-151.ngrok-free.app/api/pay/success/SILVER/${userId}`,
+      back_url: `https://local-talent-server-dev-rqbs.3.us-1.fl0.io/api/pay/success/SILVER/${userId}`,
 
       payer_email: 'test_user_1662266079@testuser.com'
     }
