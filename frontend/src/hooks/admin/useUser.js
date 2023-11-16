@@ -6,8 +6,8 @@ import { getToken } from "../../redux/sliceLogin";
 
 const useUser = () => {
   const token = useSelector(getToken);
-
   const dispatch = useDispatch();
+  const users = useSelector((state) => state.users.users);
 
   const handlerAllUsers = async () => {
     try {
@@ -25,7 +25,25 @@ const useUser = () => {
     }
   };
 
-  return { handlerAllUsers };
+  const handlerDisableUserById = (userId) => {
+    const updatedUsers = users.map((user) =>
+      user.id === userId ? { ...user, status: 2 } : user
+    );
+
+    dispatch(setAllUsers(updatedUsers));
+  };
+
+  const handlerEnableUserById = (userId) => {
+    const updatedUsers = users.map((user) =>
+      user.id === userId ? { ...user, status: 1 } : user
+    );
+  
+    dispatch(setAllUsers(updatedUsers));
+  };
+  
+
+  return { handlerAllUsers, handlerDisableUserById, handlerEnableUserById };
 };
 
 export default useUser;
+

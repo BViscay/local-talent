@@ -9,9 +9,9 @@ const usersHandler = createSlice({
   initialState,
   reducers: {
     setAllUsers: (state, action) => {
-      state.users = action.payload
-    }
-  }
+      state.users = action.payload;
+    },
+  },
 });
 
 export const getAllUsers = (state) => state.users;
