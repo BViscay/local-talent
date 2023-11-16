@@ -33,7 +33,7 @@ export default function Home() {
     };
     handleTokenLogin();
     fetchData();
-    setLoader(false)
+    setLoader(false);
     //eslint-disable-next-line
   }, []);
  
