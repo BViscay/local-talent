@@ -4,7 +4,7 @@ import {useForm} from "react-hook-form";
 import Input from "../Shared/Input";
 import {RefreshCcw} from "lucide-react";
 import {Avatar} from "@nextui-org/react";
-import {getName, getLastName, getMail, getImage} from "../../redux/sliceLogin";
+import {getName, getLastName, getMail, getImage, getWhatsapp} from "../../redux/sliceLogin";
 import useModifyUser from "../../hooks/useModifyUser";
 import useLogin from "../../hooks/useLogin";
 import ChangeImageModal from "./ChangeImageModal";
@@ -28,12 +28,14 @@ export default function Edit() {
   const lastName = useSelector(getLastName);
   const mail = useSelector(getMail);
   const image = useSelector(getImage);
+  const whatsapp = useSelector(getWhatsapp);
 
   useEffect(() => {
     const initialValues = {
-      name: name,
-      lastName: lastName,
+      firstname: name,
+      lastname: lastName,
       email: mail,
+      whatsapp
     };
     Object.keys(initialValues).forEach((key) => {
       setValue(key, initialValues[key]);
@@ -85,7 +87,7 @@ export default function Edit() {
             labelText='Nombre'
             type='text'
             placeholder='Escriba el nuevo nombre'
-            name='name'
+            name='firstname'
             register={register}
             error={errors.name?.message}
           />
@@ -95,29 +97,9 @@ export default function Edit() {
             labelText='Apellido'
             type='text'
             placeholder='Escriba el nuevo Apellido'
-            name='lastName'
+            name='lastname'
             register={register}
             error={errors.apellido?.message}
-          />
-        </div>
-        <div className='w-[90%]'>
-          <Input
-            labelText='Email'
-            type='text'
-            placeholder='Escriba el nuevo email'
-            name='email'
-            register={register}
-            error={errors.email?.message}
-          />
-        </div>
-        <div className='w-[90%]'>
-          <Input
-            labelText='Ingrese su ciudad '
-            type='text'
-            placeholder='Facilitara encontrar servicios cercanos'
-            name='city'
-            register={register}
-            error={errors.city?.message}
           />
         </div>
         <div className='w-[90%]'>
@@ -125,7 +107,7 @@ export default function Edit() {
             labelText='Agregar whatsApp'
             type='number'
             placeholder='Ingrese su numero'
-            name='whatsApp'
+            name='whatsapp'
             register={register}
             error={errors.whatsApp?.message}
           />

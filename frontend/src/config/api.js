@@ -16,8 +16,6 @@ export const API_URL_GOOGLE = API_URL_TOKENLOGIN + "/google";
 
 //--------------------------------------------------------------------------------
 
-export const API_URL_EDIT_PROFILE = API_URL_BASE + "/user";
-
 export const API_URL_USERIMAGE = API_URL_BASE + "/user/image";
 
 //--------------------------------------------------------------------------------

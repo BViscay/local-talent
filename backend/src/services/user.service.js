@@ -39,6 +39,7 @@ const changePasswordService = async (userId, password) => {
 const userUpdateService = async (values, userId) => {
   console.log(values, userId)
   const modify = await User.update(values, { where: { id: userId } })
+  console.log(modify)
   return modify
 }
 

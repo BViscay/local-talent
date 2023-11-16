@@ -83,7 +83,9 @@ const Match = ({
             {nombre} {apellido}
           </p>
         </div>
+        { !!whatsapp && estado !== 'create' &&
         <ContactButton phoneNumber={whatsapp} service={titulo} />
+        }
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ const authTokenController = async (req, res) => {
   try {
     const { userId } = req.headers.session
     const result = await loginTokenService(userId)
-    res.status(201).json(result)
+    res.status(200).json(result)
   } catch ({ message }) {
     res.status(400).json({ message })
   }
@@ -50,7 +50,7 @@ const resendCodeController = async (req, res) => {
 const oAuthController = async (req, res) => {
   try {
     const result = await oAuthService(req.body)
-    res.status(201).json(result)
+    res.status(200).json(result)
   } catch ({ message }) {
     res.status(400).json({ message })
   }

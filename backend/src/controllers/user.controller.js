@@ -26,12 +26,11 @@ const userUpdateController = async (req, res) => {
   try {
     const { id } = req.params
     const { userId } = req.headers.session
-    // Si tiene ID como parametro es proque uso ruta ADMIN
-    let user = userId
-    if (id) { user = id }
-    const result = await userUpdateService(req.body, user)
 
-    res.status(200).json(result)
+    // Si tiene ID como parametro es proque uso ruta ADMIN
+    await userUpdateService(req.body, id || userId)
+
+    res.status(200).json({ message: 'USER_UPDATED' })
   } catch ({ message }) {
     res.status(400).json({ message })
   }

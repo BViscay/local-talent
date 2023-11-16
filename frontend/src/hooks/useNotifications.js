@@ -6,7 +6,7 @@ import {
 } from "../config/api";
 import Swal from "sweetalert2";
 import {useSelector, useDispatch} from "react-redux";
-import {isLogged} from "../redux/sliceLogin";
+import {getToken, isLogged} from "../redux/sliceLogin";
 import {
   setNotifications,
   setCountNotifications,
@@ -17,7 +17,7 @@ import {
 import useLoader from './useLoader';
 
 const useNotifications = () => {
-  const token = localStorage.getItem("token");
+  const token = useSelector(getToken) ;
   const isLogin = useSelector(isLogged);
   const isFirstLoad = useSelector(getFirstLoad);
   const dispatch = useDispatch();
