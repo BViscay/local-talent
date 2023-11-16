@@ -1,6 +1,4 @@
 import axios from "axios";
-import {getToken} from "../redux/sliceLogin";
-import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import Swal from "sweetalert2";
 import {
@@ -10,7 +8,7 @@ import {
 } from "../config/api";
 
 const useSuscriptions = () => {
-  const token = useSelector(getToken);
+  const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
   const handleSilverSuscription = async () => {
@@ -46,7 +44,6 @@ const useSuscriptions = () => {
   };
 
   const handleCancelSuscription = async () => {
-    console.log("hola");
     try {
       const {data} = await axios.patch(API_URL_CANCEL_SUSCRIPTION, null, {
         headers: {

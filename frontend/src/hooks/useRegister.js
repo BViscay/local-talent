@@ -13,7 +13,7 @@ import {
   setMail,
   getMail,
 } from "../redux/sliceLogin";
-import useLoader from './useLoader';
+import useLoader from "./useLoader";
 
 const useRegister = () => {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const useRegister = () => {
 
   const navigate = useNavigate();
 
-  const { setLoader } = useLoader()
+  const {setLoader} = useLoader();
 
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -55,7 +55,7 @@ const useRegister = () => {
       return;
     }
 
-    setLoader(true)
+    setLoader(true);
     await axios
       .post(API_URL_REGISTER, {
         firstname: name,
@@ -65,7 +65,7 @@ const useRegister = () => {
       })
       .then(({data}) => {
         const {id, email} = data;
-        setLoader(false)
+        setLoader(false);
         if (id && email) {
           dispatch(setMail(email));
           dispatch(setName(name));
@@ -74,7 +74,7 @@ const useRegister = () => {
         }
       })
       .catch((error) => {
-        setLoader(false)
+        setLoader(false);
         if (error.response) {
           console.log("Response Data:", error.response.data);
           Swal.fire("Error", "Ocurrió un error durante el registro", "error"); // SweetAlert en caso de error en el registro
@@ -85,27 +85,27 @@ const useRegister = () => {
   const handleValidate = async (code) => {
     const values = Object.values(code);
     const validateCode = values.join("");
-    setLoader(true)
+    setLoader(true);
     await axios
       .post(API_URL_VALIDATE, {
         email: userMail,
         code: validateCode,
       })
       .then(({data}) => {
-        setLoader(false)
+        setLoader(false);
         const {session, token} = data;
-
         if (session && token) {
           navigate("/home");
+          localStorage.setItem("token", token);
           dispatch(login());
           dispatch(setAuthToken(token));
         }
       })
       .catch((error) => {
-        setLoader(false)
+        setLoader(false);
         if (error.response) {
           console.log("Response Data:", error.response.data);
-          Swal.fire("Error", "Código de validación incorrecto", "error"); // SweetAlert en caso de código de validación incorrecto
+          Swal.fire("Error", "Código de validación incorrecto", "error");
         }
       });
   };
@@ -113,10 +113,10 @@ const useRegister = () => {
   return {
     handleRegister,
     handleValidate,
-    showPassword, // Estado para mostrar/ocultar contraseña
-    showConfirmPassword, // Estado para mostrar/ocultar confirmación de contraseña
-    setShowPassword, // Función para alternar mostrar/ocultar contraseña
-    setShowConfirmPassword, // Función para alternar mostrar/ocultar confirmación de contraseña
+    showPassword,
+    showConfirmPassword,
+    setShowPassword,
+    setShowConfirmPassword,
   };
 };
 

@@ -6,7 +6,7 @@ import {
 } from "../config/api";
 import Swal from "sweetalert2";
 import {useSelector, useDispatch} from "react-redux";
-import {getToken, isLogged} from "../redux/sliceLogin";
+import {isLogged} from "../redux/sliceLogin";
 import {
   setNotifications,
   setCountNotifications,
@@ -14,30 +14,30 @@ import {
   getFirstLoad,
 } from "../redux/sliceLogin";
 
-import useLoader from './useLoader';
+import useLoader from "./useLoader";
 
 const useNotifications = () => {
-  const token = useSelector(getToken) ;
+  const token = localStorage.getItem("token");
   const isLogin = useSelector(isLogged);
   const isFirstLoad = useSelector(getFirstLoad);
   const dispatch = useDispatch();
 
-  const { setLoader } = useLoader()
+  const {setLoader} = useLoader();
 
   const handleCountNotifications = async () => {
     if (isFirstLoad && isLogin) {
       try {
-        setLoader(true)
+        setLoader(true);
         const {data} = await axios.get(API_URL_COUNT_NOTIFICATIONS, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        setLoader(false)
+        setLoader(false);
         dispatch(setCountNotifications(data));
         dispatch(setFirstLoad(false));
       } catch (error) {
-        setLoader(false)
+        setLoader(false);
         if (error.response) {
           if (isLogin) {
             Swal.fire({
