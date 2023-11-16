@@ -6,6 +6,8 @@ import matchesHandler from "./sliceMatches";
 import usersHandler from "../redux/admin/sliceUsers";
 import servicesHandler from "../redux/admin/sliceServices";
 import userSubHandler from "../redux/admin/sliceUserSub";
+import newCategoryHandler from "../redux/admin/sliceNewCategory";
+import categoriesHandler from "../redux/admin/sliceCategories";
 
 export const store = configureStore({
     reducer: {
@@ -16,5 +18,7 @@ export const store = configureStore({
         users: usersHandler,
         services: servicesHandler,
         userSub: userSubHandler,
+        newCategory: newCategoryHandler,
+        categories: categoriesHandler
     },
 });

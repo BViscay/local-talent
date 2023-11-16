@@ -1,31 +1,31 @@
 import axios from "axios";
-import { API_URL_GET_SERVICES } from "../../config/api";
+import { API_URL_GET_CATEGORIES } from "../../config/api";
 import { getToken } from "../../redux/sliceLogin";
 import { useDispatch, useSelector } from "react-redux";
-import { setServices } from "../../redux/admin/sliceServices";
+import { setCategories } from "../../redux/admin/sliceCategories";
 
-const useServices = () => {
+const useCategories = () => {
   const token = useSelector(getToken);
 
   const dispatch = useDispatch();
 
-  const handlerServices = async () => {
+  const handlerCategories = async () => {
     try {
-      const { data } = await axios.get(API_URL_GET_SERVICES, {
+      const { data } = await axios.get(API_URL_GET_CATEGORIES, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
       if (data) {
-        dispatch(setServices(data));
+        dispatch(setCategories(data));
       }
     } catch (error) {
       console.log(error.message);
     }
   };
 
-  return { handlerServices };
+  return { handlerCategories };
 };
 
-export default useServices;
+export default useCategories;
