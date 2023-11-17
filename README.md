@@ -31,17 +31,14 @@ Todo el Backend fue creado con Express uilizando bases de datos de PostgreSQL y 
 pasarela de pagos y la autenticación de terceros.
 
 ## Integrantes del equipo
-
 </br>
-
 ### 💻🎨 Frontend (React)
-|:-:|:-:|:-:|:-:|
+
 | **Gonzalo Arana** | **Pablo Palazzetti** | **Walter Britos** | **Bruno Viscay** |
 
 </br>
 
 ### 🔙👨‍💻 Backend (Express)
-|:-:|:-:|:-:|:-:|
 | **Andres Frei** | **Angel Suarez** | **Diego Perez** | **Angel Tirado**| 
 
 ## Construido con
