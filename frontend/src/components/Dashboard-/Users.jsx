@@ -1,19 +1,19 @@
 import Sidebar from "./Sidebar";
-import MenuOptionUser from "./MenuOptionUser";
 import useUser from "../../hooks/admin/useUser";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { USER_STATUS_TEXT } from '../../config/constants';
 
 export default function Users() {
-  const { handlerAllUsers } = useUser();
-  const users = useSelector((state) => state.users.users);
+  const { users, handlerAllUsers, handleDisableUser, handlerEnableUser } = useUser();
+  
+  useEffect(() => {handlerAllUsers()}, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await handlerAllUsers();
-    };
-    fetchData();
-  }, []);
+  const handleClick = (userId, status) =>{
+    if(status === 0 ) return
+    status === 1 
+      ? handleDisableUser(userId) 
+      : handlerEnableUser(userId)
+  }
 
   return (
     <div className="flex h-screen">
@@ -41,7 +41,7 @@ export default function Users() {
               <th className="px-9 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                 WhatsApp
               </th>
-              <th className="px-10 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-10 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider text-center">
                 Actions
               </th>
             </tr>
@@ -67,7 +67,10 @@ export default function Users() {
                   {user.whatsapp}
                 </td>
                 <td className="px-12 py-4">
-                  <MenuOptionUser userId={user.id} status={user.status} />
+                  <button
+                    className='outline outline-2  outline-offset-2 w-36 rounded-sm'
+                    onClick={ () => handleClick(user.id, user.status) }
+                  >{USER_STATUS_TEXT[user.status]}</button>
                 </td>
               </tr>
             ))}

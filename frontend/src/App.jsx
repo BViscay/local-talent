@@ -71,20 +71,21 @@ function App() {
             <Route path='/recomended-services' element={<ProtectedRoute><RecomendedServicesView/></ProtectedRoute>} />
             <Route path="/about" element={<About />} />
             <Route path="/suscriptions" element={<Suscriptions/>}/>
-            <Route path='/users' element={<Users/>} />
             <Route path='/billing' element={<Billing />} />
             <Route path='/modifications' element={<Modifications/>}/>
-            <Route path='/dashboard-admin' element={ <ProtectedRoute><DashboardAdmin/></ProtectedRoute> } />
             <Route path='/active-services' element={ <ProtectedRoute><ActiveServices /></ProtectedRoute> } />
             <Route path='/editCategory' element={<ProtectedRoute><EditCategory/></ProtectedRoute>} />
             <Route path='/create-new-category' element={<ProtectedRoute><FormNewCat/></ProtectedRoute>} />
             <Route path='/consultations-claims' element={<ProtectedRoute><InboxAdmin/></ProtectedRoute>} />
-            <Route path='/dashboard' element={<ProtectedRoute><DashboardAdmin/></ProtectedRoute>} />
             <Route path='/create-service' element={<ProtectedRoute><CreateService/></ProtectedRoute>} />
             <Route path='/matchs' element={<ProtectedRoute><Matches/></ProtectedRoute>} />
             <Route path='/notifications' element={<ProtectedRoute><Notifications/></ProtectedRoute>} />
             <Route path='/editProfile' element={<ProtectedRoute><EditeProfile/></ProtectedRoute>} />
             <Route path="/qualify" element={<ProtectedRoute><RatingMatch/></ProtectedRoute>} />
+            
+            <Route path='/users' element={ <ProtectedRoute><Users/></ProtectedRoute>  } />
+            <Route path='/dashboard' element={<ProtectedRoute><DashboardAdmin/></ProtectedRoute>} />
+            <Route path='/dashboard-admin' element={ <ProtectedRoute><DashboardAdmin/></ProtectedRoute> } />
            
             <Route path="*" element={<Error404/>}/>
 

@@ -14,8 +14,8 @@ export default function DashboardAdmin() {
           <h1 className="text-2xl font-semibold text-gray-800 mb-4 ml-4">
             Hola {userName} 👋
           </h1>
-          <p className="px-3 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider mb-4">
-            Here are all your Relik analytics overviews
+          <p className="px-3 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider mb-4 text-center">
+            Bienvenido al dashboard de LocalTalent !!!
           </p>
           <div className="grid grid-cols-2 gap-4">{/* Otros contenidos */}</div>
         </div>

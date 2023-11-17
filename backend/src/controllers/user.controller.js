@@ -27,6 +27,7 @@ const userUpdateController = async (req, res) => {
     const { id } = req.params
     const { userId } = req.headers.session
 
+    console.log('id, userid', id, userId)
     // Si tiene ID como parametro es proque uso ruta ADMIN
     await userUpdateService(req.body, id || userId)
 

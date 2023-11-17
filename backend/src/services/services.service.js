@@ -56,10 +56,6 @@ const searchService = async (query) => {
 }
 
 const findServiceWhere = async (where, method = 'findAll') => {
-  // where = { ...where, status: 0 }
-
-  console.log(where)
-
   return await Service[method]({
     where,
     attributes: { exclude: ['status', 'deletedAt'] },

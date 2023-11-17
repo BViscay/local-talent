@@ -3,10 +3,8 @@ import { useNavigate } from "react-router-dom";
 import {
   Home,
   FolderOpen,
-  Wrench,
   Users,
   CreditCard,
-  HelpCircle,
 } from "lucide-react";
 import { Button } from "@nextui-org/react";
 
@@ -77,35 +75,6 @@ export default function Sidebar() {
 
         <Button
           onClick={() => {
-            navigate("/modifications");
-            setActiveRoute("modifications");
-          }}
-          variant="flat"
-          className={`${
-            activeRoute === "modifications"
-            ? "bg-blue-300" // Color más oscuro para la ruta activa
-            : "bg-blue-200" // Color para rutas no activas
-          } flex items-center justify-start w-full`}
-        >
-          <Wrench
-            size={30}
-            strokeWidth={2.2}
-            color="#266DD3"
-            className="mr-2"
-          />
-          <span
-            className={`text-gray-500 ${
-              activeRoute === "/modifications"
-                ? "text-gray-900"
-                : "hover:text-gray-900"
-            }`}
-          >
-            Modifications
-          </span>
-        </Button>
-
-        <Button
-          onClick={() => {
             navigate("/users");
             setActiveRoute("users");
           }}
@@ -152,35 +121,6 @@ export default function Sidebar() {
             }`}
           >
             Billing
-          </span>
-        </Button>
-
-        <Button
-          onClick={() => {
-            navigate("/consultations-claims");
-            setActiveRoute("consultations-claims");
-          }}
-          variant="flat"
-          className={`${
-            activeRoute === "consultations-claims"
-            ? "bg-blue-300" // Color más oscuro para la ruta activa
-            : "bg-blue-200" // Color para rutas no activas
-          } flex items-center justify-start w-full`}
-        >
-          <HelpCircle
-            size={30}
-            strokeWidth={2.2}
-            color="#266DD3"
-            className="mr-2"
-          />
-          <span
-            className={`text-gray-500 ${
-              activeRoute === "/consultations-claims"
-                ? "text-gray-900"
-                : "hover:text-gray-900"
-            }`}
-          >
-            Consultations/Claims
           </span>
         </Button>
       </div>
