@@ -36,14 +36,14 @@ pasarela de pagos y la autenticación de terceros.
 
 ### 💻🎨 Frontend (React)
 | <img src="https://media.licdn.com/dms/image/D4D03AQEo98uMt5d3QA/profile-displayphoto-shrink_800_800/0/1691504759566?e=1700092800&v=beta&t=SJ7VioaNkY-wGZK1aOUUopwIyx_3tp3rRyV7UTayYq8" height=60>|<img src="https://avatars.githubusercontent.com/u/123534779?v=4" height=60>|<img src="https://avatars.githubusercontent.com/u/42724273?v=4" height=60>|<img src="https://media.licdn.com/dms/image/D4D03AQGT-a-pw6WuEA/profile-displayphoto-shrink_800_800/0/1690975788828?e=1700092800&v=beta&t=0Cizv7_6d0PdX9jxsCTCe5rGUR6pxzdDNEaX7LNe9vw" height=60>|
-|:-:|:-:|:-:|:-:|
+
 | **Gonzalo Arana**| **Pablo Palazzetti**| **Walter Britos** | **Bruno Viscay**|
 
 </br>
 
 ### 🔙👨‍💻 Backend (Express)
 | <img src="https://avatars.githubusercontent.com/u/108707098?v=4" height=60>|<img src="https://media.licdn.com/dms/image/C4E03AQEDrAHnINlJ9w/profile-displayphoto-shrink_800_800/0/1623797162734?e=1700092800&v=beta&t=_dhOqvzbCOdh_i2K0GYtJxcvgLOcceOuLfGEhDT6eBQ" height=60>| <img src="https://avatars.githubusercontent.com/u/114777251?v=4" height=60>| <img src="https://media.licdn.com/dms/image/C4D03AQEkg5lcplnbXA/profile-displayphoto-shrink_800_800/0/1543170521473?e=1700092800&v=beta&t=nqIChYol9gKMhKNgSNPFWD4OCDig8CxuwANfvcs05Uk" height=60>|
-|:-:|:-:|:-:|:-:|
+
 | **Andres Frei**| **Angel Suarez**| **Diego Perez** | **Angel Tirado**| 
 
 ## Construido con
