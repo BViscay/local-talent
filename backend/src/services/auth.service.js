@@ -14,6 +14,7 @@ const loginTokenService = async (userId) => {
   const user = await findUserService({ id: userId })
   if (!user) throw new Error('USER_NOT_FOUND')
   if (user.status === 0) throw new Error('USER_REQUIRE_VALIDATE')
+  if (user.status === 2) throw new Error('USER_DISABLE')
 
   const token = createToken({ userId: user.id })
 
@@ -43,6 +44,7 @@ const loginService = async ({ email, password }) => {
   // Validacion de usuario
   if (!user) throw new Error('USER_NOT_FOUND')
   if (user.status === 0) throw new Error('USER_REQUIRE_VALIDATE')
+  if (user.status === 2) throw new Error('USER_DISABLE')
 
   console.log(user)
 
@@ -145,6 +147,8 @@ const oAuthService = async ({ email, firstname, lastname, image }) => {
   let user
   user = await User.findOne({ where: { email } })
   if (!user) user = User.create({ email, firstname, lastname, password: email, image, status: 1 })
+
+  if (user.status === 2) throw new Error('USER_DISABLE')
 
   const token = createToken({ userId: user.id, rol: user.rol })
 
