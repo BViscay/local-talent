@@ -47,7 +47,6 @@ pasarela de pagos y la autenticación de terceros.
 ### Tecnologias usadas para la API
 
 [![FL0](https://img.shields.io/badge/FL0-000000?style=for-the-badge&logo=FL0&logoColor=white)](https://www.fl0.com/)
-[![PostImages](https://img.shields.io/badge/PostImages-000000?style=for-the-badge&logo=FL0&logoColor=white)](https://postimages.org/)
 [![Cloudinary](https://img.shields.io/badge/Cloudinary-777BB4?style=for-the-badge&logo=cloudinary&logoColor=white)](https://cloudinary.com/)
 ![Sequelize](https://img.shields.io/badge/Sequelize-00000?style=for-the-badge&logo=sequelize&logoColor=green&color=white)
 ![POSTGRESQL](https://img.shields.io/badge/PostgreSQL-00000?style=for-the-badge&logo=postgresql&logoColor=blue&color=white)
