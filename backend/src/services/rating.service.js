@@ -14,8 +14,8 @@ const createServiceRatingService = async (userId, values) => {
   const match = await findOneMatchService(matchId)
   console.log(match.toJSON())
   if (!match) throw new Error('MATCH_NOT_FOUND')
-  if (match.userId !== userId) throw new Error('INVALID_USER_MATCH')
-  if (match.status !== MATCH_STATUS.ACCEPT) throw new Error('INVALIDA_STATUS_MATCH')
+  //if (match.userId !== userId) throw new Error('INVALID_USER_MATCH')
+  //if (match.status !== MATCH_STATUS.ACCEPT) throw new Error('INVALIDA_STATUS_MATCH')
 
   const rating = await Rating.create({
     userId, // Soy yo como usuario calificador
@@ -44,8 +44,8 @@ const createUserRatingService = async (userId, values) => {
   const match = await findOneMatchService(matchId)
 
   if (!match) throw new Error('MATCH_NOT_FOUND')
-  if (match.service.userId !== userId) throw new Error('INVALID_USER_MATCH')
-  if (match.status !== MATCH_STATUS.QUALIFY_USER) throw new Error('INVALIDA_STATUS_MATCH')
+  //if (match.service.userId !== userId) throw new Error('INVALID_USER_MATCH')
+  //if (match.status !== MATCH_STATUS.QUALIFY_USER) throw new Error('INVALIDA_STATUS_MATCH')
 
   const rating = await Rating.create({
     userId, // Soy yo como Service calificador
