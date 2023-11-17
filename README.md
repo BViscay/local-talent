@@ -22,8 +22,9 @@ El presente proyecto ha sido creado como parte del proceso de Soy Henry para la 
 ## La App
 
 Para comenzar a utilizar la aplicacion solo debes clickear [AQUÍ](https://pg-henry-local-talent.vercel.app/) y listo! Ya podras encontrar todos los servicios disponibles, filtrdos por tu geolocalizacón actualizada 
-en tiempo real, ordenarlos y ver las características de cada uno de ellos. Podrás hacer match con los diferentes prestadores de servicios o, si sos proveedor, publicar tu actividad para matchaear con tus potenciales
-clientes.
+en tiempo real, ordenarlos y ver las características de cada uno de ellos. Podrás hacer match con los diferentes prestadores de servicios o, si sos proveedor, publicar tu actividad para matchaear con tus potenciales clientes. 
+El espíritu colaborativo de Local Talent, hace que puedas encontrar a los mejores prestadores en función a las calificaciones de los propios usuarios!
+
 
 ## Local Talent - BACKEND REST API
 
