@@ -1,4 +1,4 @@
-const { createCategoryService, findCategoriesServices, updateCategoryService } = require('../services/category.service')
+const { createCategoryService, findCategoriesServices, updateCategoryService, deleteCategoryService } = require('../services/category.service')
 
 const createCategoryController = async (req, res) => {
   try {
@@ -28,8 +28,19 @@ const updateCategoryController = async (req, res) => {
   }
 }
 
+const deleteCategoryController = async (req, res) => {
+  try {
+    const { id } = req.params
+    await deleteCategoryService(id)
+    res.status(200).json({ message: `Category ${id} was removed` })
+  } catch ({ message }) {
+    res.status(400).json({ message })
+  }
+}
+
 module.exports = {
   findAllCagoriesService,
   createCategoryController,
-  updateCategoryController
+  updateCategoryController,
+  deleteCategoryController
 }

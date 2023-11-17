@@ -15,8 +15,11 @@ const updateCategoryService = async (values, categoryId) => {
   return true
 }
 
+const deleteCategoryService = async (id) => await Category.destroy({ where: {id} })
+
 module.exports = {
   createCategoryService,
   findCategoriesServices,
-  updateCategoryService
+  updateCategoryService,
+  deleteCategoryService
 }
