@@ -70,7 +70,7 @@ export default function About() {
     {
       name: "Walter",
       lastName: "Britos",
-      img: "nada",
+      img: "https://res.cloudinary.com/dnhjrtihu/image/upload/v1700778335/avxtsleduu4ysr5j3sgb.png",
       github: "https://github.com/Walter-Britos1",
       gmail: "walterbritos418@gmail.com",
       linkedin: "https://www.linkedin.com/in/walter-britos-2ba430222",
