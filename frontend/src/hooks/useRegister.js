@@ -14,6 +14,7 @@ import {
   getMail,
 } from "../redux/sliceLogin";
 import useLoader from "./useLoader";
+import useKey from "./useKey";
 
 const useRegister = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const useRegister = () => {
 
   const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [menuOpen, setMenuOpen] = useKey("menuOpen");
 
   const handleRegister = async (userData) => {
     const {name, lastName, email, password, confirmPassword} = userData;
@@ -95,10 +97,12 @@ const useRegister = () => {
         setLoader(false);
         const {session, token} = data;
         if (session && token) {
-          navigate("/home");
           localStorage.setItem("token", token);
           dispatch(login());
           dispatch(setAuthToken(token));
+          navigate("/home");
+          setMenuOpen && setMenuOpen(false); // Cierro menú
+          menuOpen && setMenuOpen(false);
         }
       })
       .catch((error) => {
