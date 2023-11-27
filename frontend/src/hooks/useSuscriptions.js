@@ -20,7 +20,7 @@ const useSuscriptions = () => {
       });
 
       if (data) {
-        window.location.href = data.init_point;
+        window.open(data.init_point, "_blank");
       }
     } catch (error) {
       console.log(error);
@@ -36,7 +36,7 @@ const useSuscriptions = () => {
       });
 
       if (data) {
-        window.location.href = data.init_point;
+        window.open(data.init_point, "_blank");
       }
     } catch (error) {
       console.log(error);
